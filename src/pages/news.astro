@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { newsPlaceholders } from "../data/placeholders.ts";
+---
+
+<BaseLayout title="News">
+  <h1>News</h1>
+  <p class="lede">A News item is a dated story. These cards are placeholders.</p>
+  <div class="stack">
+    {
+      newsPlaceholders.map((item) => (
+        <article class="placeholder">
+          <p class="placeholder-label">Placeholder</p>
+          <h3>{item.title}</h3>
+          <p>{item.date}</p>
+          <p>{item.summary}</p>
+        </article>
+      ))
+    }
+  </div>
+</BaseLayout>

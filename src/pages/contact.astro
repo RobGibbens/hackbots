@@ -1,0 +1,11 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { team } from "../data/site.ts";
+---
+
+<BaseLayout title="Contact">
+  <h1>Contact</h1>
+  <p class="lede">Write to us, or come to the shop.</p>
+  <p>{team.shopAddress}</p>
+  <p><a href={`mailto:${team.email}`}>{team.email}</a></p>
+</BaseLayout>

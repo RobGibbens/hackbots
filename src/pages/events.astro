@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { eventPlaceholders } from "../data/placeholders.ts";
+---
+
+<BaseLayout title="Events">
+  <h1>Events</h1>
+  <p class="lede">This page lists upcoming Events only. These cards are placeholders.</p>
+  <div class="stack">
+    {
+      eventPlaceholders.map((item) => (
+        <article class="placeholder">
+          <p class="placeholder-label">Placeholder</p>
+          <h3>{item.title}</h3>
+          <p>{item.when}</p>
+          <p>{item.where}</p>
+        </article>
+      ))
+    }
+  </div>
+</BaseLayout>

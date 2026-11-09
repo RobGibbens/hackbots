@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { currentSeason, routes, withBase } from "../data/site.ts";
+
+const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
+---
+
+<BaseLayout title="Our Robot">
+  <h1>Our Robot</h1>
+  <p class="lede">The {currentSeason.year} Robot is not built yet.</p>
+
+  <section>
+    <h2>This year's Game</h2>
+    <p>
+      The {currentSeason.year} Game is {currentSeason.gameName}, presented by {currentSeason.gamePresentedBy}.
+      How it is played will be revealed at kickoff on {currentSeason.kickoffLabel}.
+    </p>
+  </section>
+
+  <p>
+    Captains, Leads, results, and the shirt deadline are on the
+    <a href={seasonHref}>{currentSeason.year} Season</a>.
+  </p>
+</BaseLayout>

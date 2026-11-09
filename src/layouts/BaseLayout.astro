@@ -1,0 +1,33 @@
+---
+import "../styles/global.css";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { withBase } from "../data/site.ts";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "FIRST Robotics Competition Team 3414, the Hackbots." } = Astro.props;
+const pageTitle = title === "Home" ? "Hackbots 3414" : `${title} · Hackbots 3414`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={withBase(import.meta.env.BASE_URL, "/favicon.svg")} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <SiteHeader />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

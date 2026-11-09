@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { currentSeason, routes, withBase } from "../../data/site.ts";
+
+const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
+---
+
+<BaseLayout title="Seasons">
+  <h1>Seasons</h1>
+  <article class="placeholder">
+    <p class="placeholder-label">Placeholder</p>
+    <p>
+      A short summary of the whole run of the Hackbots will go here once someone has checked it. This paragraph is
+      not that history.
+    </p>
+  </article>
+  <h2>Years</h2>
+  <ul>
+    <li>
+      <a href={seasonHref}>{currentSeason.year}</a>. Current Season. The Robot is not built yet.
+    </li>
+  </ul>
+</BaseLayout>

@@ -1,0 +1,19 @@
+---
+import { social, team, withBase } from "../data/site.ts";
+
+const home = withBase(import.meta.env.BASE_URL, "/");
+---
+
+<footer class="site-footer">
+  <a class="wordmark" href={home}>
+    {team.name.toUpperCase()}
+    <span>{team.number}</span>
+  </a>
+  <p>Build. Learn. Compete. Together.</p>
+  <nav aria-label="Social">
+    <a href={social.instagram}>Instagram</a>
+    <a href={social.facebook}>Facebook</a>
+    <a href={`mailto:${team.email}`}>Email</a>
+  </nav>
+  <p>FIRST Team {team.number} · Farmington, MI</p>
+</footer>

@@ -1,0 +1,92 @@
+---
+import ShirtOffer from "../components/ShirtOffer.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { eventPlaceholders, newsPlaceholders } from "../data/placeholders.ts";
+import { joinFormUrl, routes, shirtOfferIsOpen, withBase } from "../data/site.ts";
+
+const base = import.meta.env.BASE_URL;
+const offerOpen = shirtOfferIsOpen(new Date());
+---
+
+<BaseLayout title="Home">
+  <p class="lede">Team 3414</p>
+  <h1>Hackbots</h1>
+  <p class="tagline">Build. Learn. Compete. Together.</p>
+  <p class="lede">
+    We are a FIRST Robotics Competition team from Farmington Public Schools. About explains what FIRST is.
+    This year's Robot is on Our Robot.
+  </p>
+  <div class="actions">
+    <a class="button primary" href={joinFormUrl}>Join Our Team</a>
+    <a class="button" href={withBase(base, routes.sponsors)}>Support Us</a>
+  </div>
+
+  <div class="card-row">
+    <article class="card">
+      <h2>Join the Team</h2>
+      <p>Students, parents, and mentors are welcome.</p>
+      <a href={joinFormUrl}>Join the team</a>
+    </article>
+    <article class="card">
+      <h2>Support Our Team</h2>
+      <p>Help us build, compete, and inspire.</p>
+      <a href={withBase(base, routes.sponsors)}>Support the team</a>
+    </article>
+    <article class="card">
+      <h2>Be Part of Something Bigger</h2>
+      <p>STEM. Teamwork. Impact.</p>
+      <a href={withBase(base, routes.outreach)}>See our outreach</a>
+    </article>
+  </div>
+
+  <div class="split">
+    <section>
+      <div class="section-head">
+        <h2>Latest News</h2>
+        <a href={withBase(base, routes.news)}>View all News</a>
+      </div>
+      <div class="stack">
+        {
+          newsPlaceholders.map((item) => (
+            <article class="placeholder">
+              <p class="placeholder-label">Placeholder</p>
+              <h3>{item.title}</h3>
+              <p>{item.date}</p>
+              <p>{item.summary}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+    <section>
+      <div class="section-head">
+        <h2>Upcoming Events</h2>
+        <a href={withBase(base, routes.events)}>View all Events</a>
+      </div>
+      <div class="stack">
+        {
+          eventPlaceholders.map((item) => (
+            <article class="placeholder">
+              <p class="placeholder-label">Placeholder</p>
+              <h3>{item.title}</h3>
+              <p>{item.when}</p>
+              <p>{item.where}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+
+  {
+    offerOpen ? (
+      <ShirtOffer />
+    ) : (
+      <section class="support-banner">
+        <h2>Support the Hackbots</h2>
+        <p>Donate or become a Sponsor. The shirt-name offer for this season has ended.</p>
+        <a href={withBase(base, routes.sponsors)}>Go to Sponsors</a>
+      </section>
+    )
+  }
+</BaseLayout>

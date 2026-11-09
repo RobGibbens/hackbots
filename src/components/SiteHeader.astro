@@ -1,0 +1,28 @@
+---
+import { nav, team, withBase } from "../data/site.ts";
+
+const base = import.meta.env.BASE_URL;
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+function isCurrent(href: string): boolean {
+  const full = withBase(base, href).replace(/\/$/, "") || "/";
+  if (href === "/") return pathname === full;
+  return pathname === full || pathname.startsWith(`${full}/`);
+}
+---
+
+<header class="site-header">
+  <a class="wordmark" href={withBase(base, "/")}>
+    {team.name.toUpperCase()}
+    <span>{team.number}</span>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    {
+      nav.map((item) => (
+        <a href={withBase(base, item.href)} aria-current={isCurrent(item.href) ? "page" : undefined}>
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
