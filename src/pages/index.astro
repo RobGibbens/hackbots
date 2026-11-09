@@ -78,15 +78,10 @@ const offerOpen = shirtOfferIsOpen(new Date());
     </section>
   </div>
 
-  {
-    offerOpen ? (
-      <ShirtOffer />
-    ) : (
-      <section class="support-banner">
-        <h2>Support the Hackbots</h2>
-        <p>Donate or become a Sponsor. The shirt-name offer for this season has ended.</p>
-        <a href={withBase(base, routes.sponsors)}>Go to Sponsors</a>
-      </section>
-    )
-  }
+  <ShirtOffer />
+  <section class="support-banner" data-shirt-offer="closed" hidden={offerOpen}>
+    <h2>Support the Hackbots</h2>
+    <p>Donate or become a Sponsor.</p>
+    <a href={withBase(base, routes.sponsors)}>Go to Sponsors</a>
+  </section>
 </BaseLayout>

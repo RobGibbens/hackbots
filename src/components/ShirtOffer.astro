@@ -10,23 +10,21 @@ const open = shirtOfferIsOpen(new Date());
 const sponsors = withBase(import.meta.env.BASE_URL, routes.sponsors);
 ---
 
-{
-  open && (
-    <section class="shirt-offer">
-      <h2>Name on the {currentSeason.year} team shirt</h2>
-      <p>
-        A Member's family can add one line to the back of this season's team shirt for ${shirtOffer.amountUsd}.
-        A Donation received on or before {shirtOffer.deadlineLabel} counts. On the next day, this offer ends.
-      </p>
-      <p>
-        <a href={donation.url}>Donate through the {donation.payableTo}</a>. In the donation memo, write “{donation.memo}”.
-        {showSponsorsLink && (
-          <>
-            {" "}
-            Sponsor tiers stay on <a href={sponsors}>Sponsors</a>.
-          </>
-        )}
-      </p>
-    </section>
-  )
-}
+<section class="shirt-offer" data-shirt-offer="open" hidden={!open}>
+  <h2>Name on the {currentSeason.year} team shirt</h2>
+  <p>
+    A Member's family can add one line to the back of this season's team shirt for ${shirtOffer.amountUsd}.
+    A Donation received on or before {shirtOffer.deadlineLabel} counts. On the next day, this offer ends.
+  </p>
+  <p>
+    <a href={donation.url}>Donate through the {donation.payableTo}</a>. In the donation memo, write “{donation.memo}”.
+    {
+      showSponsorsLink && (
+        <>
+          {" "}
+          Sponsor tiers stay on <a href={sponsors}>Sponsors</a>.
+        </>
+      )
+    }
+  </p>
+</section>

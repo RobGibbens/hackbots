@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
-import { withBase } from "../data/site.ts";
+import { shirtOffer, withBase } from "../data/site.ts";
 
 interface Props {
   title: string;
@@ -23,11 +23,27 @@ const pageTitle = title === "Home" ? "Hackbots 3414" : `${title} · Hackbots 341
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
   </head>
-  <body>
+  <body data-shirt-deadline={shirtOffer.deadline}>
     <SiteHeader />
     <main>
       <slot />
     </main>
     <SiteFooter />
+    <script>
+      const deadline = document.body.dataset.shirtDeadline;
+      if (deadline) {
+        const day = new Intl.DateTimeFormat("en-CA", {
+          timeZone: "America/Detroit",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }).format(new Date());
+        const open = day <= deadline;
+        for (const el of document.querySelectorAll("[data-shirt-offer]")) {
+          const isOpenSlot = el.getAttribute("data-shirt-offer") === "open";
+          el.hidden = isOpenSlot ? !open : open;
+        }
+      }
+    </script>
   </body>
 </html>
