@@ -148,10 +148,7 @@ html:has(body.visual) {
 .visual .hero h1 {
   margin: 0.15rem 0 0.35rem;
   color: #fff;
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: clamp(4.4rem, 8vw, 6.6rem);
-  font-style: italic;
-  font-weight: 800;
   letter-spacing: 0.01em;
   line-height: 0.8;
   text-transform: uppercase;
