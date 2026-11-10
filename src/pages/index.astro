@@ -1,8 +1,8 @@
 ---
 import "../styles/home.css";
 import ShirtOffer from "../components/ShirtOffer.astro";
-import HeroArt from "../components/HeroArt.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import heroImage from "../../assets/DSC_4875.JPG";
 import { eventPlaceholders, newsPlaceholders } from "../data/placeholders.ts";
 import { joinFormUrl, routes, team, withBase } from "../data/site.ts";
 
@@ -49,7 +49,15 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
         </div>
       </div>
       <div class="hero-art">
-        <HeroArt />
+        <img
+          class="hero-robot"
+          src={heroImage.src}
+          width={heroImage.width}
+          height={heroImage.height}
+          alt="Hackbots team members with their robot at a competition"
+          loading="eager"
+          fetchpriority="high"
+        />
       </div>
     </div>
   </section>
