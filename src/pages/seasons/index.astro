@@ -1,23 +1,57 @@
 ---
+import "../../styles/home.css";
+import "../../styles/seasons.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { currentSeason, routes, withBase } from "../../data/site.ts";
+import { currentSeason, routes, team, withBase } from "../../data/site.ts";
 
 const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
 ---
 
-<BaseLayout title="Seasons">
-  <h1>Seasons</h1>
-  <article class="placeholder">
-    <p class="placeholder-label">Placeholder</p>
-    <p>
-      A short summary of the whole run of the Hackbots will go here once someone has checked it. This paragraph is
-      not that history.
-    </p>
-  </article>
-  <h2>Years</h2>
-  <ul>
-    <li>
-      <a href={seasonHref}>{currentSeason.year}</a>. Current Season. The Robot is not built yet.
-    </li>
-  </ul>
+<BaseLayout
+  title="Seasons"
+  variant="visual"
+  description={`We are preparing for the ${currentSeason.year} Season. Earlier Seasons are not listed yet.`}
+>
+  <section class="hero page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Team {team.number}</p>
+      <h1>Seasons</h1>
+      <hr class="hero-rule" />
+      <p class="lede">We are preparing for the {currentSeason.year} Season. Earlier Seasons are not listed yet.</p>
+    </div>
+  </section>
+
+  <div class="seasons-main">
+    <div class="wrap">
+      <section class="seasons-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Our history</h2>
+        </div>
+        <article class="placeholder">
+          <p class="placeholder-label">Placeholder</p>
+          <p>
+            A short summary of the whole run of the Hackbots will go here once someone has checked it. This paragraph is
+            not that history.
+          </p>
+        </article>
+      </section>
+
+      <section class="seasons-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Years</h2>
+        </div>
+        <ul class="year-list">
+          <li>
+            <a class="year-card" href={seasonHref}>
+              <span class="year">{currentSeason.year}</span>
+              <span>
+                <span class="year-status">Current Season</span>
+                <span class="year-note">The Robot is not built yet.</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
 </BaseLayout>

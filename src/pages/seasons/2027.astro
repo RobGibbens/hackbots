@@ -1,48 +1,74 @@
 ---
+import "../../styles/home.css";
+import "../../styles/seasons.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { currentSeason, routes, shirtOffer, withBase } from "../../data/site.ts";
+import { currentSeason, routes, shirtOffer, team, withBase } from "../../data/site.ts";
 
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title={`${currentSeason.year} Season`}>
-  <h1>{currentSeason.year} Season</h1>
-  <p class="lede">This is the current Season.</p>
-
-  <section>
-    <h2>Robot and Game</h2>
-    <p>
-      The Robot is not built yet. The Game is {currentSeason.gameName}, presented by {currentSeason.gamePresentedBy}.
-      The explanation of how it is played lives on <a href={withBase(base, routes.ourRobot)}>Our Robot</a>.
-    </p>
+<BaseLayout
+  title={`${currentSeason.year} Season`}
+  variant="visual"
+  description={`The ${currentSeason.year} Season is the current Season. The Robot is not built yet.`}
+>
+  <section class="hero page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Team {team.number}</p>
+      <h1>{currentSeason.year} Season</h1>
+      <hr class="hero-rule" />
+      <p class="lede">This is the current Season.</p>
+    </div>
   </section>
 
-  <section>
-    <h2>Captains</h2>
-    <article class="placeholder">
-      <p class="placeholder-label">Placeholder</p>
-      <p>This Season's Captains are not listed yet.</p>
-    </article>
-  </section>
+  <div class="seasons-main">
+    <div class="wrap">
+      <section class="seasons-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Robot and Game</h2>
+        </div>
+        <p>
+          The Robot is not built yet. The Game is {currentSeason.gameName}, presented by {currentSeason.gamePresentedBy}.
+          The explanation of how it is played lives on <a href={withBase(base, routes.ourRobot)}>Our Robot</a>.
+        </p>
+      </section>
 
-  <section>
-    <h2>Leads</h2>
-    <article class="placeholder">
-      <p class="placeholder-label">Placeholder</p>
-      <p>Each Group's Leads are not listed yet.</p>
-    </article>
-  </section>
+      <section class="seasons-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Captains</h2>
+        </div>
+        <article class="placeholder">
+          <p class="placeholder-label">Placeholder</p>
+          <p>This Season's Captains are not listed yet.</p>
+        </article>
+      </section>
 
-  <section>
-    <h2>Results</h2>
-    <p>This Season has no results yet.</p>
-  </section>
+      <section class="seasons-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Leads</h2>
+        </div>
+        <article class="placeholder">
+          <p class="placeholder-label">Placeholder</p>
+          <p>Each Group's Leads are not listed yet.</p>
+        </article>
+      </section>
 
-  <section>
-    <h2>Shirt name deadline</h2>
-    <p>
-      The deadline is {shirtOffer.deadlineLabel}. A Donation on that date counts. The ask itself is on
-      <a href={withBase(base, routes.sponsors)}>Sponsors</a> until the day after the deadline.
-    </p>
-  </section>
+      <section class="seasons-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Results</h2>
+        </div>
+        <p>This Season has no results yet.</p>
+      </section>
+
+      <section class="seasons-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Shirt name deadline</h2>
+        </div>
+        <p>
+          The deadline is {shirtOffer.deadlineLabel}. A Donation on that date counts. The ask itself is on
+          <a href={withBase(base, routes.sponsors)}>Sponsors</a> until the day after the deadline.
+        </p>
+      </section>
+    </div>
+  </div>
 </BaseLayout>

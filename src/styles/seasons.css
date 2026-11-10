@@ -1,0 +1,93 @@
+.seasons-main {
+  padding: 2.6rem 0 3.6rem;
+}
+
+.seasons-block + .seasons-block {
+  margin-top: 1.85rem;
+  padding-top: 1.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.seasons-block > p {
+  max-width: 40rem;
+  margin: 0;
+  color: #c6c6d2;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.visual .seasons-main .placeholder {
+  max-width: 40rem;
+  background: #161222;
+  border-color: rgba(168, 85, 247, 0.5);
+}
+
+.visual .seasons-main .placeholder p {
+  color: #c6c6d2;
+}
+
+.visual .seasons-main .placeholder .placeholder-label {
+  color: #c4b5fd;
+}
+
+.visual .seasons-block a:not(.year-card) {
+  color: #e9d5ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.visual .seasons-block a:not(.year-card):hover {
+  color: #fff;
+}
+
+.year-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.year-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.2rem 1.5rem;
+  align-items: center;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  border-radius: 0.75rem;
+  background: #161222;
+  color: inherit;
+  text-decoration: none;
+}
+
+.year-card:hover {
+  background: #1c1730;
+}
+
+.year-card .year {
+  color: #fff;
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-size: clamp(2.6rem, 5vw, 3.4rem);
+  font-style: italic;
+  font-weight: 800;
+  line-height: 0.85;
+}
+
+.year-status {
+  display: block;
+  color: #fff;
+  font-weight: 700;
+}
+
+.year-note {
+  display: block;
+  margin-top: 0.2rem;
+  color: #c6c6d2;
+}
+
+@media (max-width: 640px) {
+  .year-card {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+}
