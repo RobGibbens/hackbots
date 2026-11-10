@@ -1,0 +1,76 @@
+.sponsors-main {
+  padding: 2.6rem 0 3.6rem;
+}
+
+.visual .sponsors-main .shirt-offer {
+  width: auto;
+  margin: 0 0 1.85rem;
+}
+
+.visual .sponsors-main .shirt-offer[hidden] {
+  margin: 0;
+}
+
+.sponsors-main .shirt-offer p {
+  max-width: 40rem;
+}
+
+.sponsors-block + .sponsors-block {
+  margin-top: 1.85rem;
+  padding-top: 1.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.sponsors-block > p {
+  max-width: 40rem;
+  margin: 0;
+  color: #c6c6d2;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.sponsors-block > p + p {
+  margin-top: 0.85rem;
+}
+
+.visual .sponsors-block a:not(.button) {
+  color: #e9d5ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.visual .sponsors-block a:not(.button):hover {
+  color: #fff;
+}
+
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  background: #100d18;
+  border-block: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tier-grid li {
+  padding: 1.45rem 1rem;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+
+.tier-grid li + li {
+  border-left: 1px solid rgba(168, 85, 247, 0.45);
+}
+
+@media (max-width: 900px) {
+  .tier-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tier-grid li + li {
+    border-left: 0;
+    border-top: 1px solid rgba(168, 85, 247, 0.45);
+  }
+}

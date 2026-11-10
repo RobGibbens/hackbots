@@ -1,33 +1,57 @@
 ---
+import "../styles/home.css";
+import "../styles/sponsors.css";
 import ShirtOffer from "../components/ShirtOffer.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { donation, sponsorTiers, team } from "../data/site.ts";
 ---
 
-<BaseLayout title="Sponsors">
-  <h1>Sponsors</h1>
-  <ShirtOffer showSponsorsLink={false} />
-
-  <section>
-    <h2>Donate</h2>
-    <p>
-      <a href={donation.url}>Donate through the {donation.payableTo}</a>.
-      In the donation memo, write “{donation.memo}”.
-    </p>
-    <p>
-      Checks are payable to {donation.payableTo}, {donation.mailAddress}. Use the same memo.
-    </p>
-    <p>
-      A Donation does not by itself add a Sponsor. Email <a href={`mailto:${team.email}`}>{team.email}</a> to
-      arrange a tier.
-    </p>
+<BaseLayout
+  title="Sponsors"
+  variant="visual"
+  description="A Sponsor gives the team money or materials. A Donation does not by itself add a Sponsor."
+>
+  <section class="hero page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Team {team.number}</p>
+      <h1>Sponsors</h1>
+      <hr class="hero-rule" />
+      <p class="lede">
+        A Sponsor gives the team money or materials. A Donation does not by itself add a Sponsor.
+      </p>
+    </div>
   </section>
 
-  <section>
-    <h2>Tiers</h2>
-    <p>Dollar amounts are not listed until someone checks them.</p>
-    <ul class="tier-list">
-      {sponsorTiers.map((tier) => <li>{tier}</li>)}
-    </ul>
-  </section>
+  <div class="sponsors-main">
+    <div class="wrap">
+      <ShirtOffer showSponsorsLink={false} />
+
+      <section class="sponsors-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Donate</h2>
+        </div>
+        <p>
+          <a href={donation.url}>Donate through the {donation.payableTo}</a>.
+          In the donation memo, write “{donation.memo}”.
+        </p>
+        <p>
+          Checks are payable to {donation.payableTo}, {donation.mailAddress}. Use the same memo.
+        </p>
+        <p>
+          A Donation does not by itself add a Sponsor. Email <a href={`mailto:${team.email}`}>{team.email}</a> to
+          arrange a tier.
+        </p>
+      </section>
+
+      <section class="sponsors-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Tiers</h2>
+        </div>
+        <p>Dollar amounts are not listed until someone checks them.</p>
+        <ul class="tier-grid">
+          {sponsorTiers.map((tier) => <li>{tier}</li>)}
+        </ul>
+      </section>
+    </div>
+  </div>
 </BaseLayout>
