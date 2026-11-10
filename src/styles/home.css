@@ -36,12 +36,8 @@ html:has(body.home) {
 }
 
 .home .wordmark-text {
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
-  font-style: italic;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  font-size: 1.45rem;
-  line-height: 0.85;
+  font-size: 1.15rem;
+  line-height: 1;
   color: #fff;
 }
 
@@ -51,9 +47,9 @@ html:has(body.home) {
   gap: 0.4rem;
   margin-top: 0.28rem;
   color: #c084fc;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
 }
 
 .home .wordmark-number::before,

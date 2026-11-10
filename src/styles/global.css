@@ -1,3 +1,11 @@
+@font-face {
+  font-family: Ethnocentric;
+  src: url("../../assets/Ethnocentric-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --ink: #1c1917;
@@ -61,10 +69,19 @@ main {
   display: none;
 }
 
+.wordmark-text {
+  font-family: Ethnocentric, "Arial Narrow", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
 .wordmark-number {
   display: block;
-  font-size: 0.75rem;
-  font-weight: 600;
+  margin-top: 0.2rem;
+  font-size: 0.62rem;
+  font-weight: 400;
   letter-spacing: 0.14em;
 }
 
