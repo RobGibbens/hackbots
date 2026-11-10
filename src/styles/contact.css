@@ -1,0 +1,33 @@
+.contact-main {
+  padding: 2.6rem 0 3.6rem;
+}
+
+.contact-block + .contact-block {
+  margin-top: 1.85rem;
+  padding-top: 1.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.contact-block > p,
+.contact-block address p {
+  max-width: 40rem;
+  margin: 0;
+  color: #c6c6d2;
+  font-size: 1.05rem;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.contact-block address {
+  font-style: normal;
+}
+
+.visual .contact-block a {
+  color: #e9d5ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.visual .contact-block a:hover {
+  color: #fff;
+}

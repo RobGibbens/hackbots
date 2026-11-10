@@ -1,11 +1,39 @@
 ---
+import "../styles/home.css";
+import "../styles/contact.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { team } from "../data/site.ts";
+
+const lede = "Write to us, or come to the shop.";
 ---
 
-<BaseLayout title="Contact">
-  <h1>Contact</h1>
-  <p class="lede">Write to us, or come to the shop.</p>
-  <p>{team.shopAddress}</p>
-  <p><a href={`mailto:${team.email}`}>{team.email}</a></p>
+<BaseLayout title="Contact" variant="visual" description={lede}>
+  <section class="hero page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Team {team.number}</p>
+      <h1>Contact</h1>
+      <hr class="hero-rule" />
+      <p class="lede">{lede}</p>
+    </div>
+  </section>
+
+  <div class="contact-main">
+    <div class="wrap">
+      <section class="contact-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Shop</h2>
+        </div>
+        <address>
+          <p>{team.shopAddress}</p>
+        </address>
+      </section>
+
+      <section class="contact-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Email</h2>
+        </div>
+        <p><a href={`mailto:${team.email}`}>{team.email}</a></p>
+      </section>
+    </div>
+  </div>
 </BaseLayout>
