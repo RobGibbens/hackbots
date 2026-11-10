@@ -1,20 +1,39 @@
 ---
+import "../styles/home.css";
+import "../styles/outreach.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { team } from "../data/site.ts";
 ---
 
-<BaseLayout title="Outreach">
-  <h1>Outreach</h1>
-  <p class="lede">
-    Outreach is our work with younger students and the public: camps, tutoring, mentoring FTC and FLL teams, demos,
-    and drives. Students on those FTC and FLL teams are not Hackbots Members.
-  </p>
-
-  <section>
-    <h2>STEM is for Everyone</h2>
-    <p>STEM is for Everyone is our campaign for equal access to STEM.</p>
-    <article class="placeholder">
-      <p class="placeholder-label">Placeholder</p>
-      <p>Stories from the campaign will go here. This note is not one of those stories.</p>
-    </article>
+<BaseLayout
+  title="Outreach"
+  variant="visual"
+  description="Outreach is our work with younger students and the public: camps, tutoring, mentoring FTC and FLL teams, demos, and drives. Students on those FTC and FLL teams are not Hackbots Members."
+>
+  <section class="hero page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Team {team.number}</p>
+      <h1>Outreach</h1>
+      <hr class="hero-rule" />
+      <p class="lede">
+        Outreach is our work with younger students and the public: camps, tutoring, mentoring FTC and FLL teams, demos,
+        and drives. Students on those FTC and FLL teams are not Hackbots Members.
+      </p>
+    </div>
   </section>
+
+  <div class="outreach-main">
+    <div class="wrap">
+      <section class="outreach-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> STEM is for Everyone</h2>
+        </div>
+        <p>STEM is for Everyone is our campaign for equal access to STEM.</p>
+        <article class="placeholder">
+          <p class="placeholder-label">Placeholder</p>
+          <p>Stories from the campaign will go here. This note is not one of those stories.</p>
+        </article>
+      </section>
+    </div>
+  </div>
 </BaseLayout>
