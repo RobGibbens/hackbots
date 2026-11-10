@@ -1,24 +1,41 @@
 ---
+import "../styles/home.css";
+import "../styles/our-robot.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { currentSeason, routes, withBase } from "../data/site.ts";
+import { currentSeason, routes, team, withBase } from "../data/site.ts";
 
 const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
+const lede = `The ${currentSeason.year} Robot is not built yet.`;
 ---
 
-<BaseLayout title="Our Robot">
-  <h1>Our Robot</h1>
-  <p class="lede">The {currentSeason.year} Robot is not built yet.</p>
-
-  <section>
-    <h2>This year's Game</h2>
-    <p>
-      The {currentSeason.year} Game is {currentSeason.gameName}, presented by {currentSeason.gamePresentedBy}.
-      How it is played will be revealed at kickoff on {currentSeason.kickoffLabel}.
-    </p>
+<BaseLayout title="Our Robot" variant="visual" description={lede}>
+  <section class="hero page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Team {team.number}</p>
+      <h1>Our Robot</h1>
+      <hr class="hero-rule" />
+      <p class="lede">{lede}</p>
+    </div>
   </section>
 
-  <p>
-    Captains, Leads, results, and the shirt deadline are on the
-    <a href={seasonHref}>{currentSeason.year} Season</a>.
-  </p>
+  <div class="robot-main">
+    <div class="wrap">
+      <section class="robot-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> This year's Game</h2>
+        </div>
+        <p>
+          The {currentSeason.year} Game is {currentSeason.gameName}, presented by {currentSeason.gamePresentedBy}.
+          How it is played will be revealed at kickoff on {currentSeason.kickoffLabel}.
+        </p>
+      </section>
+
+      <section class="robot-block">
+        <p>
+          Captains, Leads, results, and the shirt deadline are on the
+          <a href={seasonHref}>{currentSeason.year} Season</a>.
+        </p>
+      </section>
+    </div>
+  </div>
 </BaseLayout>

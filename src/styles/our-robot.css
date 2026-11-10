@@ -1,0 +1,27 @@
+.robot-main {
+  padding: 2.6rem 0 3.6rem;
+}
+
+.robot-block + .robot-block {
+  margin-top: 1.85rem;
+  padding-top: 1.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.robot-block > p {
+  max-width: 40rem;
+  margin: 0;
+  color: #c6c6d2;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.visual .robot-block a {
+  color: #e9d5ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.visual .robot-block a:hover {
+  color: #fff;
+}
