@@ -1,0 +1,98 @@
+.about-hero {
+  padding: 3.4rem 0 3rem;
+}
+
+.about-hero .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.visual .about-hero h1 {
+  max-width: 10em;
+}
+
+.about-main {
+  padding: 2.6rem 0 3.6rem;
+}
+
+.about-block + .about-block {
+  margin-top: 1.85rem;
+  padding-top: 1.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.about-block > p {
+  max-width: 40rem;
+  margin: 0;
+  color: #c6c6d2;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.about-block .actions {
+  margin: 1.35rem 0 0;
+}
+
+.visual .placeholder {
+  max-width: 40rem;
+  background: #161222;
+  border-color: rgba(168, 85, 247, 0.5);
+}
+
+.visual .placeholder p {
+  color: #c6c6d2;
+}
+
+.visual .placeholder .placeholder-label {
+  color: #c4b5fd;
+}
+
+.visual .about-block a:not(.button) {
+  color: #e9d5ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.visual .about-block a:not(.button):hover {
+  color: #fff;
+}
+
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  background: #100d18;
+  border-block: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.group-grid li {
+  padding: 1.45rem 1rem;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+
+.group-grid li:not(:nth-child(3n + 1)) {
+  border-left: 1px solid rgba(168, 85, 247, 0.45);
+}
+
+.group-grid li:nth-child(n + 4) {
+  border-top: 1px solid rgba(168, 85, 247, 0.45);
+}
+
+@media (max-width: 900px) {
+  .group-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .group-grid li:not(:nth-child(3n + 1)),
+  .group-grid li:nth-child(n + 4) {
+    border: 0;
+  }
+
+  .group-grid li + li {
+    border-top: 1px solid rgba(168, 85, 247, 0.45);
+  }
+}

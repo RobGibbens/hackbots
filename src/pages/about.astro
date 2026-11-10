@@ -1,61 +1,100 @@
 ---
+import "../styles/home.css";
+import "../styles/about.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { currentSeason, groups, joinFormUrl, memberEligibility, routes, withBase } from "../data/site.ts";
+import { currentSeason, groups, joinFormUrl, memberEligibility, routes, team, withBase } from "../data/site.ts";
 
 const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
 ---
 
-<BaseLayout title="About">
-  <h1>About</h1>
-  <p class="lede">We are FIRST Robotics Competition Team 3414, the Hackbots.</p>
-
-  <section>
-    <h2>Who can join</h2>
-    <p>{memberEligibility}</p>
-    <p><a href={joinFormUrl}>Join the team</a></p>
+<BaseLayout
+  title="About"
+  variant="visual"
+  description="We are FIRST Robotics Competition Team 3414, the Hackbots."
+>
+  <section class="hero about-hero">
+    <div class="wrap">
+      <p class="eyebrow">Team {team.number}</p>
+      <h1>About</h1>
+      <hr class="hero-rule" />
+      <p class="lede">We are FIRST Robotics Competition Team 3414, the Hackbots.</p>
+    </div>
   </section>
 
-  <section>
-    <h2>Our mission</h2>
-    <article class="placeholder">
-      <p class="placeholder-label">Placeholder</p>
-      <p>The team mission will go here once someone has checked the wording. This sentence is not that mission.</p>
-    </article>
-  </section>
+  <div class="about-main">
+    <div class="wrap">
+      <section class="about-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Who can join</h2>
+        </div>
+        <p>{memberEligibility}</p>
+        <div class="actions">
+          <a class="button primary" href={joinFormUrl}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16 19v-1a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+              <circle cx="10" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+              <path d="M20 19v-1a3 3 0 0 0-2.2-2.9M16 5.1a3 3 0 0 1 0 5.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            </svg>
+            Join the team →
+          </a>
+        </div>
+      </section>
 
-  <section>
-    <h2>What FIRST is</h2>
-    <p>
-      FIRST is the nonprofit that runs the FIRST Robotics Competition. Each year, high-school teams receive a new
-      Game. Students design, build, and program a Robot to play it, with Mentors working beside them.
-    </p>
-  </section>
+      <section class="about-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Our mission</h2>
+        </div>
+        <article class="placeholder">
+          <p class="placeholder-label">Placeholder</p>
+          <p>The team mission will go here once someone has checked the wording. This sentence is not that mission.</p>
+        </article>
+      </section>
 
-  <section>
-    <h2>What students gain</h2>
-    <p>
-      Members practice engineering, teamwork, and leadership. They compete, help the team find support, and teach
-      younger students through Outreach.
-    </p>
-  </section>
+      <section class="about-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> What FIRST is</h2>
+        </div>
+        <p>
+          FIRST is the nonprofit that runs the FIRST Robotics Competition. Each year, high-school teams receive a new
+          Game. Students design, build, and program a Robot to play it, with Mentors working beside them.
+        </p>
+      </section>
 
-  <section>
-    <h2>Groups</h2>
-    <p>Members work in one or more of these Groups. A Group is part of the Hackbots, not its own team.</p>
-    <ul>
-      {groups.map((group) => <li>{group}</li>)}
-    </ul>
-  </section>
+      <section class="about-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> What students gain</h2>
+        </div>
+        <p>
+          Members practice engineering, teamwork, and leadership. They compete, help the team find support, and teach
+          younger students through Outreach.
+        </p>
+      </section>
 
-  <section>
-    <h2>Mentors</h2>
-    <article class="placeholder">
-      <p class="placeholder-label">Placeholder</p>
-      <p>Mentor names will go here. This list is not the real roster of Mentors.</p>
-    </article>
-  </section>
+      <section class="about-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Groups</h2>
+        </div>
+        <p>Members work in one or more of these Groups. A Group is part of the Hackbots, not its own team.</p>
+        <ul class="group-grid">
+          {groups.map((group) => <li>{group}</li>)}
+        </ul>
+      </section>
 
-  <p>
-    This year's Captains and Leads are on the <a href={seasonHref}>{currentSeason.year} Season</a>.
-  </p>
+      <section class="about-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Mentors</h2>
+        </div>
+        <article class="placeholder">
+          <p class="placeholder-label">Placeholder</p>
+          <p>Mentor names will go here. This list is not the real roster of Mentors.</p>
+        </article>
+      </section>
+
+      <section class="about-block">
+        <p>
+          This year's Captains and Leads are on the <a href={seasonHref}>{currentSeason.year} Season</a>.
+        </p>
+      </section>
+    </div>
+  </div>
 </BaseLayout>

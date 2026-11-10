@@ -1,8 +1,8 @@
-html:has(body.home) {
+html:has(body.visual) {
   background: #07060d;
 }
 
-.home {
+.visual {
   --paper: #07060d;
   color-scheme: dark;
   background: #07060d;
@@ -10,38 +10,38 @@ html:has(body.home) {
   font-family: Barlow, "Segoe UI", sans-serif;
 }
 
-.home .mark {
+.visual .mark {
   display: block;
   width: 2.85rem;
   height: 2.85rem;
   flex: none;
 }
 
-.home .site-header,
-.home .site-footer,
-.home main {
+.visual .site-header,
+.visual .site-footer,
+.visual main {
   width: 100%;
   max-width: none;
   margin: 0;
 }
 
-.home main {
+.visual main {
   padding: 0;
 }
 
-.home .site-header {
+.visual .site-header {
   padding: 0.8rem max(1.25rem, calc((100% - 70rem) / 2));
   background: #07060d;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.home .wordmark-text {
+.visual .wordmark-text {
   font-size: 1.15rem;
   line-height: 1;
   color: #fff;
 }
 
-.home .wordmark-number {
+.visual .wordmark-number {
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -52,32 +52,32 @@ html:has(body.home) {
   letter-spacing: 0.16em;
 }
 
-.home .wordmark-number::before,
-.home .wordmark-number::after {
+.visual .wordmark-number::before,
+.visual .wordmark-number::after {
   content: "";
   width: 0.95rem;
   height: 2px;
   background: #c084fc;
 }
 
-.home .nav {
+.visual .nav {
   gap: 0.35rem 1.15rem;
   font-size: 0.98rem;
   font-weight: 600;
 }
 
-.home .nav a {
+.visual .nav a {
   padding: 0.35rem 0 0.4rem;
   border-bottom: 2px solid transparent;
   color: #f8f7fb;
 }
 
-.home .nav a[aria-current="page"] {
+.visual .nav a[aria-current="page"] {
   text-decoration: none;
   border-bottom-color: #a855f7;
 }
 
-.home a:focus-visible {
+.visual a:focus-visible {
   outline: 2px solid #ddd6fe;
   outline-offset: 3px;
 }
@@ -132,7 +132,7 @@ html:has(body.home) {
   text-transform: uppercase;
 }
 
-.home .hero h1 {
+.visual .hero h1 {
   margin: 0.15rem 0 0.35rem;
   color: #fff;
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
@@ -144,7 +144,7 @@ html:has(body.home) {
   text-transform: uppercase;
 }
 
-.home .hero .tagline {
+.visual .hero .tagline {
   max-width: 12em;
   margin: 0;
   color: #fff;
@@ -163,7 +163,7 @@ html:has(body.home) {
   background: #fff;
 }
 
-.home .hero .lede {
+.visual .hero .lede {
   max-width: 34rem;
   margin: 0;
   color: #e4e4ea;
@@ -171,12 +171,12 @@ html:has(body.home) {
   line-height: 1.5;
 }
 
-.home .hero .actions {
+.visual .hero .actions {
   margin-top: 1.6rem;
   gap: 0.8rem;
 }
 
-.home .button {
+.visual .button {
   display: inline-flex;
   gap: 0.45rem;
   align-items: center;
@@ -189,22 +189,22 @@ html:has(body.home) {
   text-decoration: none;
 }
 
-.home .button.primary {
+.visual .button.primary {
   border-color: #7c3aed;
   background: #7c3aed;
   box-shadow: 0 10px 28px rgba(124, 58, 237, 0.35);
 }
 
-.home .button svg {
+.visual .button svg {
   width: 1.05rem;
   height: 1.05rem;
 }
 
-.home .button:hover {
+.visual .button:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
-.home .button.primary:hover {
+.visual .button.primary:hover {
   background: #6d28d9;
 }
 
@@ -245,7 +245,7 @@ html:has(body.home) {
   color: #a855f7;
 }
 
-.home .pillar h2 {
+.visual .pillar h2 {
   margin: 0.75rem 0 0.35rem;
   color: #fff;
   font-size: 1.12rem;
@@ -274,12 +274,12 @@ html:has(body.home) {
   padding-left: 2rem;
 }
 
-.home .section-head {
+.visual .section-head {
   align-items: center;
   margin-bottom: 1.15rem;
 }
 
-.home .section-head h2 {
+.visual .section-head h2 {
   margin: 0;
   color: #fff;
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
@@ -294,13 +294,13 @@ html:has(body.home) {
   font-style: italic;
 }
 
-.home .section-head a {
+.visual .section-head a {
   color: #e9d5ff;
   font-weight: 700;
   text-decoration: none;
 }
 
-.home .section-head a:hover {
+.visual .section-head a:hover {
   color: #fff;
 }
 
@@ -352,7 +352,7 @@ html:has(body.home) {
     linear-gradient(160deg, #1e1b4b, #3730a3 42%, #0f172a);
 }
 
-.home .placeholder-label {
+.visual .placeholder-label {
   margin-bottom: 0.2rem;
   color: #c4b5fd;
 }
@@ -427,7 +427,7 @@ html:has(body.home) {
   border: 0;
 }
 
-.home .shirt-offer {
+.visual .shirt-offer {
   width: min(70rem, calc(100% - 2.5rem));
   margin: 0 auto 2.6rem;
   border: 1px solid rgba(168, 85, 247, 0.5);
@@ -435,7 +435,7 @@ html:has(body.home) {
   color: #f8f7fb;
 }
 
-.home .shirt-offer a {
+.visual .shirt-offer a {
   color: #e9d5ff;
 }
 
@@ -491,7 +491,7 @@ html:has(body.home) {
   height: 46%;
 }
 
-.home .site-footer {
+.visual .site-footer {
   padding: 1.15rem max(1.25rem, calc((100% - 70rem) / 2)) 1.35rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   background: #07060d;
@@ -499,29 +499,29 @@ html:has(body.home) {
   align-items: center;
 }
 
-.home .site-footer p {
+.visual .site-footer p {
   margin: 0;
 }
 
-.home .footer-tagline {
+.visual .footer-tagline {
   font-style: italic;
   font-weight: 700;
 }
 
-.home .site-footer > * + * {
+.visual .site-footer > * + * {
   border-left: 1px solid rgba(255, 255, 255, 0.16);
   padding-left: 1.5rem;
 }
 
-.home .footer-id span {
+.visual .footer-id span {
   display: block;
 }
 
-.home .footer-id span + span::before {
+.visual .footer-id span + span::before {
   content: none;
 }
 
-.home .social-link {
+.visual .social-link {
   position: relative;
   display: grid;
   width: 2.55rem;
@@ -533,13 +533,13 @@ html:has(body.home) {
   text-decoration: none;
 }
 
-.home .social-link svg {
+.visual .social-link svg {
   display: block;
   width: 1.05rem;
   height: 1.05rem;
 }
 
-.home .social-link span {
+.visual .social-link span {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -550,7 +550,7 @@ html:has(body.home) {
   border: 0;
 }
 
-.home .social-link:hover {
+.visual .social-link:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -572,7 +572,7 @@ html:has(body.home) {
 
   .pillar + .pillar,
   .digest-col + .digest-col,
-  .home .site-footer > * + * {
+  .visual .site-footer > * + * {
     border-left: 0;
     margin-left: 0;
     padding-left: 0;
@@ -588,11 +588,11 @@ html:has(body.home) {
     padding-top: 1.75rem;
   }
 
-  .home .site-footer {
+  .visual .site-footer {
     align-items: flex-start;
   }
 
-  .home .site-footer > * + * {
+  .visual .site-footer > * + * {
     padding-top: 0.9rem;
   }
 }
@@ -602,7 +602,7 @@ html:has(body.home) {
     grid-template-columns: 1fr;
   }
 
-  .home .hero .actions {
+  .visual .hero .actions {
     grid-auto-flow: row;
   }
 }
