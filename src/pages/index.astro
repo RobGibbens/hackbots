@@ -1,10 +1,44 @@
 ---
+import { Image } from "astro:assets";
 import "../styles/home.css";
 import ShirtOffer from "../components/ShirtOffer.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import heroImage from "../../assets/DSC_4875.JPG";
-import { eventPlaceholders, newsPlaceholders } from "../data/placeholders.ts";
+import { getCollection } from "astro:content";
+import EventCard from "../components/EventCard.astro";
+import NewsCard from "../components/NewsCard.astro";
+import { calendarDayISO, compareIsoDate, isUpcoming } from "../data/calendar.ts";
+import { heroTiming } from "../data/hero.ts";
 import { joinFormUrl, routes, team, withBase } from "../data/site.ts";
+
+const latestNews = (await getCollection("news"))
+  .map((item) => ({ ...item.data, date: calendarDayISO(item.data.date) }))
+  .sort((left, right) => compareIsoDate(right.date, left.date))
+  .slice(0, 3);
+const upcomingEvents = (await getCollection("events"))
+  .map((item) => ({ ...item.data, id: item.id, when: calendarDayISO(item.data.when) }))
+  .filter((item) => isUpcoming(item.when))
+  .sort((left, right) => compareIsoDate(left.when, right.when))
+  .slice(0, 3);
+
+const heroPhotos = Object.entries(
+  import.meta.glob<ImageMetadata>("../../assets/hero/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}", {
+    eager: true,
+    import: "default",
+  }),
+)
+  .sort(([left], [right]) => left.localeCompare(right, "en"))
+  .map(([, src]) => src);
+const hero = heroTiming(heroPhotos.length);
+const heroAlt = "Hackbots team photo";
+const heroCrossfade = hero.animate
+  ? `@keyframes hero-crossfade {
+  0% { opacity: 0; }
+  ${hero.fade}% { opacity: 1; }
+  ${hero.hold}% { opacity: 1; }
+  ${hero.out}% { opacity: 0; }
+  100% { opacity: 0; }
+}`
+  : "";
 
 const base = import.meta.env.BASE_URL;
 const sponsors = withBase(base, routes.sponsors);
@@ -20,9 +54,33 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
   variant="visual"
   description="Our high school robotics team is a community of curious minds, creative problem solvers, and passionate FIRST competitors."
 >
-  <section class="hero">
+  <section class="hero hero-home">
+    {hero.animate && <style is:inline set:html={heroCrossfade} />}
+    <div class="hero-media">
+      {
+        heroPhotos.map((src, index) => (
+          <Image
+            src={src}
+            alt={heroAlt}
+            class:list={["hero-slide", { "is-still": !hero.animate }]}
+            style={
+              hero.animate
+                ? `animation-duration: ${hero.duration}s; animation-delay: ${hero.delays[index]}s`
+                : undefined
+            }
+            widths={[960, 1440, 1920]}
+            sizes="min(70rem, calc(100vw - 2.5rem))"
+            format="webp"
+            quality={75}
+            loading="eager"
+            decoding={index === 0 ? "sync" : "async"}
+            fetchpriority={index === 0 ? "high" : "low"}
+          />
+        ))
+      }
+    </div>
     <div class="wrap hero-grid">
-      <div>
+      <div class="hero-copy">
         <p class="eyebrow">Team {team.number}</p>
         <h1>{team.name}</h1>
         <p class="tagline">Build. Learn. Compete.<br />Together.</p>
@@ -48,18 +106,26 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
           </a>
         </div>
       </div>
-      <div class="hero-art">
-        <img
-          class="hero-robot"
-          src={heroImage.src}
-          width={heroImage.width}
-          height={heroImage.height}
-          alt="Hackbots team members with their robot at a competition"
-          loading="eager"
-          fetchpriority="high"
-        />
-      </div>
     </div>
+    {
+      hero.animate && (
+        <>
+          <input id="hero-pause" class="hero-pause" type="checkbox" />
+          <label class="hero-toggle" for="hero-pause">
+            <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5v14M16 5v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            </svg>
+            <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 6.5v11l9-5.5-9-5.5z" fill="currentColor"></path>
+            </svg>
+            <span class="hero-toggle-text">
+              <span class="when-playing">Pause photos</span>
+              <span class="when-paused">Play photos</span>
+            </span>
+          </label>
+        </>
+      )
+    }
   </section>
 
   <section class="pillars" aria-label="Ways to take part">
@@ -102,17 +168,18 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
         </div>
         <div class="news-list">
           {
-            newsPlaceholders.map((item) => (
-              <article class="news-item">
-                <div class="news-thumb" aria-hidden="true"></div>
-                <div>
-                  <p class="placeholder-label">Placeholder</p>
-                  <p class="story-date">{item.date}</p>
-                  <h3>{item.title}</h3>
-                  <p>{item.summary}</p>
-                </div>
-              </article>
-            ))
+            latestNews.length === 0 ? (
+              <p>No News yet.</p>
+            ) : (
+              latestNews.map((item) => (
+                <NewsCard
+                  title={item.title}
+                  date={item.date}
+                  summary={item.summary}
+                  heading="h3"
+                />
+              ))
+            )
           }
         </div>
       </div>
@@ -123,20 +190,19 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
         </div>
         <div class="event-list">
           {
-            eventPlaceholders.map((item) => (
-              <article class="event-item">
-                <p class="date-badge">
-                  <span class="badge-kicker">Date</span>
-                  <span class="badge-day">TBD</span>
-                  <span class="visually-hidden">{item.when}</span>
-                </p>
-                <div>
-                  <p class="placeholder-label">Placeholder</p>
-                  <h3>{item.title}</h3>
-                  <p>{item.where}</p>
-                </div>
-              </article>
-            ))
+            upcomingEvents.length === 0 ? (
+              <p>No upcoming Events.</p>
+            ) : (
+              upcomingEvents.map((item) => (
+                <EventCard
+                  title={item.title}
+                  when={item.when}
+                  where={item.where}
+                  heading="h3"
+                  href={withBase(base, `${routes.events}/${item.id}`)}
+                />
+              ))
+            )
           }
         </div>
       </div>

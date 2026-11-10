@@ -1,0 +1,71 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import "../../styles/home.css";
+import "../../styles/events.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { calendarDayISO, formatLongDate } from "../../data/calendar.ts";
+import { routes, team, withBase } from "../../data/site.ts";
+
+export async function getStaticPaths() {
+  const events = await getCollection("events");
+  return events.map((event) => ({
+    params: { id: event.id },
+    props: { event },
+  }));
+}
+
+interface Props {
+  event: CollectionEntry<"events">;
+}
+
+const { event } = Astro.props;
+const { Content } = await render(event);
+const when = calendarDayISO(event.data.when);
+const eventsHref = withBase(import.meta.env.BASE_URL, routes.events);
+const heroImage = event.data.image;
+---
+
+<BaseLayout
+  title={event.data.title}
+  variant="visual"
+  description={`${event.data.title} on ${formatLongDate(when)} at ${event.data.where}.`}
+>
+  <section class:list={["hero", "page-hero", "event-hero", { "event-hero-photo": heroImage }]}>
+    {
+      heroImage && (
+        <div class="hero-media">
+          <Image
+            src={heroImage}
+            alt={event.data.imageAlt ?? ""}
+            class="event-hero-image"
+            widths={[960, 1440, 1920]}
+            sizes="min(70rem, calc(100vw - 2.5rem))"
+            format="webp"
+            quality={75}
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      )
+    }
+    <div class="wrap">
+      <p class="eyebrow">Team {team.number}</p>
+      <h1>{event.data.title}</h1>
+      <hr class="hero-rule" />
+      <p class="lede">{formatLongDate(when)} · {event.data.where}</p>
+    </div>
+  </section>
+
+  <div class="event-detail">
+    <div class="wrap">
+      <p class="event-back">
+        <a href={eventsHref}>All Events</a>
+      </p>
+      <div class="event-body">
+        <Content />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

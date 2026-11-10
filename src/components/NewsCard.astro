@@ -1,0 +1,21 @@
+---
+import { formatLongDate } from "../data/calendar.ts";
+
+interface Props {
+  title: string;
+  date: string;
+  summary: string;
+  heading: "h2" | "h3";
+}
+
+const { title, date, summary, heading: Heading } = Astro.props;
+---
+
+<article class="news-item">
+  <div class="news-thumb" aria-hidden="true"></div>
+  <div>
+    <p class="story-date">{formatLongDate(date)}</p>
+    <Heading>{title}</Heading>
+    <p>{summary}</p>
+  </div>
+</article>

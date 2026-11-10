@@ -1,22 +1,28 @@
 ---
+import { getCollection } from "astro:content";
 import "../styles/home.css";
 import "../styles/news.css";
+import NewsCard from "../components/NewsCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { newsPlaceholders } from "../data/placeholders.ts";
+import { calendarDayISO, compareIsoDate } from "../data/calendar.ts";
 import { team } from "../data/site.ts";
+
+const news = (await getCollection("news"))
+  .map((item) => ({ ...item.data, date: calendarDayISO(item.data.date) }))
+  .sort((left, right) => compareIsoDate(right.date, left.date));
 ---
 
 <BaseLayout
   title="News"
   variant="visual"
-  description="A News item is a dated story about the team. These stories are placeholders."
+  description="A News item is a dated story about the team."
 >
   <section class="hero page-hero">
     <div class="wrap">
       <p class="eyebrow">Team {team.number}</p>
       <h1>News</h1>
       <hr class="hero-rule" />
-      <p class="lede">A News item is a dated story about the team. These stories are placeholders.</p>
+      <p class="lede">A News item is a dated story about the team.</p>
     </div>
   </section>
 
@@ -24,17 +30,13 @@ import { team } from "../data/site.ts";
     <div class="wrap">
       <div class="news-list">
         {
-          newsPlaceholders.map((item) => (
-            <article class="news-item">
-              <div class="news-thumb" aria-hidden="true"></div>
-              <div>
-                <p class="placeholder-label">Placeholder</p>
-                <p class="story-date">{item.date}</p>
-                <h2>{item.title}</h2>
-                <p>{item.summary}</p>
-              </div>
-            </article>
-          ))
+          news.length === 0 ? (
+            <p>No News yet.</p>
+          ) : (
+            news.map((item) => (
+              <NewsCard title={item.title} date={item.date} summary={item.summary} heading="h2" />
+            ))
+          )
         }
       </div>
     </div>

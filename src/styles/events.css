@@ -24,3 +24,136 @@
   font-style: normal;
   font-weight: 700;
 }
+
+a.event-item {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.event-item:hover h2,
+a.event-item:hover h3 {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.visual .event-hero h1 {
+  max-width: 14em;
+  font-size: clamp(2.2rem, 4vw, 4.2rem);
+  line-height: 0.92;
+}
+
+.event-hero-photo {
+  --content-inset: max(1.25rem, calc((100% - 70rem) / 2));
+  display: flex;
+  align-items: center;
+  min-height: clamp(18rem, 46vh, 28rem);
+  background: #07060d;
+}
+
+.event-hero-photo::before {
+  display: none;
+}
+
+.event-hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: var(--content-inset);
+  right: var(--content-inset);
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    #07060d 0%,
+    #07060d 28%,
+    rgba(7, 6, 13, 0.92) 42%,
+    rgba(7, 6, 13, 0.55) 58%,
+    rgba(7, 6, 13, 0.15) 72%,
+    transparent 88%
+  );
+  pointer-events: none;
+}
+
+.event-hero-photo .wrap {
+  z-index: 2;
+}
+
+.event-hero-photo .hero-media {
+  left: var(--content-inset);
+  right: var(--content-inset);
+}
+
+.event-hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 36%;
+}
+
+@media (max-width: 900px) {
+  .event-hero-photo::after {
+    background: linear-gradient(
+      90deg,
+      #07060d 0%,
+      #07060d 22%,
+      rgba(7, 6, 13, 0.94) 48%,
+      rgba(7, 6, 13, 0.72) 68%,
+      rgba(7, 6, 13, 0.35) 82%,
+      transparent 100%
+    );
+  }
+}
+
+.event-detail {
+  padding: 0.4rem 0 3.6rem;
+}
+
+.event-back {
+  margin: 0 0 1.5rem;
+}
+
+.event-back a {
+  color: #e9d5ff;
+  font-weight: 700;
+}
+
+.event-body {
+  max-width: 42rem;
+  color: #e4e4ea;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.event-body :where(p, ul, ol, blockquote) {
+  margin: 0 0 1rem;
+}
+
+.event-body :where(h2, h3) {
+  margin: 1.6rem 0 0.6rem;
+  color: #fff;
+}
+
+.event-body a {
+  color: #e9d5ff;
+}
+
+.event-body p:has(> img:only-child) {
+  margin: 0 0 1.35rem;
+}
+
+.event-body img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 0.55rem;
+}
+
+.event-body > p:first-child img {
+  aspect-ratio: 2.2 / 1;
+  object-fit: cover;
+  object-position: center 36%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}

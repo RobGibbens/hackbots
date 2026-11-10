@@ -1,5 +1,6 @@
 ---
-import BrandMark from "./BrandMark.astro";
+import { Image } from "astro:assets";
+import hackbotsLogo from "../../assets/hackbots_logo.jpg";
 import { nav, team, withBase } from "../data/site.ts";
 
 const base = import.meta.env.BASE_URL;
@@ -14,11 +15,7 @@ function isCurrent(href: string): boolean {
 
 <header class="site-header">
   <a class="wordmark" href={withBase(base, "/")}>
-    <BrandMark />
-    <span class="wordmark-text">
-      {team.name.toUpperCase()}
-      <span class="wordmark-number">{team.number}</span>
-    </span>
+    <Image class="wordmark-logo" src={hackbotsLogo} alt={`${team.name} ${team.number}`} />
   </a>
   <nav class="nav" aria-label="Primary">
     {

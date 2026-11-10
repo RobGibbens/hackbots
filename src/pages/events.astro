@@ -1,22 +1,30 @@
 ---
+import { getCollection } from "astro:content";
 import "../styles/home.css";
 import "../styles/events.css";
+import EventCard from "../components/EventCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { eventPlaceholders } from "../data/placeholders.ts";
-import { team } from "../data/site.ts";
+import { calendarDayISO, compareIsoDate, isUpcoming } from "../data/calendar.ts";
+import { routes, team, withBase } from "../data/site.ts";
+
+const base = import.meta.env.BASE_URL;
+const events = (await getCollection("events"))
+  .map((item) => ({ ...item.data, id: item.id, when: calendarDayISO(item.data.when) }))
+  .filter((item) => isUpcoming(item.when))
+  .sort((left, right) => compareIsoDate(left.when, right.when));
 ---
 
 <BaseLayout
   title="Events"
   variant="visual"
-  description="This page lists upcoming Events only. These cards are placeholders."
+  description="This page lists upcoming Events only."
 >
   <section class="hero page-hero">
     <div class="wrap">
       <p class="eyebrow">Team {team.number}</p>
       <h1>Events</h1>
       <hr class="hero-rule" />
-      <p class="lede">This page lists upcoming Events only. These cards are placeholders.</p>
+      <p class="lede">This page lists upcoming Events only.</p>
     </div>
   </section>
 
@@ -24,20 +32,19 @@ import { team } from "../data/site.ts";
     <div class="wrap">
       <div class="event-list">
         {
-          eventPlaceholders.map((item) => (
-            <article class="event-item">
-              <p class="date-badge">
-                <span class="badge-kicker">Date</span>
-                <span class="badge-day">TBD</span>
-                <span class="visually-hidden">{item.when}</span>
-              </p>
-              <div>
-                <p class="placeholder-label">Placeholder</p>
-                <h2>{item.title}</h2>
-                <p>{item.where}</p>
-              </div>
-            </article>
-          ))
+          events.length === 0 ? (
+            <p>No upcoming Events.</p>
+          ) : (
+            events.map((item) => (
+              <EventCard
+                title={item.title}
+                when={item.when}
+                where={item.where}
+                heading="h2"
+                href={withBase(base, `${routes.events}/${item.id}`)}
+              />
+            ))
+          )
         }
       </div>
     </div>

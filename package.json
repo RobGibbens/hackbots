@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "node --experimental-strip-types --test src/data/site.test.ts"
+    "test": "node --experimental-strip-types --test src/data/site.test.ts src/data/calendar.test.ts src/data/hero.test.ts"
   },
   "dependencies": {
     "astro": "^7.4.8"

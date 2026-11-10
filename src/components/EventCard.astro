@@ -1,0 +1,26 @@
+---
+import { eventBadge, formatLongDate } from "../data/calendar.ts";
+
+interface Props {
+  title: string;
+  when: string;
+  where: string;
+  heading: "h2" | "h3";
+  href: string;
+}
+
+const { title, when, where, heading: Heading, href } = Astro.props;
+const badge = eventBadge(when);
+---
+
+<a class="event-item" href={href}>
+  <p class="date-badge">
+    <span class="badge-kicker">{badge.month}</span>
+    <span class="badge-day">{badge.day}</span>
+    <span class="visually-hidden">{formatLongDate(when)}</span>
+  </p>
+  <div>
+    <Heading>{title}</Heading>
+    <p>{where}</p>
+  </div>
+</a>

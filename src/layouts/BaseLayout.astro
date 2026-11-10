@@ -1,8 +1,10 @@
 ---
+import ethnocentricFont from "../../assets/Ethnocentric-Regular.otf";
 import "../styles/global.css";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { shirtOffer, withBase } from "../data/site.ts";
+
 
 interface Props {
   title: string;
@@ -19,6 +21,7 @@ const pageTitle = title === "Home" ? "Hackbots 3414" : `${title} · Hackbots 341
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="preload" href={ethnocentricFont} as="font" type="font/otf" crossorigin />
     <link rel="icon" type="image/svg+xml" href={withBase(import.meta.env.BASE_URL, "/favicon.svg")} />
     <meta name="generator" content={Astro.generator} />
     {
