@@ -1,0 +1,28 @@
+.news-main {
+  padding: 0.4rem 0 3.6rem;
+}
+
+.news-main .news-list {
+  gap: 0;
+}
+
+.news-main .news-item {
+  grid-template-columns: 16rem minmax(0, 1fr);
+  gap: 1.35rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.news-main .news-item h2 {
+  margin: 0.15rem 0 0;
+  color: #fff;
+  font-size: 1.05rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .news-main .news-item {
+    grid-template-columns: 1fr;
+  }
+}

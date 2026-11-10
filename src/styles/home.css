@@ -87,6 +87,19 @@ html:has(body.visual) {
   margin-inline: auto;
 }
 
+.page-hero {
+  padding: 3.4rem 0 3rem;
+}
+
+.page-hero .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.visual .page-hero h1 {
+  max-width: 10em;
+}
+
 .hero {
   position: relative;
   overflow: hidden;

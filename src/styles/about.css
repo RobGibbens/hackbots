@@ -1,16 +1,3 @@
-.about-hero {
-  padding: 3.4rem 0 3rem;
-}
-
-.about-hero .wrap {
-  position: relative;
-  z-index: 1;
-}
-
-.visual .about-hero h1 {
-  max-width: 10em;
-}
-
 .about-main {
   padding: 2.6rem 0 3.6rem;
 }

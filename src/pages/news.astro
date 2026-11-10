@@ -1,21 +1,42 @@
 ---
+import "../styles/home.css";
+import "../styles/news.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { newsPlaceholders } from "../data/placeholders.ts";
+import { team } from "../data/site.ts";
 ---
 
-<BaseLayout title="News">
-  <h1>News</h1>
-  <p class="lede">A News item is a dated story. These cards are placeholders.</p>
-  <div class="stack">
-    {
-      newsPlaceholders.map((item) => (
-        <article class="placeholder">
-          <p class="placeholder-label">Placeholder</p>
-          <h3>{item.title}</h3>
-          <p>{item.date}</p>
-          <p>{item.summary}</p>
-        </article>
-      ))
-    }
+<BaseLayout
+  title="News"
+  variant="visual"
+  description="A News item is a dated story about the team. These stories are placeholders."
+>
+  <section class="hero page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Team {team.number}</p>
+      <h1>News</h1>
+      <hr class="hero-rule" />
+      <p class="lede">A News item is a dated story about the team. These stories are placeholders.</p>
+    </div>
+  </section>
+
+  <div class="news-main">
+    <div class="wrap">
+      <div class="news-list">
+        {
+          newsPlaceholders.map((item) => (
+            <article class="news-item">
+              <div class="news-thumb" aria-hidden="true"></div>
+              <div>
+                <p class="placeholder-label">Placeholder</p>
+                <p class="story-date">{item.date}</p>
+                <h2>{item.title}</h2>
+                <p>{item.summary}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </BaseLayout>
