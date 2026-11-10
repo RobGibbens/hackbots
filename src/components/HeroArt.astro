@@ -1,0 +1,48 @@
+<svg class="hero-robot" viewBox="0 0 680 560" aria-hidden="true">
+  <defs>
+    <linearGradient id="bumper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7c3aed"></stop>
+      <stop offset="1" stop-color="#5b21b6"></stop>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f3f4f6"></stop>
+      <stop offset="1" stop-color="#9ca3af"></stop>
+    </linearGradient>
+    <filter id="led" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="blur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="360" cy="500" rx="230" ry="28" fill="#05030a" opacity="0.72"></ellipse>
+  <g transform="translate(78 36)">
+    <circle cx="118" cy="418" r="58" fill="#111827"></circle>
+    <circle cx="118" cy="418" r="40" fill="none" stroke="#4b5563" stroke-width="8" stroke-dasharray="7 8"></circle>
+    <circle cx="118" cy="418" r="14" fill="#9ca3af"></circle>
+    <circle cx="392" cy="418" r="58" fill="#111827"></circle>
+    <circle cx="392" cy="418" r="40" fill="none" stroke="#4b5563" stroke-width="8" stroke-dasharray="7 8"></circle>
+    <circle cx="392" cy="418" r="14" fill="#9ca3af"></circle>
+    <path d="M150 392h210" stroke="#374151" stroke-width="10"></path>
+    <rect x="86" y="312" width="360" height="96" rx="20" fill="url(#bumper)"></rect>
+    <rect x="100" y="326" width="332" height="68" rx="12" fill="none" stroke="#ddd6fe" stroke-opacity="0.45"></rect>
+    <text x="196" y="374" text-anchor="middle" fill="#fff" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="48" font-style="italic" font-weight="800">3414</text>
+    <text x="372" y="374" text-anchor="middle" fill="#fff" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="48" font-style="italic" font-weight="800">3414</text>
+    <rect x="132" y="236" width="250" height="86" rx="8" fill="url(#metal)"></rect>
+    <rect x="150" y="252" width="92" height="54" rx="4" fill="#1f2937"></rect>
+    <path d="M164 268h18M164 280h28M164 292h14" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"></path>
+    <path d="M206 270c16 8 16 24 0 32" stroke="#34d399" stroke-width="3" fill="none"></path>
+    <rect x="248" y="108" width="62" height="150" rx="6" fill="url(#metal)"></rect>
+    <rect x="308" y="124" width="12" height="112" rx="3" fill="#c084fc" filter="url(#led)"></rect>
+    <circle cx="279" cy="132" r="16" fill="#374151"></circle>
+    <path d="M279 132 L430 78" stroke="#d1d5db" stroke-width="22" stroke-linecap="round"></path>
+    <path d="M279 120 L430 66" stroke="#c084fc" stroke-width="5" stroke-linecap="round" filter="url(#led)"></path>
+    <circle cx="430" cy="78" r="16" fill="#374151"></circle>
+    <path d="M430 78 L528 28" stroke="#e5e7eb" stroke-width="16" stroke-linecap="round"></path>
+    <path d="M430 68 L528 18" stroke="#e9d5ff" stroke-width="4" stroke-linecap="round" filter="url(#led)"></path>
+    <rect x="508" y="8" width="46" height="36" rx="6" fill="#4b5563" transform="rotate(18 531 26)"></rect>
+    <path d="M516 16h34" stroke="#c084fc" stroke-width="4" stroke-linecap="round" filter="url(#led)"></path>
+    <rect x="262" y="168" width="34" height="18" rx="3" fill="#6b7280"></rect>
+  </g>
+</svg>

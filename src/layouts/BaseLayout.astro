@@ -7,9 +7,10 @@ import { shirtOffer, withBase } from "../data/site.ts";
 interface Props {
   title: string;
   description?: string;
+  variant?: "home";
 }
 
-const { title, description = "FIRST Robotics Competition Team 3414, the Hackbots." } = Astro.props;
+const { title, description = "FIRST Robotics Competition Team 3414, the Hackbots.", variant } = Astro.props;
 const pageTitle = title === "Home" ? "Hackbots 3414" : `${title} · Hackbots 3414`;
 ---
 
@@ -20,10 +21,22 @@ const pageTitle = title === "Home" ? "Hackbots 3414" : `${title} · Hackbots 341
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href={withBase(import.meta.env.BASE_URL, "/favicon.svg")} />
     <meta name="generator" content={Astro.generator} />
+    {
+      variant === "home" && (
+        <>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700;1,800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap"
+            rel="stylesheet"
+          />
+        </>
+      )
+    }
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
   </head>
-  <body data-shirt-deadline={shirtOffer.deadline}>
+  <body class:list={[variant]} data-shirt-deadline={shirtOffer.deadline}>
     <SiteHeader />
     <main>
       <slot />

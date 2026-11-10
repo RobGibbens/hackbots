@@ -1,87 +1,163 @@
 ---
+import "../styles/home.css";
 import ShirtOffer from "../components/ShirtOffer.astro";
+import HeroArt from "../components/HeroArt.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { eventPlaceholders, newsPlaceholders } from "../data/placeholders.ts";
-import { joinFormUrl, routes, shirtOfferIsOpen, withBase } from "../data/site.ts";
+import { joinFormUrl, routes, team, withBase } from "../data/site.ts";
 
 const base = import.meta.env.BASE_URL;
-const offerOpen = shirtOfferIsOpen(new Date());
+const sponsors = withBase(base, routes.sponsors);
+const crowd = Array.from({ length: 16 }, (_, index) => ({
+  x: 36 + index * 78,
+  y: 78 + (index % 2) * 16,
+  r: 15 + (index % 3) * 3,
+}));
 ---
 
-<BaseLayout title="Home">
-  <p class="lede">Team 3414</p>
-  <h1>Hackbots</h1>
-  <p class="tagline">Build. Learn. Compete. Together.</p>
-  <p class="lede">
-    We are a FIRST Robotics Competition team from Farmington Public Schools. About explains what FIRST is.
-    This year's Robot is on Our Robot.
-  </p>
-  <div class="actions">
-    <a class="button primary" href={joinFormUrl}>Join Our Team</a>
-    <a class="button" href={withBase(base, routes.sponsors)}>Support Us</a>
-  </div>
+<BaseLayout
+  title="Home"
+  variant="home"
+  description="Our high school robotics team is a community of curious minds, creative problem solvers, and passionate FIRST competitors."
+>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Team {team.number}</p>
+        <h1>{team.name}</h1>
+        <p class="tagline">Build. Learn. Compete.<br />Together.</p>
+        <hr class="hero-rule" />
+        <p class="lede">
+          Our high school robotics team is a community of curious minds, creative problem solvers, and passionate
+          FIRST competitors.
+        </p>
+        <div class="actions">
+          <a class="button primary" href={joinFormUrl}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16 19v-1a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+              <circle cx="10" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+              <path d="M20 19v-1a3 3 0 0 0-2.2-2.9M16 5.1a3 3 0 0 1 0 5.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            </svg>
+            Join Our Team →
+          </a>
+          <a class="button" href={sponsors}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 19s-7-4.4-7-8.5A3.5 3.5 0 0 1 12 8a3.5 3.5 0 0 1 7 2.5C19 14.6 12 19 12 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+            </svg>
+            Support Us →
+          </a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <HeroArt />
+      </div>
+    </div>
+  </section>
 
-  <div class="card-row">
-    <article class="card">
-      <h2>Join the Team</h2>
-      <p>Students, parents, and mentors are welcome.</p>
-      <a href={joinFormUrl}>Join the team</a>
-    </article>
-    <article class="card">
-      <h2>Support Our Team</h2>
-      <p>Help us build, compete, and inspire.</p>
-      <a href={withBase(base, routes.sponsors)}>Support the team</a>
-    </article>
-    <article class="card">
-      <h2>Be Part of Something Bigger</h2>
-      <p>STEM. Teamwork. Impact.</p>
-      <a href={withBase(base, routes.outreach)}>See our outreach</a>
-    </article>
-  </div>
+  <section class="pillars" aria-label="Ways to take part">
+    <div class="wrap pillars-grid">
+      <a class="pillar" href={joinFormUrl}>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M16 19v-1a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+          <circle cx="10" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+          <path d="M20 19v-1a3 3 0 0 0-2.2-2.9M16 5.1a3 3 0 0 1 0 5.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+        <h2>Join the Team</h2>
+        <p>Students, parents, and mentors — all are welcome!</p>
+      </a>
+      <a class="pillar" href={sponsors}>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m11 17 2 2a1 1 0 1 0 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="m21 3 1 11h-2M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3M3 4h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <h2>Support Our Team</h2>
+        <p>Help us build, compete, and inspire.</p>
+      </a>
+      <a class="pillar" href={withBase(base, routes.outreach)}>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 4h8v5a4 4 0 0 1-8 0V4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+          <path d="M8 6H5.5A2.5 2.5 0 0 0 8 10.2M16 6h2.5A2.5 2.5 0 0 1 16 10.2M12 13v2.5M9.5 20h5M10 15.5h4V20h-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <h2>Be Part of Something Bigger</h2>
+        <p>STEM. Teamwork. Impact.</p>
+      </a>
+    </div>
+  </section>
 
-  <div class="split">
-    <section>
-      <div class="section-head">
-        <h2>Latest News</h2>
-        <a href={withBase(base, routes.news)}>View all News</a>
+  <section class="digest" aria-label="News and events">
+    <div class="wrap digest-grid">
+      <div class="digest-col">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Latest News</h2>
+          <a href={withBase(base, routes.news)}>View All News →</a>
+        </div>
+        <div class="news-list">
+          {
+            newsPlaceholders.map((item) => (
+              <article class="news-item">
+                <div class="news-thumb" aria-hidden="true"></div>
+                <div>
+                  <p class="placeholder-label">Placeholder</p>
+                  <p class="story-date">{item.date}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.summary}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
       </div>
-      <div class="stack">
-        {
-          newsPlaceholders.map((item) => (
-            <article class="placeholder">
-              <p class="placeholder-label">Placeholder</p>
-              <h3>{item.title}</h3>
-              <p>{item.date}</p>
-              <p>{item.summary}</p>
-            </article>
-          ))
-        }
+      <div class="digest-col">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Upcoming Events</h2>
+          <a href={withBase(base, routes.events)}>View All Events →</a>
+        </div>
+        <div class="event-list">
+          {
+            eventPlaceholders.map((item) => (
+              <article class="event-item">
+                <p class="date-badge">
+                  <span class="badge-kicker">Date</span>
+                  <span class="badge-day">TBD</span>
+                  <span class="visually-hidden">{item.when}</span>
+                </p>
+                <div>
+                  <p class="placeholder-label">Placeholder</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.where}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
       </div>
-    </section>
-    <section>
-      <div class="section-head">
-        <h2>Upcoming Events</h2>
-        <a href={withBase(base, routes.events)}>View all Events</a>
-      </div>
-      <div class="stack">
-        {
-          eventPlaceholders.map((item) => (
-            <article class="placeholder">
-              <p class="placeholder-label">Placeholder</p>
-              <h3>{item.title}</h3>
-              <p>{item.when}</p>
-              <p>{item.where}</p>
-            </article>
-          ))
-        }
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
   <ShirtOffer />
-  <section class="support-banner" data-shirt-offer="closed" hidden={offerOpen}>
-    <h2>Support the Hackbots</h2>
-    <p>Donate or become a Sponsor.</p>
-    <a href={withBase(base, routes.sponsors)}>Go to Sponsors</a>
+
+  <section class="rally">
+    <div class="rally-inner">
+      <h2>Support the {team.name}</h2>
+      <p class="rally-lead">Your generosity helps us build a brighter future — for our team and for STEM.</p>
+      <p>Consider making a donation, becoming a sponsor, or volunteering your time and expertise.</p>
+      <a class="button primary" href={sponsors}>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 19s-7-4.4-7-8.5A3.5 3.5 0 0 1 12 8a3.5 3.5 0 0 1 7 2.5C19 14.6 12 19 12 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+        </svg>
+        Donate or Become a Sponsor →
+      </a>
+    </div>
+    <svg class="crowd" viewBox="0 0 1240 210" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      {
+        crowd.map((person) => (
+          <g fill="#2e1065">
+            <circle cx={person.x} cy={person.y} r={person.r}></circle>
+            <ellipse cx={person.x} cy={person.y + person.r + 26} rx={person.r + 16} ry={person.r + 10}></ellipse>
+          </g>
+        ))
+      }
+    </svg>
   </section>
 </BaseLayout>

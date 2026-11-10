@@ -1,4 +1,5 @@
 ---
+import BrandMark from "./BrandMark.astro";
 import { social, team, withBase } from "../data/site.ts";
 
 const home = withBase(import.meta.env.BASE_URL, "/");
@@ -6,14 +7,38 @@ const home = withBase(import.meta.env.BASE_URL, "/");
 
 <footer class="site-footer">
   <a class="wordmark" href={home}>
-    {team.name.toUpperCase()}
-    <span>{team.number}</span>
+    <BrandMark />
+    <span class="wordmark-text">
+      {team.name.toUpperCase()}
+      <span class="wordmark-number">{team.number}</span>
+    </span>
   </a>
-  <p>Build. Learn. Compete. Together.</p>
+  <p class="footer-tagline">Build. Learn. Compete. Together.</p>
   <nav aria-label="Social">
-    <a href={social.instagram}>Instagram</a>
-    <a href={social.facebook}>Facebook</a>
-    <a href={`mailto:${team.email}`}>Email</a>
+    <a class="social-link" href={social.instagram}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+        <circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+        <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor"></circle>
+      </svg>
+      <span>Instagram</span>
+    </a>
+    <a class="social-link" href={social.facebook}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M14.5 8.5V7.2c0-.7.5-1 1.1-1H17V4h-1.8C12.9 4 12 5.2 12 7v1.5H10V11h2v9h2.5v-9h2l.3-2.5h-2.3z"></path>
+      </svg>
+      <span>Facebook</span>
+    </a>
+    <a class="social-link" href={`mailto:${team.email}`}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3.5" y="5.5" width="17" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+        <path d="M5 7.5 12 13l7-5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+      </svg>
+      <span>Email</span>
+    </a>
   </nav>
-  <p>FIRST Team {team.number} · Farmington, MI</p>
+  <p class="footer-id">
+    <span>FIRST Team {team.number} – {team.name}</span>
+    <span>Farmington, MI</span>
+  </p>
 </footer>
