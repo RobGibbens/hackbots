@@ -1,21 +1,45 @@
 ---
+import "../styles/home.css";
+import "../styles/events.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { eventPlaceholders } from "../data/placeholders.ts";
+import { team } from "../data/site.ts";
 ---
 
-<BaseLayout title="Events">
-  <h1>Events</h1>
-  <p class="lede">This page lists upcoming Events only. These cards are placeholders.</p>
-  <div class="stack">
-    {
-      eventPlaceholders.map((item) => (
-        <article class="placeholder">
-          <p class="placeholder-label">Placeholder</p>
-          <h3>{item.title}</h3>
-          <p>{item.when}</p>
-          <p>{item.where}</p>
-        </article>
-      ))
-    }
+<BaseLayout
+  title="Events"
+  variant="visual"
+  description="This page lists upcoming Events only. These cards are placeholders."
+>
+  <section class="hero page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Team {team.number}</p>
+      <h1>Events</h1>
+      <hr class="hero-rule" />
+      <p class="lede">This page lists upcoming Events only. These cards are placeholders.</p>
+    </div>
+  </section>
+
+  <div class="events-main">
+    <div class="wrap">
+      <div class="event-list">
+        {
+          eventPlaceholders.map((item) => (
+            <article class="event-item">
+              <p class="date-badge">
+                <span class="badge-kicker">Date</span>
+                <span class="badge-day">TBD</span>
+                <span class="visually-hidden">{item.when}</span>
+              </p>
+              <div>
+                <p class="placeholder-label">Placeholder</p>
+                <h2>{item.title}</h2>
+                <p>{item.where}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </BaseLayout>

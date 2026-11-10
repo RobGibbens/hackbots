@@ -1,0 +1,26 @@
+.events-main {
+  padding: 0.4rem 0 3.6rem;
+}
+
+.events-main .event-list {
+  gap: 0;
+}
+
+.events-main .event-item {
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 1.35rem;
+  padding: 1.35rem 0;
+}
+
+.events-main .date-badge {
+  width: 4.6rem;
+  height: 4.6rem;
+}
+
+.events-main .event-item h2 {
+  margin: 0.15rem 0 0;
+  color: #fff;
+  font-size: 1.05rem;
+  font-style: normal;
+  font-weight: 700;
+}
