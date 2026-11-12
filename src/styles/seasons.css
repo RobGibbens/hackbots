@@ -94,11 +94,11 @@
 
 .year-card .year {
   color: #fff;
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: clamp(2.6rem, 5vw, 3.4rem);
-  font-style: italic;
-  font-weight: 800;
-  line-height: 0.85;
+  font-style: normal;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.9;
 }
 
 .year-status {

@@ -7,7 +7,6 @@ html:has(body.visual) {
   color-scheme: dark;
   background: #07060d;
   color: #f8f7fb;
-  font-family: Barlow, "Segoe UI", sans-serif;
 }
 
 .visual .wordmark-logo {
@@ -46,7 +45,8 @@ html:has(body.visual) {
   margin-top: 0.28rem;
   color: #6c3f99;
   font-size: 0.62rem;
-  font-weight: 400;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
   letter-spacing: 0.16em;
 }
 
@@ -282,11 +282,11 @@ html:has(body.visual) {
 .eyebrow {
   margin: 0;
   color: #6c3f99;
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: clamp(1.35rem, 2vw, 1.7rem);
-  font-style: italic;
+  font-style: normal;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -317,14 +317,13 @@ html:has(body.visual) {
 }
 
 .visual .hero .tagline {
-  max-width: 12em;
+  max-width: 16em;
   margin: 0;
   color: #fff;
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: clamp(1.8rem, 3vw, 2.45rem);
-  font-style: italic;
+  font-style: normal;
   font-weight: 700;
-  line-height: 1.02;
+  line-height: 1.05;
 }
 
 .hero-rule {
@@ -444,22 +443,27 @@ html:has(body.visual) {
 .visual .section-head h2 {
   margin: 0;
   color: #fff;
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: clamp(1.8rem, 3vw, 2.15rem);
-  font-style: italic;
-  font-weight: 800;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.visual .digest-grid .section-head h2 {
+  font-size: 1.7rem;
 }
 
 .mark-slash {
   margin-right: 0.3rem;
   color: #6c3f99;
-  font-style: italic;
+  font-style: normal;
 }
 
 .visual .section-head a {
+  flex-shrink: 0;
   color: #e9d5ff;
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .visual .section-head a:hover {
@@ -494,10 +498,10 @@ html:has(body.visual) {
   place-items: center;
   background: linear-gradient(160deg, #6c3f99, #6c3f99 62%, #1e1b4b);
   color: #fff;
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: 1.7rem;
-  font-style: italic;
-  font-weight: 800;
+  font-style: normal;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
   letter-spacing: 0.04em;
 }
 
@@ -529,7 +533,8 @@ html:has(body.visual) {
 .story-date {
   color: #ddd6fe;
   font-size: 0.92rem;
-  font-weight: 700;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 .news-item h3,
@@ -573,9 +578,9 @@ html:has(body.visual) {
 
 .badge-day {
   margin-top: 0.2rem;
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: 1.35rem;
-  font-weight: 800;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 .visually-hidden {
@@ -621,10 +626,10 @@ html:has(body.visual) {
 .rally h2 {
   margin: 0 0 0.55rem;
   color: #fff;
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: clamp(2.3rem, 5vw, 3.15rem);
-  font-style: italic;
-  font-weight: 800;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.05;
 }
 
 .rally-lead {
@@ -788,6 +793,15 @@ html:has(body.visual) {
 }
 
 @media (max-width: 640px) {
+  .visual .section-head {
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+  }
+
+  .visual .section-head h2 {
+    flex-basis: 100%;
+  }
+
   .news-item {
     grid-template-columns: 1fr;
   }
