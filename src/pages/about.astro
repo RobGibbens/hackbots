@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import aboutPhoto from "../../assets/about.jpg";
 import "../styles/home.css";
 import "../styles/about.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -12,7 +14,20 @@ const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
   variant="visual"
   description="We are FIRST Robotics Competition Team 3414, the Hackbots."
 >
-  <section class="hero page-hero">
+  <section class="hero page-hero about-hero">
+    <div class="hero-media" aria-hidden="true">
+      <Image
+        src={aboutPhoto}
+        alt=""
+        class="about-hero-image"
+        widths={[960, 1440, 1920]}
+        sizes="min(70rem, calc(100vw - 2.5rem))"
+        format="webp"
+        quality={75}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
     <div class="wrap">
       <p class="eyebrow">Team {team.number}</p>
       <h1>About</h1>
