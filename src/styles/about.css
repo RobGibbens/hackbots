@@ -23,7 +23,7 @@
 .visual .placeholder {
   max-width: 40rem;
   background: #161222;
-  border-color: rgba(168, 85, 247, 0.5);
+  border-color: rgba(108, 63, 153, 0.5);
 }
 
 .visual .placeholder p {
@@ -62,11 +62,11 @@
 }
 
 .group-grid li:not(:nth-child(3n + 1)) {
-  border-left: 1px solid rgba(168, 85, 247, 0.45);
+  border-left: 1px solid rgba(108, 63, 153, 0.45);
 }
 
 .group-grid li:nth-child(n + 4) {
-  border-top: 1px solid rgba(168, 85, 247, 0.45);
+  border-top: 1px solid rgba(108, 63, 153, 0.45);
 }
 
 @media (max-width: 900px) {
@@ -80,6 +80,6 @@
   }
 
   .group-grid li + li {
-    border-top: 1px solid rgba(168, 85, 247, 0.45);
+    border-top: 1px solid rgba(108, 63, 153, 0.45);
   }
 }

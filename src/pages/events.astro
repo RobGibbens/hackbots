@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import eventsPhoto from "../../assets/events.jpg";
 import "../styles/home.css";
 import "../styles/events.css";
 import EventCard from "../components/EventCard.astro";
@@ -19,7 +21,20 @@ const events = (await getCollection("events"))
   variant="visual"
   description="This page lists upcoming Events only."
 >
-  <section class="hero page-hero">
+  <section class="hero page-hero events-hero">
+    <div class="hero-media" aria-hidden="true">
+      <Image
+        src={eventsPhoto}
+        alt=""
+        class="events-hero-image"
+        widths={[960, 1440, 1920]}
+        sizes="min(70rem, calc(100vw - 2.5rem))"
+        format="webp"
+        quality={75}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
     <div class="wrap">
       <p class="eyebrow">Team {team.number}</p>
       <h1>Events</h1>

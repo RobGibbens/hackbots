@@ -19,7 +19,7 @@
 .visual .seasons-main .placeholder {
   max-width: 40rem;
   background: #161222;
-  border-color: rgba(168, 85, 247, 0.5);
+  border-color: rgba(108, 63, 153, 0.5);
 }
 
 .visual .seasons-main .placeholder p {
@@ -53,7 +53,7 @@
   gap: 0.2rem 1.5rem;
   align-items: center;
   padding: 1.15rem 1.25rem;
-  border: 1px solid rgba(168, 85, 247, 0.5);
+  border: 1px solid rgba(108, 63, 153, 0.5);
   border-radius: 0.75rem;
   background: #161222;
   color: inherit;

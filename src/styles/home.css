@@ -44,7 +44,7 @@ html:has(body.visual) {
   align-items: center;
   gap: 0.4rem;
   margin-top: 0.28rem;
-  color: #c084fc;
+  color: #6c3f99;
   font-size: 0.62rem;
   font-weight: 400;
   letter-spacing: 0.16em;
@@ -55,7 +55,7 @@ html:has(body.visual) {
   content: "";
   width: 0.95rem;
   height: 2px;
-  background: #c084fc;
+  background: #6c3f99;
 }
 
 .visual .nav {
@@ -72,7 +72,7 @@ html:has(body.visual) {
 
 .visual .nav a[aria-current="page"] {
   text-decoration: none;
-  border-bottom-color: #a855f7;
+  border-bottom-color: #6c3f99;
 }
 
 .visual a:focus-visible {
@@ -102,7 +102,7 @@ html:has(body.visual) {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 42% 70% at 78% 58%, rgba(109, 40, 217, 0.42), transparent 68%),
+    radial-gradient(ellipse 42% 70% at 78% 58%, rgba(108, 63, 153, 0.42), transparent 68%),
     linear-gradient(180deg, #140a22 0%, #1a1030 42%, #0c0a12 100%);
 }
 
@@ -281,7 +281,7 @@ html:has(body.visual) {
 
 .eyebrow {
   margin: 0;
-  color: #c084fc;
+  color: #6c3f99;
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: clamp(1.35rem, 2vw, 1.7rem);
   font-style: italic;
@@ -362,9 +362,9 @@ html:has(body.visual) {
 }
 
 .visual .button.primary {
-  border-color: #7c3aed;
-  background: #7c3aed;
-  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.35);
+  border-color: #6c3f99;
+  background: #6c3f99;
+  box-shadow: 0 10px 28px rgba(108, 63, 153, 0.35);
 }
 
 .visual .button svg {
@@ -377,7 +377,7 @@ html:has(body.visual) {
 }
 
 .visual .button.primary:hover {
-  background: #6d28d9;
+  background: #57327b;
 }
 
 .pillars {
@@ -398,13 +398,13 @@ html:has(body.visual) {
 }
 
 .pillar + .pillar {
-  border-left: 1px solid rgba(168, 85, 247, 0.45);
+  border-left: 1px solid rgba(108, 63, 153, 0.45);
 }
 
 .pillar svg {
   width: 2rem;
   height: 2rem;
-  color: #a855f7;
+  color: #6c3f99;
 }
 
 .visual .pillar h2 {
@@ -452,7 +452,7 @@ html:has(body.visual) {
 
 .mark-slash {
   margin-right: 0.3rem;
-  color: #a855f7;
+  color: #6c3f99;
   font-style: italic;
 }
 
@@ -486,13 +486,13 @@ html:has(body.visual) {
     radial-gradient(circle at 28% 62%, #ddd6fe 0 7px, transparent 8px),
     radial-gradient(circle at 46% 58%, #fff 0 8px, transparent 9px),
     radial-gradient(circle at 66% 64%, #c4b5fd 0 7px, transparent 8px),
-    linear-gradient(145deg, #312e81, #5b21b6 55%, #111827);
+    linear-gradient(145deg, #312e81, #6c3f99 55%, #111827);
 }
 
 .news-item:nth-child(2) .news-thumb {
   display: grid;
   place-items: center;
-  background: linear-gradient(160deg, #5b21b6, #7c3aed 62%, #1e1b4b);
+  background: linear-gradient(160deg, #6c3f99, #6c3f99 62%, #1e1b4b);
   color: #fff;
   font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-size: 1.7rem;
@@ -592,7 +592,7 @@ html:has(body.visual) {
 .visual .shirt-offer {
   width: min(70rem, calc(100% - 2.5rem));
   margin: 0 auto 2.6rem;
-  border: 1px solid rgba(168, 85, 247, 0.5);
+  border: 1px solid rgba(108, 63, 153, 0.5);
   background: #161222;
   color: #f8f7fb;
 }
@@ -607,7 +607,7 @@ html:has(body.visual) {
   padding: 4.6rem 0 6.2rem;
   background:
     radial-gradient(ellipse at 50% 0%, rgba(233, 213, 255, 0.38), transparent 46%),
-    linear-gradient(180deg, #7c3aed 0%, #5b21b6 42%, #3b0764 100%);
+    linear-gradient(180deg, #6c3f99 0%, #6c3f99 42%, #3b0764 100%);
   text-align: center;
 }
 
@@ -753,7 +753,7 @@ html:has(body.visual) {
   }
 
   .pillar + .pillar {
-    border-top: 1px solid rgba(168, 85, 247, 0.45);
+    border-top: 1px solid rgba(108, 63, 153, 0.45);
   }
 
   .digest-col + .digest-col {
