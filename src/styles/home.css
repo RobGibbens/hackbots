@@ -294,6 +294,8 @@ html:has(body.visual) {
   font-family: Ethnocentric, "Arial Narrow", sans-serif;
   font-style: normal;
   font-weight: 400;
+  -webkit-text-stroke: 0.05em #fff;
+  paint-order: stroke fill;
 }
 
 .visual .hero h1 {
