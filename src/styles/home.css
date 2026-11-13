@@ -308,6 +308,8 @@ html:has(body.visual) {
 
 .visual .hero-home h1 {
   font-size: clamp(2.25rem, 5vw + 2rem, 6.6rem);
+  -webkit-text-stroke: 0.05em #6c3f99;
+  paint-order: stroke fill;
 }
 
 @container (max-width: 28rem) {
