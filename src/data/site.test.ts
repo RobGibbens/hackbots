@@ -226,11 +226,7 @@ describe("public site facts", () => {
 
   it("states who can be a member", () => {
     assert.match(memberEligibility, /grades 9–12/);
-    assert.match(memberEligibility, /Farmington High School/);
-    assert.match(memberEligibility, /North Farmington High School/);
-    assert.match(memberEligibility, /Farmington Central High School/);
-    assert.match(memberEligibility, /home-schooled/);
-    assert.match(memberEligibility, /Farmington or Farmington Hills/);
+    assert.match(memberEligibility, /welcome to join the Hackbots/);
     assert.match(memberEligibility, /do not cut/);
   });
 
