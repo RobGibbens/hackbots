@@ -69,7 +69,7 @@ describe("public site facts", () => {
   });
 
   it("sends join and donations to the agreed places", () => {
-    assert.equal(joinFormUrl, "https://forms.gle/r57zxPEY1oQATjX46");
+    assert.equal(joinFormUrl, "https://forms.gle/ErHKkkmXMxSXHR6r6");
     assert.equal(donation.url, "https://fpsalum.nationbuilder.com/donate");
     assert.equal(donation.memo, "3414 Hackbots");
     assert.equal(
