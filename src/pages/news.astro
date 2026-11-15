@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import newsPhoto from "../../assets/news.jpg";
 import "../styles/home.css";
 import "../styles/news.css";
 import NewsCard from "../components/NewsCard.astro";
@@ -8,6 +10,8 @@ import { calendarDayISO, compareIsoDate } from "../data/calendar.ts";
 import { routes, team, withBase } from "../data/site.ts";
 
 const base = import.meta.env.BASE_URL;
+const lede =
+  "The Hackbots keep moving. Here is the latest from the shop, the matches, and the season in between.";
 const news = (await getCollection("news"))
   .map((item) => ({ ...item.data, id: item.id, date: calendarDayISO(item.data.date) }))
   .sort((left, right) => compareIsoDate(right.date, left.date));
@@ -16,14 +20,27 @@ const news = (await getCollection("news"))
 <BaseLayout
   title="News"
   variant="visual"
-  description="A News item is a dated story about the team."
+  description={lede}
 >
-  <section class="hero page-hero">
+  <section class="hero page-hero news-hero">
+    <div class="hero-media" aria-hidden="true">
+      <Image
+        src={newsPhoto}
+        alt=""
+        class="news-hero-image"
+        widths={[960, 1440, 1920]}
+        sizes="min(70rem, calc(100vw - 2.5rem))"
+        format="webp"
+        quality={75}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
     <div class="wrap">
       <p class="eyebrow">{team.number}</p>
       <h1>News</h1>
       <hr class="hero-rule" />
-      <p class="lede">A News item is a dated story about the team.</p>
+      <p class="lede">{lede}</p>
     </div>
   </section>
 

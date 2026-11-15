@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import donatePhoto from "../../assets/donate.jpg";
 import "../styles/home.css";
 import "../styles/donate.css";
 import ShirtOffer from "../components/ShirtOffer.astro";
@@ -13,7 +15,20 @@ const sponsors = withBase(import.meta.env.BASE_URL, routes.sponsors);
   variant="visual"
   description="Your donation helps us stay late in the shop, show up ready on the field, and give a younger student the same chance we got."
 >
-  <section class="hero page-hero">
+  <section class="hero page-hero donate-hero">
+    <div class="hero-media" aria-hidden="true">
+      <Image
+        src={donatePhoto}
+        alt=""
+        class="donate-hero-image"
+        widths={[960, 1440, 1920]}
+        sizes="min(70rem, calc(100vw - 2.5rem))"
+        format="webp"
+        quality={75}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
     <div class="wrap">
       <p class="eyebrow">{team.number}</p>
       <h1>Donate</h1>

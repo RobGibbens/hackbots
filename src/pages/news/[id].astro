@@ -39,7 +39,18 @@ const hasBody = Boolean(story.body?.trim());
   <div class="news-detail">
     <div class="wrap">
       <p class="news-back">
-        <a href={newsHref}>All News</a>
+        <a class="news-pill" href={newsHref}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M15 6 9 12l6 6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+          All News
+        </a>
       </p>
       <div class="news-body">
         {hasBody ? <Content /> : <p>{story.data.summary}</p>}

@@ -543,6 +543,12 @@ a.news-item:hover h3 {
   font-size: 1.05rem;
 }
 
+a.event-item,
+a.event-item:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
 .event-item {
   display: grid;
   grid-template-columns: 4.4rem minmax(0, 1fr);
@@ -560,15 +566,16 @@ a.news-item:hover h3 {
   align-content: center;
   justify-items: center;
   margin: 0;
-  border: 1.5px solid rgba(255, 255, 255, 0.62);
+  border: 1.5px solid #6c3f99;
   border-radius: 0.45rem;
-  color: #fff;
+  background: #fff;
+  color: #000;
   line-height: 1;
   text-align: center;
 }
 
 .badge-kicker {
-  color: #ddd6fe;
+  color: #000;
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -608,23 +615,29 @@ a.news-item:hover h3 {
 .rally {
   position: relative;
   overflow: hidden;
-  padding: 4.6rem 0 6.2rem;
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(233, 213, 255, 0.38), transparent 46%),
-    linear-gradient(180deg, #6c3f99 0%, #6c3f99 42%, #3b0764 100%);
+  padding: 4.2rem 0 3.6rem;
+  background: #6c3f99;
   text-align: center;
+}
+
+.flame-field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .rally-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: min(42rem, calc(100% - 2.5rem));
   margin-inline: auto;
 }
 
 .rally h2 {
   margin: 0 0 0.55rem;
-  color: #fff;
+  color: #1a1222;
   font-size: clamp(2.3rem, 5vw, 3.15rem);
   font-style: normal;
   font-weight: 700;
@@ -641,25 +654,28 @@ a.news-item:hover h3 {
 .rally p {
   margin: 0.35rem auto 0;
   max-width: 36rem;
-  color: #f5f3ff;
+  color: #24182f;
 }
 
-.rally p a {
-  color: #fff;
-  font-weight: 700;
-}
-
-.rally .button {
+.rally-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
   margin-top: 1.35rem;
 }
 
-.crowd {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 46%;
+.rally .button,
+.rally .button.primary {
+  border-color: #fff;
+  background: #000;
+  color: #fff;
+  box-shadow: none;
+}
+
+.rally .button:hover,
+.rally .button.primary:hover {
+  background: #1a1a1a;
 }
 
 .visual .site-footer {

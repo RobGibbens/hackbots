@@ -107,7 +107,52 @@ const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
           We want you to explore everything the Hackbots have to offer.
         </p>
         <ul class="group-grid">
-          {groups.map((group) => <li>{group}</li>)}
+          {
+            groups.map((group) => (
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  {group === "Computer Aided Design" && (
+                    <>
+                      <path d="m12.99 6.74 1.93 3.44" />
+                      <path d="M19.136 12a10 10 0 0 1-14.271 0" />
+                      <path d="m21 21-2.16-3.84" />
+                      <path d="m3 21 8.02-14.26" />
+                      <circle cx="12" cy="5" r="2" />
+                    </>
+                  )}
+                  {group === "Mechanical" && (
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" />
+                  )}
+                  {group === "Programming" && (
+                    <>
+                      <path d="m18 16 4-4-4-4" />
+                      <path d="m6 8-4 4 4 4" />
+                      <path d="m14.5 4-5 16" />
+                    </>
+                  )}
+                  {group === "Business" && (
+                    <>
+                      <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                      <rect width="20" height="14" x="2" y="6" rx="2" />
+                    </>
+                  )}
+                  {group === "Graphics" && (
+                    <>
+                      <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" />
+                      <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                      <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                      <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                      <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                    </>
+                  )}
+                  {group === "Electrical" && (
+                    <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+                  )}
+                </svg>
+                {group}
+              </li>
+            ))
+          }
         </ul>
       </section>
 

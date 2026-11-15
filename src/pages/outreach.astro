@@ -1,10 +1,35 @@
 ---
 import { Image } from "astro:assets";
 import outreachPhoto from "../../assets/outreach.png";
+import recyclePoster from "../../assets/outreach/reduce-reuse-recycle.jpg";
+import rrrasocLogo from "../../assets/outreach/rrrasoc-logo.png";
 import "../styles/home.css";
 import "../styles/outreach.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { team } from "../data/site.ts";
+
+const resources = [
+  {
+    href: recyclePoster.src,
+    label: "Reduce Reuse Recycle information",
+    kind: "Poster",
+  },
+  {
+    href: "https://www.fpsrobotics.com/uploads/1/3/3/0/133049844/reduce_your_carbon_footprint_2024.pdf",
+    label: "How to Reduce Your Carbon Footprint",
+    kind: "PDF",
+  },
+  {
+    href: "https://www.fpsrobotics.com/uploads/1/3/3/0/133049844/purple_is_the_new_green_button.ai",
+    label: "Purple is the New Green Button",
+    kind: "Artwork",
+  },
+  {
+    href: "https://www.fpsrobotics.com/uploads/1/3/3/0/133049844/battery-terminal-protection_guideline.pdf",
+    label: "How to Safely Dispose Batteries",
+    kind: "PDF",
+  },
+];
 ---
 
 <BaseLayout
@@ -43,11 +68,93 @@ import { team } from "../data/site.ts";
         <div class="section-head">
           <h2><span class="mark-slash" aria-hidden="true">/</span> STEM is for Everyone</h2>
         </div>
-        <p>STEM is for Everyone is our campaign for equal access to STEM.</p>
-        <article class="placeholder">
-          <p class="placeholder-label">Placeholder</p>
-          <p>Stories from the campaign will go here. This note is not one of those stories.</p>
-        </article>
+        <p>
+          Introduced in 2025, this campaign advocates for equal opportunities in STEM for all groups. Through outreach
+          such as our robocamps, Tech Girls, and tutoring with the Farmington African American Parent Network, Hackbots
+          strive to ensure everyone is empowered to build a future in STEM.
+        </p>
+        <div class="mission-panel">
+          <h3>Mission Statement</h3>
+          <p>
+            To promote equal opportunity and inclusion of underrepresented groups in STEM, shaping a team that reflects
+            our community and empowers all students to get involved in STEM.
+          </p>
+        </div>
+      </section>
+
+      <section class="outreach-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Purple is the New Green</h2>
+        </div>
+        <p>
+          Welcome to Hackbots' campaign <em class="campaign-name"><span class="campaign-purple">Purple</span> is the New <span class="campaign-green">Green</span></em>!
+          This is all about reducing our carbon footprint for the Earth's survival.
+        </p>
+        <p>
+          Purple is the New Green was first introduced in 2013, a project that has been continuing for the past 12 years
+          to promote environmental safety and care in our community. We focus on using STEM to reduce carbon footprint,
+          plastic pollution, and more so that upcoming generations have as much of an opportunity to thrive as us.
+        </p>
+
+        <div class="partner-panel">
+          <div>
+            <h3>Our Partner</h3>
+            <p>
+              Hackbots are proud to partner with Resource Recovery and Recycling Authority of Southwest Oakland County
+              (RRRASOC) to reduce waste in our community. RRRASOC specializes in recycling items that usually get
+              discarded. Because of this, Hackbots are able to host annual battery drives, bringing in old batteries to
+              be safely disposed across the Farmington/Farmington Hills area. Since our partnership began, we have been
+              able to safely dispose of over 1220+ pounds of batteries. We are excited to continue our partnership to
+              reduce waste in our community.
+            </p>
+          </div>
+          <Image
+            src={rrrasocLogo}
+            alt="RRRASOC, Resource Recovery and Recycling Authority of Southwest Oakland County"
+            class="partner-logo"
+            widths={[240, 480]}
+            sizes="14rem"
+            format="webp"
+          />
+        </div>
+
+        <h3 class="outreach-subhead">Other Information</h3>
+        <div class="resource-layout">
+          <Image
+            src={recyclePoster}
+            alt="Reduce, reuse, recycle. Robots always recycle, you should too. Hackbots 3414."
+            class="recycle-poster"
+            widths={[480, 742]}
+            sizes="(min-width: 800px) 36rem, 100vw"
+            format="webp"
+          />
+          <ul class="resource-list">
+            {
+              resources.map((resource) => (
+                <li>
+                  <a href={resource.href} target="_blank" rel="noopener noreferrer">
+                    <span>{resource.label}</span>
+                    <span class="resource-kind">{resource.kind}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+
+      <section class="outreach-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Battery Drive</h2>
+        </div>
+        <p>Details coming soon.</p>
+      </section>
+
+      <section class="outreach-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> RoboCamps</h2>
+        </div>
+        <p>Details coming soon.</p>
       </section>
     </div>
   </div>
