@@ -7,15 +7,12 @@ import "../styles/sponsors.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
   currentSeason,
-  routes,
   sponsorBenefits,
   sponsorTiers,
   team,
-  withBase,
   type SponsorBenefitCell,
 } from "../data/site.ts";
 
-const donate = withBase(import.meta.env.BASE_URL, routes.donate);
 const sponsorMail = `mailto:${team.email}?subject=${encodeURIComponent("Hackbots sponsorship")}`;
 const tierRank = new Map(sponsorTiers.map((tier, index) => [tier.name, index]));
 
@@ -45,7 +42,7 @@ function benefitLine(label: string, value: SponsorBenefitCell): string | undefin
 <BaseLayout
   title="Sponsors"
   variant="visual"
-  description="Every sponsorship helps the Hackbots build the Robot, reach the field, and give students a season of real engineering."
+  description="Sponsors support our robotics team both on and off the field, helping fund the tools, equipment, travel, and resources our students need to succeed."
 >
   <section class="hero page-hero sponsors-hero">
     <div class="hero-media" aria-hidden="true">
@@ -66,9 +63,10 @@ function benefitLine(label: string, value: SponsorBenefitCell): string | undefin
       <h1>Sponsors</h1>
       <hr class="hero-rule" />
       <p class="lede">
-        Every sponsorship helps the Hackbots build the Robot, reach the field, and give students a season of real engineering.
-        A larger gift brings a larger place beside the team. A smaller one still keeps them building. Companies sponsor the
-        team. Individuals and families give on the <a href={donate}>Donate</a> page.
+        Sponsors support our robotics team both on and off the field, helping fund the tools, equipment, travel, and
+        resources our students need to succeed. Beyond financial contributions, sponsors invest in our students’ growth,
+        teamwork, problem-solving, and technical skills—empowering the next generation of innovators, engineers, and
+        leaders.
       </p>
       <div class="actions">
         <a class="button primary" href={sponsorMail}>Become a sponsor</a>
