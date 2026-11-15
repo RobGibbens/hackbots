@@ -48,7 +48,7 @@ describe("public site facts", () => {
         "Events",
         "Seasons",
         "Sponsors",
-        "Outreach",
+        "Impact",
         "About",
       ],
     );
@@ -61,7 +61,7 @@ describe("public site facts", () => {
         routes.events,
         routes.seasons,
         routes.sponsors,
-        routes.outreach,
+        routes.impact,
         routes.about,
       ],
     );

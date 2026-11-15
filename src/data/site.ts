@@ -175,7 +175,7 @@ export const routes = {
   events: "/events",
   sponsors: "/sponsors",
   donate: "/donate",
-  outreach: "/outreach",
+  impact: "/impact",
   contact: "/contact",
 } as const;
 
@@ -186,7 +186,7 @@ export const nav = [
   { href: routes.events, label: "Events" },
   { href: routes.seasons, label: "Seasons" },
   { href: routes.sponsors, label: "Sponsors" },
-  { href: routes.outreach, label: "Outreach" },
+  { href: routes.impact, label: "Impact" },
   { href: routes.about, label: "About" },
 ] as const;
 
