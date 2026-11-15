@@ -11,6 +11,7 @@ import {
   shirtOffer,
   shirtOfferIsOpen,
   social,
+  sponsorBenefits,
   sponsorTiers,
   team,
   withBase,
@@ -42,28 +43,26 @@ describe("public site facts", () => {
       nav.map((item) => item.label),
       [
         "Home",
-        "About",
-        "Our Robot",
-        "Seasons",
+        "Donate",
         "News",
         "Events",
+        "Seasons",
         "Sponsors",
         "Outreach",
-        "Contact",
+        "About",
       ],
     );
     assert.deepEqual(
       nav.map((item) => item.href),
       [
         routes.home,
-        routes.about,
-        routes.ourRobot,
-        routes.seasons,
+        routes.donate,
         routes.news,
         routes.events,
+        routes.seasons,
         routes.sponsors,
         routes.outreach,
-        routes.contact,
+        routes.about,
       ],
     );
     assert.equal(routes.currentSeason, "/seasons/2027");
@@ -93,12 +92,135 @@ describe("public site facts", () => {
       "Graphics",
       "Electrical",
     ]);
-    assert.deepEqual(sponsorTiers, [
-      "Platinum",
-      "Gold",
-      "Silver",
-      "Bronze",
-      "Friend",
+    assert.deepEqual(
+      sponsorTiers.map((tier) => tier.name),
+      ["Platinum", "Gold", "Silver", "Bronze", "Friend"],
+    );
+  });
+
+  it("lists sponsor amounts from Platinum to Friend", () => {
+    assert.deepEqual(
+      sponsorTiers.map((tier) => [tier.id, tier.amount]),
+      [
+        ["platinum", "$5,000+"],
+        ["gold", "$2,000–$4,999"],
+        ["silver", "$1,000–$1,999"],
+        ["bronze", "$500–$999"],
+        ["friend", "$50–$499"],
+      ],
+    );
+  });
+
+  it("gives Platinum and Gold the same recognition", () => {
+    assert.deepEqual(
+      sponsorBenefits.map((benefit) => benefit.values.platinum),
+      sponsorBenefits.map((benefit) => benefit.values.gold),
+    );
+  });
+
+  it("limits Friend to the pit board and the Hackbots website", () => {
+    const included = sponsorBenefits
+      .filter((benefit) => benefit.values.friend !== false)
+      .map((benefit) => [benefit.label, benefit.values.friend]);
+    assert.deepEqual(included, [
+      ["Sponsorship board in the pit", "Friend"],
+      ["Hackbots website", true],
+    ]);
+  });
+
+  it("locks the sponsor benefit table", () => {
+    assert.deepEqual(sponsorBenefits, [
+      {
+        label: "Sponsorship board in the pit",
+        values: {
+          platinum: "Headliner",
+          gold: "Headliner",
+          silver: "Silver",
+          bronze: "Bronze",
+          friend: "Friend",
+        },
+      },
+      {
+        label: "Hackbots website",
+        values: {
+          platinum: true,
+          gold: true,
+          silver: true,
+          bronze: true,
+          friend: true,
+        },
+      },
+      {
+        label: "Press releases",
+        values: {
+          platinum: true,
+          gold: true,
+          silver: true,
+          bronze: true,
+          friend: false,
+        },
+      },
+      {
+        label: "Facebook and Instagram",
+        values: {
+          platinum: true,
+          gold: true,
+          silver: true,
+          bronze: false,
+          friend: false,
+        },
+      },
+      {
+        label: "Team t-shirts",
+        values: {
+          platinum: true,
+          gold: true,
+          silver: true,
+          bronze: false,
+          friend: false,
+        },
+      },
+      {
+        label: "Robot",
+        values: {
+          platinum: "Large sticker",
+          gold: "Large sticker",
+          silver: "Name or logo",
+          bronze: false,
+          friend: false,
+        },
+      },
+      {
+        label: "FIRST website",
+        href: "https://www.firstinspires.org",
+        values: {
+          platinum: true,
+          gold: true,
+          silver: false,
+          bronze: false,
+          friend: false,
+        },
+      },
+      {
+        label: "8 ft × 3 ft arena banner",
+        values: {
+          platinum: true,
+          gold: true,
+          silver: false,
+          bronze: false,
+          friend: false,
+        },
+      },
+      {
+        label: "Name announced when the team is introduced",
+        values: {
+          platinum: true,
+          gold: true,
+          silver: false,
+          bronze: false,
+          friend: false,
+        },
+      },
     ]);
   });
 

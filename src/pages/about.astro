@@ -29,7 +29,7 @@ const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
       />
     </div>
     <div class="wrap">
-      <p class="eyebrow">Team {team.number}</p>
+      <p class="eyebrow">{team.number}</p>
       <h1>About</h1>
       <hr class="hero-rule" />
       <p class="lede">We are FIRST Robotics Competition Team 3414, the Hackbots.</p>
@@ -38,6 +38,18 @@ const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
 
   <div class="about-main">
     <div class="wrap">
+      <section class="about-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Who are we?</h2>
+        </div>
+        <p>
+          We are Farmington Public Schools' United Robotics Team for all 9th - 12th grade students. Our team consists
+          of members from Farmington High School, North Farmington High School, and Farmington Central High School.
+          Through competing in FRC® competitions, we strive to gain STEM and leadership experience, along with giving
+          back to our community.
+        </p>
+      </section>
+
       <section class="about-block">
         <div class="section-head">
           <h2><span class="mark-slash" aria-hidden="true">/</span> Who can join</h2>
@@ -59,10 +71,10 @@ const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
         <div class="section-head">
           <h2><span class="mark-slash" aria-hidden="true">/</span> Our mission</h2>
         </div>
-        <article class="placeholder">
-          <p class="placeholder-label">Placeholder</p>
-          <p>The team mission will go here once someone has checked the wording. This sentence is not that mission.</p>
-        </article>
+        <p>
+          To inspire, empower and create a bridge between school and the corporate world by building essential
+          leadership skills and providing hands-on experience in STEM via FIRST®.
+        </p>
       </section>
 
       <section class="about-block">
@@ -70,8 +82,9 @@ const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
           <h2><span class="mark-slash" aria-hidden="true">/</span> What FIRST is</h2>
         </div>
         <p>
-          FIRST is the nonprofit that runs the FIRST Robotics Competition. Each year, high-school teams receive a new
-          Game. Students design, build, and program a Robot to play it, with Mentors working beside them.
+          The mission of FIRST is to inspire young people to be science and technology leaders, by engaging them in
+          exciting mentor-based programs to build science, engineering, and technology skills that inspire innovation
+          and foster well-rounded life capabilities including self-confidence, communication, and leadership.
         </p>
       </section>
 
@@ -89,7 +102,10 @@ const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
         <div class="section-head">
           <h2><span class="mark-slash" aria-hidden="true">/</span> Groups</h2>
         </div>
-        <p>Members work in one or more of these Groups. A Group is part of the Hackbots, not its own team.</p>
+        <p>
+          Members work in one or more of these sub-groups. Find the areas that interest you, then go see the rest.
+          We want you to explore everything the Hackbots have to offer.
+        </p>
         <ul class="group-grid">
           {groups.map((group) => <li>{group}</li>)}
         </ul>
@@ -105,11 +121,6 @@ const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
         </article>
       </section>
 
-      <section class="about-block">
-        <p>
-          This year's Captains and Leads are on the <a href={seasonHref}>{currentSeason.year} Season</a>.
-        </p>
-      </section>
     </div>
   </div>
 </BaseLayout>

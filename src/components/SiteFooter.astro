@@ -1,8 +1,10 @@
 ---
 import BrandMark from "./BrandMark.astro";
-import { social, team, withBase } from "../data/site.ts";
+import { routes, social, team, withBase } from "../data/site.ts";
 
-const home = withBase(import.meta.env.BASE_URL, "/");
+const base = import.meta.env.BASE_URL;
+const home = withBase(base, "/");
+const contact = withBase(base, routes.contact);
 ---
 
 <footer class="site-footer">
@@ -13,8 +15,19 @@ const home = withBase(import.meta.env.BASE_URL, "/");
       <span class="wordmark-number">{team.number}</span>
     </span>
   </a>
-  <p class="footer-tagline">Build. Learn. Compete. Together.</p>
-  <nav aria-label="Social">
+  <nav aria-label="Social and contact">
+    <a class="social-link social-link-contact" href={contact}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8.5" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+        <path
+          d="M6.25 19.25c.65-3.35 3.05-5.5 5.75-5.5s5.1 2.15 5.75 5.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"></path>
+      </svg>
+      <span>Contact Us</span>
+    </a>
     <a class="social-link" href={social.instagram}>
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"></rect>

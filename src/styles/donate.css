@@ -1,0 +1,44 @@
+.donate-main {
+  padding: 2.6rem 0 3.6rem;
+}
+
+.visual .donate-main .shirt-offer {
+  width: auto;
+  margin: 0 0 1.85rem;
+}
+
+.visual .donate-main .shirt-offer[hidden] {
+  margin: 0;
+}
+
+.donate-main .shirt-offer p {
+  max-width: 40rem;
+}
+
+.donate-block + .donate-block {
+  margin-top: 1.85rem;
+  padding-top: 1.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.donate-block > p {
+  max-width: 40rem;
+  margin: 0;
+  color: #c6c6d2;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.donate-block > p + p {
+  margin-top: 0.85rem;
+}
+
+.visual .donate-block a:not(.button) {
+  color: #e9d5ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.visual .donate-block a:not(.button):hover {
+  color: #fff;
+}

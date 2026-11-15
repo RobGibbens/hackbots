@@ -1,7 +1,18 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { sponsorTierNames } from "./data/site.ts";
 
 const calendarDate = z.coerce.date();
+
+const seasonResult = z.object({
+  name: z.string(),
+  place: z.string(),
+});
+
+const seasonLink = z.object({
+  label: z.string(),
+  href: z.string().min(1),
+});
 
 const news = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/news" }),
@@ -29,4 +40,35 @@ const events = defineCollection({
       }),
 });
 
-export const collections = { news, events };
+const seasons = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/seasons" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      subtitle: z.string(),
+      game: z.string(),
+      description: z.string(),
+      image: image(),
+      imageAlt: z.string(),
+      robot: z.string(),
+      record: z.string(),
+      results: z.array(seasonResult),
+      links: z.array(seasonLink),
+    }),
+});
+
+const sponsors = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/sponsors" }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string().min(1),
+      tier: z.enum(sponsorTierNames),
+      summary: z.string().min(1),
+      url: z.string().url(),
+      season: z.number().int(),
+      logo: image(),
+      logoAlt: z.string().min(1),
+    }),
+});
+
+export const collections = { news, events, seasons, sponsors };

@@ -6,16 +6,17 @@ interface Props {
   date: string;
   summary: string;
   heading: "h2" | "h3";
+  href: string;
 }
 
-const { title, date, summary, heading: Heading } = Astro.props;
+const { title, date, summary, heading: Heading, href } = Astro.props;
 ---
 
-<article class="news-item">
+<a class="news-item" href={href}>
   <div class="news-thumb" aria-hidden="true"></div>
   <div>
     <p class="story-date">{formatLongDate(date)}</p>
     <Heading>{title}</Heading>
     <p>{summary}</p>
   </div>
-</article>
+</a>

@@ -68,11 +68,11 @@ _Avoid_: Community
 ### Support
 
 **Sponsor**:
-A person or organization that gives the team money or materials, listed as Friend, Bronze, Silver, Gold, or Platinum. A person who works for a Sponsor can also be a Mentor.
+Usually a company that gives the team money or materials, listed as Friend, Bronze, Silver, Gold, or Platinum. A person who works for a Sponsor can also be a Mentor.
 _Avoid_: Mentor, Donation
 
 **Donation**:
-Money given for the team through the Farmington/Farmington Hills Education Foundation, with "3414 Hackbots" in the memo.
+Money given for the team, usually by a person or family, through the Farmington/Farmington Hills Education Foundation, with "3414 Hackbots" in the memo.
 _Avoid_: a Sponsor tier, a payment taken on this site
 
 **Shirt name**:

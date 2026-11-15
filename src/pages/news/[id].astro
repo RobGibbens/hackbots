@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import "../../styles/home.css";
+import "../../styles/news.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { calendarDayISO, formatLongDate } from "../../data/calendar.ts";
+import { routes, team, withBase } from "../../data/site.ts";
+
+export async function getStaticPaths() {
+  const news = await getCollection("news");
+  return news.map((story) => ({
+    params: { id: story.id },
+    props: { story },
+  }));
+}
+
+interface Props {
+  story: CollectionEntry<"news">;
+}
+
+const { story } = Astro.props;
+const { Content } = await render(story);
+const date = calendarDayISO(story.data.date);
+const newsHref = withBase(import.meta.env.BASE_URL, routes.news);
+const hasBody = Boolean(story.body?.trim());
+---
+
+<BaseLayout title={story.data.title} variant="visual" description={story.data.summary}>
+  <section class="hero page-hero">
+    <div class="wrap">
+      <p class="eyebrow">{team.number}</p>
+      <h1>{story.data.title}</h1>
+      <hr class="hero-rule" />
+      <p class="lede">{formatLongDate(date)}</p>
+    </div>
+  </section>
+
+  <div class="news-detail">
+    <div class="wrap">
+      <p class="news-back">
+        <a href={newsHref}>All News</a>
+      </p>
+      <div class="news-body">
+        {hasBody ? <Content /> : <p>{story.data.summary}</p>}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,54 @@
+---
+import "../styles/home.css";
+import "../styles/donate.css";
+import ShirtOffer from "../components/ShirtOffer.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { donation, routes, team, withBase } from "../data/site.ts";
+
+const sponsors = withBase(import.meta.env.BASE_URL, routes.sponsors);
+---
+
+<BaseLayout
+  title="Donate"
+  variant="visual"
+  description="Your donation helps us stay late in the shop, show up ready on the field, and give a younger student the same chance we got."
+>
+  <section class="hero page-hero">
+    <div class="wrap">
+      <p class="eyebrow">{team.number}</p>
+      <h1>Donate</h1>
+      <hr class="hero-rule" />
+      <p class="lede">
+        Your donation helps us stay late in the shop, show up ready on the field, and give a younger student the same chance we got.
+      </p>
+    </div>
+  </section>
+
+  <div class="donate-main">
+    <div class="wrap">
+      <ShirtOffer showSponsorsLink={false} />
+
+      <section class="donate-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> How to donate</h2>
+        </div>
+        <p>
+          <a href={donation.url}>Donate through the {donation.payableTo}</a>.
+          In the donation memo, write "{donation.memo}".
+        </p>
+        <p>
+          Checks are payable to {donation.payableTo}, {donation.mailAddress}. Use the same memo.
+        </p>
+        
+      </section>
+      <section class="donate-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Sponsorships</h2>
+        </div>
+        <p>
+          Do you or someone you know have a company interested in sponsoring the Hackbots? The tiers are on <a href={sponsors}>Sponsors</a>, and we'll help you set one up.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

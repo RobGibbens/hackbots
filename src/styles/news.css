@@ -26,3 +26,36 @@
     grid-template-columns: 1fr;
   }
 }
+
+.news-detail {
+  padding: 0.4rem 0 3.6rem;
+}
+
+.news-back {
+  margin: 0 0 1.5rem;
+}
+
+.news-back a {
+  color: #e9d5ff;
+  font-weight: 700;
+}
+
+.news-body {
+  max-width: 42rem;
+  color: #e4e4ea;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.news-body :where(p, ul, ol, blockquote) {
+  margin: 0 0 1rem;
+}
+
+.news-body :where(h2, h3) {
+  margin: 1.6rem 0 0.6rem;
+  color: #fff;
+}
+
+.news-body a {
+  color: #e9d5ff;
+}

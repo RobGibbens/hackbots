@@ -17,9 +17,127 @@ export const groups = [
   "Electrical",
 ] as const;
 
-export const sponsorTiers = ["Platinum", "Gold", "Silver", "Bronze", "Friend"] as const;
+export const sponsorTierIds = ["platinum", "gold", "silver", "bronze", "friend"] as const;
+export type SponsorTierId = (typeof sponsorTierIds)[number];
 
-export const joinFormUrl = "https://forms.gle/r57zxPEY1oQATjX46";
+export const sponsorTierNames = ["Platinum", "Gold", "Silver", "Bronze", "Friend"] as const;
+export type SponsorTierName = (typeof sponsorTierNames)[number];
+
+export type SponsorBenefitCell = true | false | string;
+
+export type SponsorBenefit = {
+  label: string;
+  href?: string;
+  values: Record<SponsorTierId, SponsorBenefitCell>;
+};
+
+export const sponsorTiers: readonly {
+  id: SponsorTierId;
+  name: SponsorTierName;
+  amount: string;
+}[] = [
+  { id: "platinum", name: "Platinum", amount: "$5,000+" },
+  { id: "gold", name: "Gold", amount: "$2,000–$4,999" },
+  { id: "silver", name: "Silver", amount: "$1,000–$1,999" },
+  { id: "bronze", name: "Bronze", amount: "$500–$999" },
+  { id: "friend", name: "Friend", amount: "$50–$499" },
+];
+
+export const sponsorBenefits: readonly SponsorBenefit[] = [
+  {
+    label: "Sponsorship board in the pit",
+    values: {
+      platinum: "Headliner",
+      gold: "Headliner",
+      silver: "Silver",
+      bronze: "Bronze",
+      friend: "Friend",
+    },
+  },
+  {
+    label: "Hackbots website",
+    values: {
+      platinum: true,
+      gold: true,
+      silver: true,
+      bronze: true,
+      friend: true,
+    },
+  },
+  {
+    label: "Press releases",
+    values: {
+      platinum: true,
+      gold: true,
+      silver: true,
+      bronze: true,
+      friend: false,
+    },
+  },
+  {
+    label: "Facebook and Instagram",
+    values: {
+      platinum: true,
+      gold: true,
+      silver: true,
+      bronze: false,
+      friend: false,
+    },
+  },
+  {
+    label: "Team t-shirts",
+    values: {
+      platinum: true,
+      gold: true,
+      silver: true,
+      bronze: false,
+      friend: false,
+    },
+  },
+  {
+    label: "Robot",
+    values: {
+      platinum: "Large sticker",
+      gold: "Large sticker",
+      silver: "Name or logo",
+      bronze: false,
+      friend: false,
+    },
+  },
+  {
+    label: "FIRST website",
+    href: "https://www.firstinspires.org",
+    values: {
+      platinum: true,
+      gold: true,
+      silver: false,
+      bronze: false,
+      friend: false,
+    },
+  },
+  {
+    label: "8 ft × 3 ft arena banner",
+    values: {
+      platinum: true,
+      gold: true,
+      silver: false,
+      bronze: false,
+      friend: false,
+    },
+  },
+  {
+    label: "Name announced when the team is introduced",
+    values: {
+      platinum: true,
+      gold: true,
+      silver: false,
+      bronze: false,
+      friend: false,
+    },
+  },
+];
+
+export const joinFormUrl = "https://forms.gle/ErHKkkmXMxSXHR6r6";
 
 export const donation = {
   url: "https://fpsalum.nationbuilder.com/donate",
@@ -51,26 +169,25 @@ export const currentSeason = {
 export const routes = {
   home: "/",
   about: "/about",
-  ourRobot: "/our-robot",
   seasons: "/seasons",
   currentSeason: "/seasons/2027",
   news: "/news",
   events: "/events",
   sponsors: "/sponsors",
+  donate: "/donate",
   outreach: "/outreach",
   contact: "/contact",
 } as const;
 
 export const nav = [
   { href: routes.home, label: "Home" },
-  { href: routes.about, label: "About" },
-  { href: routes.ourRobot, label: "Our Robot" },
-  { href: routes.seasons, label: "Seasons" },
+  { href: routes.donate, label: "Donate" },
   { href: routes.news, label: "News" },
   { href: routes.events, label: "Events" },
+  { href: routes.seasons, label: "Seasons" },
   { href: routes.sponsors, label: "Sponsors" },
   { href: routes.outreach, label: "Outreach" },
-  { href: routes.contact, label: "Contact" },
+  { href: routes.about, label: "About" },
 ] as const;
 
 const shirtDeadlineTimeZone = "America/Detroit";

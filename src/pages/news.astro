@@ -5,10 +5,11 @@ import "../styles/news.css";
 import NewsCard from "../components/NewsCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { calendarDayISO, compareIsoDate } from "../data/calendar.ts";
-import { team } from "../data/site.ts";
+import { routes, team, withBase } from "../data/site.ts";
 
+const base = import.meta.env.BASE_URL;
 const news = (await getCollection("news"))
-  .map((item) => ({ ...item.data, date: calendarDayISO(item.data.date) }))
+  .map((item) => ({ ...item.data, id: item.id, date: calendarDayISO(item.data.date) }))
   .sort((left, right) => compareIsoDate(right.date, left.date));
 ---
 
@@ -19,7 +20,7 @@ const news = (await getCollection("news"))
 >
   <section class="hero page-hero">
     <div class="wrap">
-      <p class="eyebrow">Team {team.number}</p>
+      <p class="eyebrow">{team.number}</p>
       <h1>News</h1>
       <hr class="hero-rule" />
       <p class="lede">A News item is a dated story about the team.</p>
@@ -34,7 +35,13 @@ const news = (await getCollection("news"))
             <p>No News yet.</p>
           ) : (
             news.map((item) => (
-              <NewsCard title={item.title} date={item.date} summary={item.summary} heading="h2" />
+              <NewsCard
+                title={item.title}
+                date={item.date}
+                summary={item.summary}
+                heading="h2"
+                href={withBase(base, `${routes.news}/${item.id}`)}
+              />
             ))
           )
         }

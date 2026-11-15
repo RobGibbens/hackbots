@@ -1,56 +1,210 @@
 ---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import sponsorsPhoto from "../../assets/sponsors.jpg";
 import "../styles/home.css";
 import "../styles/sponsors.css";
-import ShirtOffer from "../components/ShirtOffer.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { donation, sponsorTiers, team } from "../data/site.ts";
+import {
+  currentSeason,
+  routes,
+  sponsorBenefits,
+  sponsorTiers,
+  team,
+  withBase,
+  type SponsorBenefitCell,
+} from "../data/site.ts";
+
+const donate = withBase(import.meta.env.BASE_URL, routes.donate);
+const sponsorMail = `mailto:${team.email}?subject=${encodeURIComponent("Hackbots sponsorship")}`;
+const tierRank = new Map(sponsorTiers.map((tier, index) => [tier.name, index]));
+
+const seasonSponsors = (await getCollection("sponsors"))
+  .map((entry) => entry.data)
+  .filter((sponsor) => sponsor.season === currentSeason.year)
+  .sort((left, right) => {
+    const byTier = (tierRank.get(left.tier) ?? 0) - (tierRank.get(right.tier) ?? 0);
+    if (byTier !== 0) return byTier;
+    return left.name.localeCompare(right.name, "en");
+  });
+
+const sponsorGroups = sponsorTiers
+  .map((tier) => ({
+    tier,
+    sponsors: seasonSponsors.filter((sponsor) => sponsor.tier === tier.name),
+  }))
+  .filter((group) => group.sponsors.length > 0);
+
+function benefitLine(label: string, value: SponsorBenefitCell): string | undefined {
+  if (value === false) return undefined;
+  if (value === true) return label;
+  return `${label}: ${value}`;
+}
 ---
 
 <BaseLayout
   title="Sponsors"
   variant="visual"
-  description="A Sponsor gives the team money or materials. A Donation does not by itself add a Sponsor."
+  description="Every sponsorship helps the Hackbots build the Robot, reach the field, and give students a season of real engineering."
 >
-  <section class="hero page-hero">
+  <section class="hero page-hero sponsors-hero">
+    <div class="hero-media" aria-hidden="true">
+      <Image
+        src={sponsorsPhoto}
+        alt=""
+        class="sponsors-hero-image"
+        widths={[960, 1440, 1920]}
+        sizes="min(70rem, calc(100vw - 2.5rem))"
+        format="webp"
+        quality={75}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
     <div class="wrap">
-      <p class="eyebrow">Team {team.number}</p>
+      <p class="eyebrow">{team.number}</p>
       <h1>Sponsors</h1>
       <hr class="hero-rule" />
       <p class="lede">
-        A Sponsor gives the team money or materials. A Donation does not by itself add a Sponsor.
+        Every sponsorship helps the Hackbots build the Robot, reach the field, and give students a season of real engineering.
+        A larger gift brings a larger place beside the team. A smaller one still keeps them building. Companies sponsor the
+        team. Individuals and families give on the <a href={donate}>Donate</a> page.
       </p>
+      <div class="actions">
+        <a class="button primary" href={sponsorMail}>Become a sponsor</a>
+      </div>
     </div>
   </section>
 
   <div class="sponsors-main">
     <div class="wrap">
-      <ShirtOffer showSponsorsLink={false} />
-
-      <section class="sponsors-block">
-        <div class="section-head">
-          <h2><span class="mark-slash" aria-hidden="true">/</span> Donate</h2>
-        </div>
-        <p>
-          <a href={donation.url}>Donate through the {donation.payableTo}</a>.
-          In the donation memo, write “{donation.memo}”.
-        </p>
-        <p>
-          Checks are payable to {donation.payableTo}, {donation.mailAddress}. Use the same memo.
-        </p>
-        <p>
-          A Donation does not by itself add a Sponsor. Email <a href={`mailto:${team.email}`}>{team.email}</a> to
-          arrange a tier.
-        </p>
-      </section>
-
       <section class="sponsors-block">
         <div class="section-head">
           <h2><span class="mark-slash" aria-hidden="true">/</span> Tiers</h2>
         </div>
-        <p>Dollar amounts are not listed until someone checks them.</p>
-        <ul class="tier-grid">
-          {sponsorTiers.map((tier) => <li>{tier}</li>)}
+        
+        <div class="tier-table-wrap">
+          <table class="tier-table">
+            <caption class="visually-hidden">Sponsorship tiers and what each gift includes</caption>
+            <thead>
+              <tr>
+                <th scope="col"><span class="visually-hidden">Benefit</span></th>
+                {
+                  sponsorTiers.map((tier) => (
+                    <th scope="col" class:list={[{ "tier-col-platinum": tier.id === "platinum" }]}>
+                      <span class="tier-name">{tier.name}</span>
+                      <span class="tier-amount">{tier.amount}</span>
+                    </th>
+                  ))
+                }
+              </tr>
+            </thead>
+            <tbody>
+              {
+                sponsorBenefits.map((benefit) => (
+                  <tr>
+                    <th scope="row">
+                      {benefit.href ? <a href={benefit.href}>{benefit.label}</a> : benefit.label}
+                    </th>
+                    {sponsorTiers.map((tier) => {
+                      const value = benefit.values[tier.id];
+                      return (
+                        <td class:list={[{ "tier-col-platinum": tier.id === "platinum" }]}>
+                          {value === true && (
+                            <span class="tier-mark">
+                              <svg class="tier-check" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                  d="M5 12.5 9.2 17 19 7"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2.4"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                ></path>
+                              </svg>
+                              <span class="visually-hidden">Included</span>
+                            </span>
+                          )}
+                          {typeof value === "string" && value}
+                          {value === false && <span class="visually-hidden">Not included</span>}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <ul class="tier-cards">
+          {
+            sponsorTiers.map((tier) => (
+              <li class:list={["tier-card", { "is-platinum": tier.id === "platinum" }]}>
+                <h3>{tier.name}</h3>
+                <p class="tier-amount">{tier.amount}</p>
+                <ul>
+                  {sponsorBenefits
+                    .filter((benefit) => benefit.values[tier.id] !== false)
+                    .map((benefit) => {
+                      const line = benefitLine(benefit.label, benefit.values[tier.id]);
+                      return (
+                        <li>
+                          {benefit.href && benefit.values[tier.id] === true ? (
+                            <a href={benefit.href}>{line}</a>
+                          ) : (
+                            line
+                          )}
+                        </li>
+                      );
+                    })}
+                </ul>
+              </li>
+            ))
+          }
         </ul>
+      </section>
+
+      <section class="sponsors-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Our sponsors</h2>
+        </div>
+        {
+          seasonSponsors.length === 0 ? (
+            <p>Sponsors for the {currentSeason.year} season will be listed here.</p>
+          ) : (
+            <div class="sponsor-groups">
+              {sponsorGroups.map((group) => (
+                <div class="sponsor-group">
+                  <h3>{group.tier.name}</h3>
+                  <ul class="sponsor-grid">
+                    {group.sponsors.map((sponsor) => (
+                      <li class="sponsor-card">
+                        <a class="sponsor-link" href={sponsor.url} rel="noopener noreferrer" target="_blank">
+                          <span class="sponsor-logo">
+                            <Image
+                              src={sponsor.logo}
+                              alt={sponsor.logoAlt}
+                              widths={[240, 480]}
+                              sizes="240px"
+                              format="webp"
+                              quality={80}
+                            />
+                          </span>
+                          <span class="sponsor-name">{sponsor.name}</span>
+                          <span class="visually-hidden"> (opens in a new tab)</span>
+                        </a>
+                        <p>{sponsor.summary}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )
+        }
+        <div class="actions">
+          <a class="button primary" href={sponsorMail}>Become a sponsor</a>
+        </div>
       </section>
     </div>
   </div>

@@ -11,7 +11,7 @@ import { heroTiming } from "../data/hero.ts";
 import { joinFormUrl, routes, team, withBase } from "../data/site.ts";
 
 const latestNews = (await getCollection("news"))
-  .map((item) => ({ ...item.data, date: calendarDayISO(item.data.date) }))
+  .map((item) => ({ ...item.data, id: item.id, date: calendarDayISO(item.data.date) }))
   .sort((left, right) => compareIsoDate(right.date, left.date))
   .slice(0, 3);
 const upcomingEvents = (await getCollection("events"))
@@ -42,6 +42,7 @@ const heroCrossfade = hero.animate
 
 const base = import.meta.env.BASE_URL;
 const sponsors = withBase(base, routes.sponsors);
+const donate = withBase(base, routes.donate);
 const crowd = Array.from({ length: 16 }, (_, index) => ({
   x: 36 + index * 78,
   y: 78 + (index % 2) * 16,
@@ -81,7 +82,7 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
     </div>
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Team {team.number}</p>
+        <p class="eyebrow">{team.number}</p>
         <h1>{team.name}</h1>
         <p class="tagline">Build. Learn. Compete.<br />Together.</p>
         <hr class="hero-rule" />
@@ -90,7 +91,7 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
           FIRST competitors.
         </p>
         <div class="actions">
-          <a class="button primary" href={joinFormUrl}>
+          <a class="button primary" href={joinFormUrl} target="_blank">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M16 19v-1a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
               <circle cx="10" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
@@ -98,7 +99,7 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
             </svg>
             Join Our Team →
           </a>
-          <a class="button" href={sponsors}>
+          <a class="button" href={donate}>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 19s-7-4.4-7-8.5A3.5 3.5 0 0 1 12 8a3.5 3.5 0 0 1 7 2.5C19 14.6 12 19 12 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
             </svg>
@@ -130,7 +131,7 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
 
   <section class="pillars" aria-label="Ways to take part">
     <div class="wrap pillars-grid">
-      <a class="pillar" href={joinFormUrl}>
+      <a class="pillar" href={joinFormUrl} target="_blank">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M16 19v-1a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
           <circle cx="10" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
@@ -139,7 +140,7 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
         <h2>Join the Team</h2>
         <p>Students, parents, and mentors — all are welcome!</p>
       </a>
-      <a class="pillar" href={sponsors}>
+      <a class="pillar" href={donate}>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="m11 17 2 2a1 1 0 1 0 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
           <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -177,6 +178,7 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
                   date={item.date}
                   summary={item.summary}
                   heading="h3"
+                  href={withBase(base, `${routes.news}/${item.id}`)}
                 />
               ))
             )
@@ -215,12 +217,15 @@ const crowd = Array.from({ length: 16 }, (_, index) => ({
     <div class="rally-inner">
       <h2>Support the {team.name}</h2>
       <p class="rally-lead">Your generosity helps us build a brighter future — for our team and for STEM.</p>
-      <p>Consider making a donation, becoming a sponsor, or volunteering your time and expertise.</p>
-      <a class="button primary" href={sponsors}>
+      <p>
+        Consider making a donation, <a href={sponsors}>becoming a sponsor</a>, or volunteering your time and
+        expertise.
+      </p>
+      <a class="button primary" href={donate}>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 19s-7-4.4-7-8.5A3.5 3.5 0 0 1 12 8a3.5 3.5 0 0 1 7 2.5C19 14.6 12 19 12 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
         </svg>
-        Donate or Become a Sponsor →
+        Donate →
       </a>
     </div>
     <svg class="crowd" viewBox="0 0 1240 210" preserveAspectRatio="xMidYMax slice" aria-hidden="true">

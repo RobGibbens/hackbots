@@ -1,12 +1,22 @@
 ---
 import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import seasonsPhoto from "../../../assets/seasons.jpg";
 import "../../styles/home.css";
 import "../../styles/seasons.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { currentSeason, routes, team, withBase } from "../../data/site.ts";
 
-const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
+const base = import.meta.env.BASE_URL;
+
+function seasonYear(id: string): number {
+  const year = Number(id);
+  return Number.isInteger(year) ? year : Number.NEGATIVE_INFINITY;
+}
+
+const seasons = (await getCollection("seasons"))
+  .map((item) => ({ ...item.data, id: item.id }))
+  .sort((left, right) => seasonYear(right.id) - seasonYear(left.id));
 ---
 
 <BaseLayout
@@ -29,7 +39,7 @@ const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
       />
     </div>
     <div class="wrap">
-      <p class="eyebrow">Team {team.number}</p>
+      <p class="eyebrow">{team.number}</p>
       <h1>Seasons</h1>
       <hr class="hero-rule" />
       <p class="lede">We are preparing for the {currentSeason.year} Season. Earlier Seasons are not listed yet.</p>
@@ -55,17 +65,34 @@ const seasonHref = withBase(import.meta.env.BASE_URL, routes.currentSeason);
         <div class="section-head">
           <h2><span class="mark-slash" aria-hidden="true">/</span> Years</h2>
         </div>
-        <ul class="year-list">
-          <li>
-            <a class="year-card" href={seasonHref}>
-              <span class="year">{currentSeason.year}</span>
-              <span>
-                <span class="year-status">Current Season</span>
-                <span class="year-note">The Robot is not built yet.</span>
-              </span>
-            </a>
-          </li>
-        </ul>
+        {
+          seasons.length === 0 ? (
+            <p>No Seasons yet.</p>
+          ) : (
+            <ul class="year-list">
+              {seasons.map((item) => (
+                <li>
+                  <a class="year-card" href={withBase(base, `${routes.seasons}/${item.id}`)}>
+                    <Image
+                      src={item.image}
+                      alt={item.imageAlt}
+                      class="year-photo"
+                      widths={[320, 640]}
+                      sizes="(max-width: 640px) calc(100vw - 4.5rem), 9.5rem"
+                      format="webp"
+                      quality={75}
+                    />
+                    <span class="year-copy">
+                      <h3 class="year-title">{item.title}</h3>
+                      <span class="year-status">{item.subtitle}</span>
+                      <span class="year-note">{item.description}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
       </section>
     </div>
   </div>
