@@ -8,6 +8,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { donation, routes, team, withBase } from "../data/site.ts";
 
 const sponsors = withBase(import.meta.env.BASE_URL, routes.sponsors);
+const mentorMail = `mailto:${team.email}?subject=${encodeURIComponent("Becoming a Hackbots mentor")}`;
 ---
 
 <BaseLayout
@@ -45,7 +46,7 @@ const sponsors = withBase(import.meta.env.BASE_URL, routes.sponsors);
 
       <section class="donate-block">
         <div class="section-head">
-          <h2><span class="mark-slash" aria-hidden="true">/</span> How to donate</h2>
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Donations</h2>
         </div>
         <p>
           <a href={donation.url}>Donate through the {donation.payableTo}</a>.
@@ -56,6 +57,30 @@ const sponsors = withBase(import.meta.env.BASE_URL, routes.sponsors);
         </p>
         
       </section>
+
+      <section class="donate-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Mentorship</h2>
+        </div>
+        <p>
+          Mentors are how we get a robot on the field. FIRST is built on adults who show up, share what they know, and let students do the real work: design, build, program, and compete. When you're in the shop with us, a stuck mechanism turns into a lesson, and a student walks out ready for the next hard thing.
+        </p>
+        <p>
+          You don't have to know robotics already. A team runs on many mentors, each bringing their own experiences. We're looking for people who know things like:
+        </p>
+        <ul>
+          <li>Mechanical design, machining, or fabrication</li>
+          <li>Wiring, electronics, and controls</li>
+          <li>Programming and software</li>
+          <li>CAD</li>
+          <li>Business, fundraising, or keeping a project moving</li>
+          <li>Graphics, photos, and telling our story</li>
+        </ul>
+        <p>
+          If you've got time and something to teach, we want you here. <a href={mentorMail}>Email the team</a> about becoming a mentor.
+        </p>
+      </section>
+
       <section class="donate-block">
         <div class="section-head">
           <h2><span class="mark-slash" aria-hidden="true">/</span> Sponsorships</h2>

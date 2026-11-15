@@ -6,7 +6,7 @@ export const team = {
 };
 
 export const memberEligibility =
-  "A student in grades 9–12 from Farmington High School, North Farmington High School, or Farmington Central High School can join, as can a home-schooled student in Farmington or Farmington Hills. We do not cut a roster.";
+  "All students in grades 9–12 are welcome to join the Hackbots. We do not cut a roster.";
 
 export const groups = [
   "Computer Aided Design",

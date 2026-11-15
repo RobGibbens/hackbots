@@ -57,8 +57,22 @@
   line-height: 1.5;
 }
 
-.donate-block > p + p {
+.donate-block > p + p,
+.donate-block > ul + p {
   margin-top: 0.85rem;
+}
+
+.donate-block > ul {
+  max-width: 40rem;
+  margin: 0.85rem 0 0;
+  padding-left: 1.2rem;
+  color: #c6c6d2;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.donate-block > ul li + li {
+  margin-top: 0.35rem;
 }
 
 .visual .donate-block a:not(.button) {

@@ -1,33 +1,31 @@
 ---
 import { Image } from "astro:assets";
 import outreachPhoto from "../../assets/outreach.png";
-import recyclePoster from "../../assets/outreach/reduce-reuse-recycle.jpg";
 import rrrasocLogo from "../../assets/outreach/rrrasoc-logo.png";
+import carbonFootprintPdf from "../../assets/reduce_your_carbon_footprint_2024.pdf";
+import batteryGuidelinePdf from "../../assets/battery-terminal-protection_guideline.pdf";
 import "../styles/home.css";
 import "../styles/outreach.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { team } from "../data/site.ts";
+import { team, withBase } from "../data/site.ts";
 
-const resources = [
+const base = import.meta.env.BASE_URL;
+
+/** Dev asset URLs omit the site base; production URLs already include it. */
+function localAsset(url: string) {
+  const prefix = base.endsWith("/") ? base.slice(0, -1) : base;
+  if (!prefix || url === prefix || url.startsWith(`${prefix}/`)) return url;
+  return withBase(base, url);
+}
+
+const campaignLinks = [
   {
-    href: recyclePoster.src,
-    label: "Reduce Reuse Recycle information",
-    kind: "Poster",
-  },
-  {
-    href: "https://www.fpsrobotics.com/uploads/1/3/3/0/133049844/reduce_your_carbon_footprint_2024.pdf",
+    href: localAsset(carbonFootprintPdf),
     label: "How to Reduce Your Carbon Footprint",
-    kind: "PDF",
   },
   {
-    href: "https://www.fpsrobotics.com/uploads/1/3/3/0/133049844/purple_is_the_new_green_button.ai",
-    label: "Purple is the New Green Button",
-    kind: "Artwork",
-  },
-  {
-    href: "https://www.fpsrobotics.com/uploads/1/3/3/0/133049844/battery-terminal-protection_guideline.pdf",
+    href: localAsset(batteryGuidelinePdf),
     label: "How to Safely Dispose Batteries",
-    kind: "PDF",
   },
 ];
 ---
@@ -35,7 +33,7 @@ const resources = [
 <BaseLayout
   title="Impact"
   variant="visual"
-  description="Impact is our work with younger students and the public: camps, tutoring, mentoring FTC and FLL teams, demos, and drives. Students on those FTC and FLL teams are not Hackbots Members."
+  description="Impact is our work with younger students and the public: camps, tutoring, mentoring FTC and FLL teams, demos, and drives."
 >
   <section class="hero page-hero outreach-hero">
     <div class="hero-media" aria-hidden="true">
@@ -57,13 +55,36 @@ const resources = [
       <hr class="hero-rule" />
       <p class="lede">
         Impact is our work with younger students and the public: camps, tutoring, mentoring FTC and FLL teams, demos,
-        and drives. Students on those FTC and FLL teams are not Hackbots Members.
+        and drives.
       </p>
     </div>
   </section>
 
   <div class="outreach-main">
     <div class="wrap">
+      <section class="outreach-block">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> 2026 Impact Award</h2>
+        </div>
+        <p>
+          The FIRST Impact Award is the highest honor in FIRST Robotics Competition. It recognizes the team other programs
+          can look to: one that shows what FIRST is for, raising regard for science and technology and bringing more
+          young people into those fields as leaders. Teams may send a video with their submission, and that video plays
+          at the event if they win.
+        </p>
+        <p>
+          Learn more about the <a href="https://www.firstinspires.org/resources/library/frc/fia-resources">FIRST's Impact Award</a>.
+        </p>
+        <div class="impact-video">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/UIgGcmrAeeA"
+            title="Hackbots 2026 FIRST Impact Award video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+      </section>
+
       <section class="outreach-block">
         <div class="section-head">
           <h2><span class="mark-slash" aria-hidden="true">/</span> STEM is for Everyone</h2>
@@ -118,28 +139,14 @@ const resources = [
           />
         </div>
 
-        <h3 class="outreach-subhead">Other Information</h3>
-        <div class="resource-layout">
-          <Image
-            src={recyclePoster}
-            alt="Reduce, reuse, recycle. Robots always recycle, you should too. Hackbots 3414."
-            class="recycle-poster"
-            widths={[480, 742]}
-            sizes="(min-width: 800px) 36rem, 100vw"
-            format="webp"
-          />
-          <ul class="resource-list">
-            {
-              resources.map((resource) => (
-                <li>
-                  <a href={resource.href} target="_blank" rel="noopener noreferrer">
-                    <span>{resource.label}</span>
-                    <span class="resource-kind">{resource.kind}</span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
+        <div class="campaign-actions">
+          {
+            campaignLinks.map((link) => (
+              <a class="campaign-action" href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label}
+              </a>
+            ))
+          }
         </div>
       </section>
 
