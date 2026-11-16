@@ -4,6 +4,7 @@
 - Impact page - Add text and images for RoboCamps
 - Add News items
 - Seasons page - Add text for Our History
+- Seasons page - better subtitle
 - 2027 Season - Fill out information
 - Each season - add CAD and Report links, if exist
 - Each season - connect to TBA api to bring in matches?
