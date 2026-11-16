@@ -89,7 +89,7 @@ Your story should appear with its date and summary. If three newer stories alrea
 
 ## If the story is missing
 
-- The file is in the wrong folder. It must be `src/content/news`, not `src/content/events`.
+- The file is in the wrong folder. It must be `src/content/news`, not `src/content/calendar`.
 - A `---` line is missing, or `date` is not `YYYY-MM-DD`.
 - The file includes the lines of three backticks from this guide. Delete them so the first line is `---`. A file like that stops `npm run dev` and the deploy with a schema error.
 - The summary has a line break. Keep `summary` on one line.

@@ -14,7 +14,7 @@ const latestNews = (await getCollection("news"))
   .map((item) => ({ ...item.data, id: item.id, date: calendarDayISO(item.data.date) }))
   .sort((left, right) => compareIsoDate(right.date, left.date))
   .slice(0, 3);
-const upcomingEvents = (await getCollection("events"))
+const upcomingEvents = (await getCollection("calendar"))
   .map((item) => ({ ...item.data, id: item.id, when: calendarDayISO(item.data.when) }))
   .filter((item) => isUpcoming(item.when))
   .sort((left, right) => compareIsoDate(left.when, right.when))

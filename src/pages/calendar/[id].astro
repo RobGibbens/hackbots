@@ -9,7 +9,7 @@ import { calendarDayISO, formatLongDate } from "../../data/calendar.ts";
 import { routes, team, withBase } from "../../data/site.ts";
 
 export async function getStaticPaths() {
-  const events = await getCollection("events");
+  const events = await getCollection("calendar");
   return events.map((event) => ({
     params: { id: event.id },
     props: { event },
@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-  event: CollectionEntry<"events">;
+  event: CollectionEntry<"calendar">;
 }
 
 const { event } = Astro.props;

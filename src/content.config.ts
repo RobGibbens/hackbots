@@ -23,8 +23,8 @@ const news = defineCollection({
   }),
 });
 
-const events = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/events" }),
+const calendar = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/calendar" }),
   schema: ({ image }) =>
     z
       .object({
@@ -74,4 +74,4 @@ const sponsors = defineCollection({
     }),
 });
 
-export const collections = { news, events, seasons, sponsors };
+export const collections = { news, calendar, seasons, sponsors };

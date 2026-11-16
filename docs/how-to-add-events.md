@@ -6,7 +6,7 @@ A story about something that already happened is **News**, not an Event. For a s
 
 You add an Event by creating one text file and sending it to the team through GitHub. You do not change the page design, and you do not publish the site yourself. Merging your change into `main` publishes it.
 
-The live Events page is [https://robgibbens.github.io/hackbots/events](https://robgibbens.github.io/hackbots/events). The homepage shows the three soonest upcoming Events.
+The live Calendar page is [https://robgibbens.github.io/hackbots/calendar](https://robgibbens.github.io/hackbots/calendar). The homepage shows the three soonest upcoming Events.
 
 ## Before you start
 
@@ -23,7 +23,7 @@ A few words you will see:
 
 On GitHub, open the repo, then open this folder:
 
-`src/content/events`
+`src/content/calendar`
 
 Click **Add file**, then **Create new file**.
 
@@ -59,11 +59,11 @@ Leave the `---` lines in place. Do not add spaces before `title`, `when`, `where
 
 Text after the second `---` is the Event detail. People see it when they click the Event. Write normal sentences. You can add headings, lists, and links the same way you would in any markdown file.
 
-To put a photo behind the title, put the image file in `src/content/events`, next to the markdown file. On GitHub, use **Add file**, then **Upload files**. Set `image` to that file, with `./` in front, and set `imageAlt` to a short description. The image name must match the file, or the site will not build. Leave both lines out if the Event has no header photo.
+To put a photo behind the title, put the image file in `src/content/calendar`, next to the markdown file. On GitHub, use **Add file**, then **Upload files**. Set `image` to that file, with `./` in front, and set `imageAlt` to a short description. The image name must match the file, or the site will not build. Leave both lines out if the Event has no header photo.
 
 A photo that belongs in the write-up, under the title, stays in the text as `![Robot on the field](./district-championship-pit.jpg)`. The words in brackets are the description. That photo is not the header. Use a different file than `image` if you want both.
 
-The file name, without `.md`, is the address of the detail page. `district-championship.md` opens at [https://robgibbens.github.io/hackbots/events/district-championship](https://robgibbens.github.io/hackbots/events/district-championship).
+The file name, without `.md`, is the address of the detail page. `district-championship.md` opens at [https://robgibbens.github.io/hackbots/calendar/district-championship](https://robgibbens.github.io/hackbots/calendar/district-championship).
 
 The Events page lists an Event only when its date is today or later in Detroit time. An Event dated yesterday stays in the repo and disappears from the lists. Its detail page stays at the same address. The homepage shows only the next three upcoming Events.
 
@@ -96,7 +96,7 @@ GitHub then runs **Deploy to GitHub Pages**. You can watch it under the **Action
 
 Open these pages and refresh:
 
-- [https://robgibbens.github.io/hackbots/events](https://robgibbens.github.io/hackbots/events)
+- [https://robgibbens.github.io/hackbots/calendar](https://robgibbens.github.io/hackbots/calendar)
 - [https://robgibbens.github.io/hackbots/](https://robgibbens.github.io/hackbots/)
 
 Your Event should appear with its date and place. Click it to open the detail page, with the text and images from the file. If the homepage already has three sooner Events, yours appears on the Events page and not yet on the homepage.
@@ -104,11 +104,11 @@ Your Event should appear with its date and place. Click it to open the detail pa
 ## If the Event is missing
 
 - The date is in the past. Change `when` to today or a future date.
-- The file is in the wrong folder. It must be `src/content/events`, not `src/content/news`.
+- The file is in the wrong folder. It must be `src/content/calendar`, not `src/content/news`.
 - A `---` line is missing, or `when` is not `YYYY-MM-DD`.
 - The file includes the lines of three backticks from this guide. Delete them so the first line is `---`. A file like that stops `npm run dev` and the deploy with a schema error.
 - The pull request is still open. The live site changes only after it is merged into `main`.
-- The Actions run has a red X. Open that run and ask a mentor for help. Do not try to fix the site by editing files outside `src/content/events`.
+- The Actions run has a red X. Open that run and ask a mentor for help. Do not try to fix the site by editing files outside `src/content/calendar`.
 
 ## Same steps with git on your computer
 
@@ -122,14 +122,14 @@ git pull
 git checkout -b add-district-championship
 ```
 
-Create `src/content/events/district-championship.md` with the text from step 1. Then:
+Create `src/content/calendar/district-championship.md` with the text from step 1. Then:
 
 ```bash
-git add src/content/events/district-championship.md
+git add src/content/calendar/district-championship.md
 git commit -m "Add the district championship to Events."
 git push -u origin add-district-championship
 ```
 
 On GitHub, open a pull request from `add-district-championship` into `main`. Merging that pull request deploys the site, the same way as in step 4.
 
-To preview before you push, a mentor can run `npm run dev` and open `http://localhost:4321/hackbots/events`.
+To preview before you push, a mentor can run `npm run dev` and open `http://localhost:4321/hackbots/calendar`.
