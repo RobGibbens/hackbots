@@ -58,6 +58,8 @@ const news = (await getCollection("news"))
                 summary={item.summary}
                 heading="h2"
                 href={withBase(base, `${routes.news}/${item.id}`)}
+                image={item.image}
+                imageAlt={item.imageAlt}
               />
             ))
           )

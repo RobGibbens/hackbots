@@ -174,6 +174,8 @@ const donate = withBase(base, routes.donate);
                   summary={item.summary}
                   heading="h3"
                   href={withBase(base, `${routes.news}/${item.id}`)}
+                  image={item.image}
+                  imageAlt={item.imageAlt}
                 />
               ))
             )

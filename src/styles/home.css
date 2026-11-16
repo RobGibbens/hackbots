@@ -492,6 +492,20 @@ a.news-item:hover h3 {
     linear-gradient(145deg, #312e81, #6c3f99 55%, #111827);
 }
 
+.news-thumb-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem;
+  background: #f4f4f5;
+}
+
+.news-thumb-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .news-item:nth-child(2) .news-thumb {
   display: grid;
   place-items: center;

@@ -34,6 +34,10 @@
   gap: 0;
 }
 
+.news-main .news-thumb-image {
+  padding: 0.85rem;
+}
+
 .news-main .news-item {
   grid-template-columns: 16rem minmax(0, 1fr);
   gap: 1.35rem;

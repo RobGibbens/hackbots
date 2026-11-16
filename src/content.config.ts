@@ -11,11 +11,19 @@ const seasonLink = z.object({
 
 const news = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/news" }),
-  schema: z.object({
-    title: z.string(),
-    date: calendarDate,
-    summary: z.string(),
-  }),
+  schema: ({ image }) =>
+    z
+      .object({
+        title: z.string(),
+        date: calendarDate,
+        summary: z.string(),
+        image: image().optional(),
+        imageAlt: z.string().optional(),
+      })
+      .refine((data) => !data.image || Boolean(data.imageAlt), {
+        message: "imageAlt is required when image is set",
+        path: ["imageAlt"],
+      }),
 });
 
 const calendar = defineCollection({
