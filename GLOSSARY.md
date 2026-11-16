@@ -14,19 +14,19 @@ _Avoid_: Omega Squad, FPS Robotics
 The nonprofit that runs the robotics competition the Hackbots play in.
 _Avoid_: the team, a sponsor
 
-**Member**:
-A student in grades 9–12 on the Hackbots, from Farmington High School, North Farmington High School, Farmington Central High School, or home school in Farmington or Farmington Hills. Joining makes them a Member; the roster is not cut.
-_Avoid_: a separate team per school, a student on an FTC or FLL team the Hackbots mentor
+**Student**:
+A person in grades 9–12 on the Hackbots, from Farmington High School, North Farmington High School, Farmington Central High School, or home school in Farmington or Farmington Hills. Joining makes them a Student; the roster is not cut.
+_Avoid_: Member, a separate team per school, a student on an FTC or FLL team the Hackbots mentor
 
 **Group**:
 One of the six parts of the team: Computer Aided Design, Mechanical, Programming, Business, Graphics, and Electrical.
 _Avoid_: subgroup, subteam
 
 **Captain**:
-A Member who leads the team for a Season. A Season can have more than one Captain.
+A Student who leads the team for a Season. A Season can have more than one Captain.
 
 **Lead**:
-A Member who leads a Group for a Season. A Group can have more than one Lead, and a Member can be both a Captain and a Lead in the same Season.
+A Student who leads a Group for a Season. A Group can have more than one Lead, and a Student can be both a Captain and a Lead in the same Season.
 _Avoid_: Mentor
 
 ### The year
@@ -76,7 +76,7 @@ Money given for the team, usually by a person or family, through the Farmington/
 _Avoid_: a Sponsor tier, a payment taken on this site
 
 **Shirt name**:
-One line on the back of a Season's team shirt, chosen by a Member's family. Each line requires a Donation of at least $250 received on or before that Season's deadline.
+One line on the back of a Season's team shirt, chosen by a Student's family. Each line requires a Donation of at least $250 received on or before that Season's deadline.
 _Avoid_: Sponsor tier
 
 **Mentor**:

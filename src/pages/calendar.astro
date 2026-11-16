@@ -10,6 +10,8 @@ import { calendarDayISO, compareIsoDate, isUpcoming } from "../data/calendar.ts"
 import { routes, team, withBase } from "../data/site.ts";
 
 const base = import.meta.env.BASE_URL;
+const lede =
+  "One place for the season. Students check it to know when they are needed. Everyone else checks it to know where we are.";
 const events = (await getCollection("events"))
   .map((item) => ({ ...item.data, id: item.id, when: calendarDayISO(item.data.when) }))
   .filter((item) => isUpcoming(item.when))
@@ -17,9 +19,9 @@ const events = (await getCollection("events"))
 ---
 
 <BaseLayout
-  title="Events"
+  title="Calendar"
   variant="visual"
-  description="This page lists upcoming Events only."
+  description={lede}
 >
   <section class="hero page-hero events-hero">
     <div class="hero-media" aria-hidden="true">
@@ -37,9 +39,9 @@ const events = (await getCollection("events"))
     </div>
     <div class="wrap">
       <p class="eyebrow">{team.number}</p>
-      <h1>Events</h1>
+      <h1>Calendar</h1>
       <hr class="hero-rule" />
-      <p class="lede">Put upcoming text here</p>
+      <p class="lede">{lede}</p>
     </div>
   </section>
 
@@ -56,11 +58,18 @@ const events = (await getCollection("events"))
                 when={item.when}
                 where={item.where}
                 heading="h2"
-                href={withBase(base, `${routes.events}/${item.id}`)}
+                href={withBase(base, `${routes.calendar}/${item.id}`)}
               />
             ))
           )
         }
+      </div>
+      <div class="calendar-embed">
+        <iframe
+          src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FNew_York&src=dGVhbTM0MTRoYWNrYm90c0BnbWFpbC5jb20&color=%23D81B60"
+          title="Hackbots Google Calendar"
+          loading="lazy"
+        ></iframe>
       </div>
     </div>
   </div>

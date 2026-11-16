@@ -45,7 +45,7 @@ describe("public site facts", () => {
         "Home",
         "Donate",
         "News",
-        "Events",
+        "Calendar",
         "Seasons",
         "Sponsors",
         "Impact",
@@ -58,13 +58,14 @@ describe("public site facts", () => {
         routes.home,
         routes.donate,
         routes.news,
-        routes.events,
+        routes.calendar,
         routes.seasons,
         routes.sponsors,
         routes.impact,
         routes.about,
       ],
     );
+    assert.equal(routes.calendar, "/calendar");
     assert.equal(routes.currentSeason, "/seasons/2027");
   });
 

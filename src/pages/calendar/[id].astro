@@ -23,7 +23,7 @@ interface Props {
 const { event } = Astro.props;
 const { Content } = await render(event);
 const when = calendarDayISO(event.data.when);
-const eventsHref = withBase(import.meta.env.BASE_URL, routes.events);
+const calendarHref = withBase(import.meta.env.BASE_URL, routes.calendar);
 const heroImage = event.data.image;
 ---
 
@@ -61,7 +61,7 @@ const heroImage = event.data.image;
   <div class="event-detail">
     <div class="wrap">
       <p class="event-back">
-        <a class="event-pill" href={eventsHref}>
+        <a class="event-pill" href={calendarHref}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path
               d="M15 6 9 12l6 6"

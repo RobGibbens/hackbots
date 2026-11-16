@@ -183,7 +183,7 @@ const donate = withBase(base, routes.donate);
       <div class="digest-col">
         <div class="section-head">
           <h2><span class="mark-slash" aria-hidden="true">/</span> Upcoming Events</h2>
-          <a href={withBase(base, routes.events)}>View All Events →</a>
+          <a href={withBase(base, routes.calendar)}>View All Events →</a>
         </div>
         <div class="event-list">
           {
@@ -196,7 +196,7 @@ const donate = withBase(base, routes.donate);
                   when={item.when}
                   where={item.where}
                   heading="h3"
-                  href={withBase(base, `${routes.events}/${item.id}`)}
+                  href={withBase(base, `${routes.calendar}/${item.id}`)}
                 />
               ))
             )
