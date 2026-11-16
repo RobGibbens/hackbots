@@ -118,7 +118,9 @@ const stats = [
             stats.map((stat) => (
               <div class="season-stat">
                 <dt>{stat.label}</dt>
-                <dd data-stat={stat.name}>…</dd>
+                <dd data-stat={stat.name}>
+                  <span class="skeleton skeleton-stat" aria-hidden="true"></span>
+                </dd>
               </div>
             ))
           }
@@ -134,8 +136,22 @@ const stats = [
         <div class="section-head">
           <h2><span class="mark-slash" aria-hidden="true">/</span> Events</h2>
         </div>
-        <p data-season-events-status>Loading this Season’s Events.</p>
-        <ol class="season-event-list" data-season-event-list></ol>
+        <p class="visually-hidden" data-season-events-status>Loading this Season’s Events.</p>
+        <ol class="season-event-list" data-season-event-list>
+          {
+            [0, 1, 2].map(() => (
+              <li class="season-event season-event-skeleton" aria-hidden="true">
+                <span class="skeleton skeleton-name"></span>
+                <span class="skeleton skeleton-meta"></span>
+                <span class="skeleton-stats">
+                  <span class="skeleton"></span>
+                  <span class="skeleton"></span>
+                  <span class="skeleton"></span>
+                </span>
+              </li>
+            ))
+          }
+        </ol>
       </section>
 
       {
@@ -264,9 +280,17 @@ const stats = [
     if (eventsRoot instanceof HTMLElement) eventsRoot.setAttribute("aria-busy", "false");
   }
 
+  function revealStatus(message: string) {
+    if (!(status instanceof HTMLElement)) return;
+    status.hidden = false;
+    status.classList.remove("visually-hidden");
+    status.textContent = message;
+  }
+
   function showFailure() {
     for (const name of statNames) setStat(name, null);
-    if (status) status.textContent = "Results from The Blue Alliance could not be loaded.";
+    if (list instanceof HTMLElement) list.replaceChildren();
+    revealStatus("Results from The Blue Alliance could not be loaded.");
     finishLoad();
   }
 
@@ -402,7 +426,7 @@ const stats = [
           if (list instanceof HTMLElement && status instanceof HTMLElement) {
             list.replaceChildren();
             if (!recap.started) {
-              status.textContent = "This Season has not started.";
+              revealStatus("This Season has not started.");
             } else {
               status.hidden = true;
               for (const event of recap.events) list.append(eventCard(event));

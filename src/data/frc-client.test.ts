@@ -91,4 +91,27 @@ describe("loadSeasonRecap", () => {
     assert.equal(result.statboticsError, false);
     assert.equal(result.recap, null);
   });
+
+  it("stops waiting when the remote APIs do not answer", async () => {
+    const result = await loadSeasonRecap(2025, {
+      apiKey: "test-key",
+      timeoutMs: 30,
+      fetch: (_input, init) =>
+        new Promise((_resolve, reject) => {
+          const signal = init?.signal;
+          if (!signal) {
+            reject(new Error("expected an abort signal"));
+            return;
+          }
+          const fail = () => reject(signal.reason ?? new Error("aborted"));
+          if (signal.aborted) {
+            fail();
+            return;
+          }
+          signal.addEventListener("abort", fail, { once: true });
+        }),
+    });
+    assert.equal(result.tbaError, true);
+    assert.equal(result.recap, null);
+  });
 });
