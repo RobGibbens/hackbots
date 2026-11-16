@@ -52,7 +52,10 @@ const seasons = defineCollection({
       imageAlt: z.string(),
       robot: z.string(),
       record: z.string(),
-      results: z.array(seasonResult),
+      results: z
+        .union([z.array(seasonResult), z.null()])
+        .optional()
+        .transform((value) => value ?? []),
       links: z.array(seasonLink),
     }),
 });

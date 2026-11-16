@@ -58,7 +58,7 @@ links:
 
 Copy the frontmatter, including both `---` lines. The file must start with `---`. Do not copy the lines of three backticks that surround the example in this guide. If those lines are in the Season file, the site will not start. Do not write the Season under the second `---`. That text is not shown.
 
-Every field between the `---` marks is required.
+Every field between the `---` marks is required. `results` can be an empty list when the season has no awards or events yet.
 
 | Line | What to type |
 | --- | --- |
@@ -70,7 +70,7 @@ Every field between the `---` marks is required.
 | `imageAlt` | A short description of that photo. |
 | `robot` | The Robot's name. It is the title of the Season page. |
 | `record` | The line under the Robot name, such as `1x winner, 2x finalist`. |
-| `results` | Each award or event. `name` is the award or event. `place` is the finish, such as `Winner` or `Finalist`. |
+| `results` | Each award or event. `name` is the award or event. `place` is the finish, such as `Winner` or `Finalist`. Use `results: []` when there are none yet. A line that says only `results:` is the same as an empty list. |
 | `links` | The buttons at the bottom of the Season page. `label` is the words on the button. `href` is the address. CAD, Report, and The Blue Alliance are the usual three. |
 
 Leave the `---` lines in place. Do not add spaces before `title`, `subtitle`, `game`, `description`, `image`, `imageAlt`, `robot`, `record`, `results`, or `links`.
@@ -120,7 +120,7 @@ Your Season should appear with its photo, title, subtitle, and description. Newe
 
 - The file is in the wrong folder. It must be `src/content/seasons`.
 - The file name is not a four-digit year, such as `2026.md`.
-- A `---` line is missing, or one of `title`, `subtitle`, `game`, `description`, `image`, `imageAlt`, `robot`, `record`, `results`, or `links` is missing.
+- A `---` line is missing, or one of `title`, `subtitle`, `game`, `description`, `image`, `imageAlt`, `robot`, `record`, or `links` is missing. `results` can be left out or set to `[]`.
 - A result is missing `name` or `place`, or a link is missing `label` or `href`. The dash lines need two spaces of indent, and the lines under them need four.
 - `image` does not match a photo in that folder. `image: ./2026.jpg` needs a file named `2026.jpg` next to the markdown file.
 - The description has a line break. Keep `description` on one line.
