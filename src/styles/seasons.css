@@ -373,13 +373,46 @@
 
 .season-finish {
   display: inline-flex;
-  margin: 0 0 0.65rem;
-  padding: 0.2rem 0.7rem;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.75rem;
+  padding: 0.4rem 1.05rem 0.4rem 0.4rem;
+  border: 1px solid transparent;
   border-radius: 999px;
-  background: #6c3f99;
-  color: #fff;
-  font-size: 0.85rem;
+  color: #1a1408;
+  font-size: 0.95rem;
   font-weight: 700;
+}
+
+.season-finish svg {
+  width: 2.05rem;
+  height: 2.05rem;
+  flex: none;
+  padding: 0.38rem;
+  border-radius: 999px;
+  color: #fff;
+}
+
+.season-finish-winner {
+  background: #f5c518;
+  color: #2a1d04;
+  box-shadow: 0 0 0 3px rgb(245 197 24 / 0.22);
+}
+
+.season-finish-winner svg {
+  background: #2a1d04;
+  color: #f5c518;
+}
+
+.season-finish-finalist {
+  background: #2ad4f0;
+  color: #042430;
+  box-shadow: 0 0 0 3px rgb(42 212 240 / 0.22);
+}
+
+.season-finish-finalist svg {
+  background: #042430;
+  color: #7ee7f5;
 }
 
 .season-event-name {
@@ -435,11 +468,26 @@
 }
 
 .season-awards li {
-  padding: 0.25rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.22rem 0.7rem 0.22rem 0.22rem;
   border-radius: 999px;
-  background: #0d0b14;
-  color: #e4e4ea;
+  background: #e4a090;
+  color: #3a1a14;
   font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 0 0 3px rgb(228 160 144 / 0.16);
+}
+
+.season-awards svg {
+  width: 1.45rem;
+  height: 1.45rem;
+  flex: none;
+  padding: 0.26rem;
+  border-radius: 999px;
+  background: #3a1a14;
+  color: #f6ddd6;
 }
 
 @media (max-width: 800px) {

@@ -270,6 +270,52 @@ const stats = [
     finishLoad();
   }
 
+  function trophyIcon(): SVGSVGElement {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    const cup = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    cup.setAttribute("d", "M8 4h8v5a4 4 0 0 1-8 0V4z");
+    const base = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    base.setAttribute(
+      "d",
+      "M8 6H5.5A2.5 2.5 0 0 0 8 10.2M16 6h2.5A2.5 2.5 0 0 1 16 10.2M12 13v2.5M9.5 20h5M10 15.5h4V20h-4z",
+    );
+    for (const path of [cup, base]) {
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "currentColor");
+      path.setAttribute("stroke-width", "1.8");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+    }
+    svg.append(cup, base);
+    return svg;
+  }
+
+  function ribbonIcon(): SVGSVGElement {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    const medal = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    medal.setAttribute("cx", "12");
+    medal.setAttribute("cy", "8");
+    medal.setAttribute("r", "6");
+    const tails = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    tails.setAttribute(
+      "d",
+      "m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526",
+    );
+    for (const shape of [medal, tails]) {
+      shape.setAttribute("fill", "none");
+      shape.setAttribute("stroke", "currentColor");
+      shape.setAttribute("stroke-width", "1.8");
+      shape.setAttribute("stroke-linecap", "round");
+      shape.setAttribute("stroke-linejoin", "round");
+    }
+    svg.append(medal, tails);
+    return svg;
+  }
+
   function statPair(label: string, value: string | null): HTMLDivElement {
     const wrap = document.createElement("div");
     const term = document.createElement("dt");
@@ -286,8 +332,10 @@ const stats = [
 
     if (event.finish) {
       const badge = document.createElement("p");
-      badge.className = "season-finish";
-      badge.textContent = event.finish === "winner" ? "Winner" : "Finalist";
+      badge.className = event.finish === "winner" ? "season-finish season-finish-winner" : "season-finish season-finish-finalist";
+      const label = document.createElement("span");
+      label.textContent = event.finish === "winner" ? "Winner" : "Finalist";
+      badge.append(trophyIcon(), label);
       item.append(badge);
     }
 
@@ -316,7 +364,9 @@ const stats = [
       awards.className = "season-awards";
       for (const name of event.awards) {
         const award = document.createElement("li");
-        award.textContent = name;
+        const label = document.createElement("span");
+        label.textContent = name;
+        award.append(ribbonIcon(), label);
         awards.append(award);
       }
       item.append(awards);
