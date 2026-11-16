@@ -2,11 +2,13 @@
 
 A **Season** is one FRC competition year. The Seasons page lists every Season that has a file in the repo.
 
-You add a Season to that list by creating one text file and one photo, then sending them to the team through GitHub. You do not change the page design, and you do not publish the site yourself. Merging your change into `main` publishes it.
+You add a Season to that list by creating one text file and one game logo, then sending them to the team through GitHub. You do not change the page design, and you do not publish the site yourself. Merging your change into `main` publishes it.
 
 The live Seasons page is [https://robgibbens.github.io/hackbots/seasons](https://robgibbens.github.io/hackbots/seasons).
 
-The file you add puts a card on that list and creates that Season's page. A card for `2026.md` links to [https://robgibbens.github.io/hackbots/seasons/2026](https://robgibbens.github.io/hackbots/seasons/2026). The lines between the `---` marks are the card and the page. You do not add a separate page file. Text after the second `---` is not shown.
+The file you add puts a card on that list and creates that Season's page. A card for `2026.md` links to [https://robgibbens.github.io/hackbots/seasons/2026](https://robgibbens.github.io/hackbots/seasons/2026). The lines between the `---` marks are the card. You do not add a separate page file. Text after the second `---` is the team's comment on that Season, and it is shown on the Season page. You can leave that part blank.
+
+The Season page loads events, records, and awards on its own. You do not type them into the file.
 
 ## Before you start
 
@@ -37,28 +39,15 @@ title: 2026 Season
 subtitle: Earlier Season
 game: Game Name
 description: A short note about that year's Robot and Game.
-image: ./2026.jpg
-imageAlt: The 2026 Robot
 robot: Robot Name
-record: 1x winner, 2x finalist
-results:
-  - name: District Event
-    place: Winner
-  - name: State Championship
-    place: Finalist
-links:
-  - label: CAD
-    href: "#"
-  - label: Report
-    href: "#"
-  - label: The Blue Alliance
-    href: https://www.thebluealliance.com/team/3414
 ---
+
+A few sentences about what the team wants people to remember from this Season.
 ```
 
-Copy the frontmatter, including both `---` lines. The file must start with `---`. Do not copy the lines of three backticks that surround the example in this guide. If those lines are in the Season file, the site will not start. Do not write the Season under the second `---`. That text is not shown.
+Copy the frontmatter, including both `---` lines. The file must start with `---`. Do not copy the lines of three backticks that surround the example in this guide. If those lines are in the Season file, the site will not start.
 
-Every field between the `---` marks is required. `results` can be an empty list when the season has no awards or events yet.
+Write the team's comment after the second `---`. That text is shown on the Season page. A file with nothing after the frontmatter still gets a card and a page. The page then shows the sentence from `description`.
 
 | Line | What to type |
 | --- | --- |
@@ -66,20 +55,26 @@ Every field between the `---` marks is required. `results` can be an empty list 
 | `subtitle` | The short line on the card, such as `Earlier Season`. |
 | `game` | The Game name under the year on the Season page, such as `BioCore`. |
 | `description` | One or two sentences on the card. Keep it on one line. |
-| `image` | The photo on the card and at the top of the Season page. A path like `./2026.jpg`. |
-| `imageAlt` | A short description of that photo. |
-| `robot` | The Robot's name. It is the title of the Season page. |
-| `record` | The line under the Robot name, such as `1x winner, 2x finalist`. |
-| `results` | Each award or event. `name` is the award or event. `place` is the finish, such as `Winner` or `Finalist`. Use `results: []` when there are none yet. A line that says only `results:` is the same as an empty list. |
-| `links` | The buttons at the bottom of the Season page. `label` is the words on the button. `href` is the address. CAD, Report, and The Blue Alliance are the usual three. |
+| `robot` | The Robot's name. It is shown under the Game on the Season page. |
+| `image` | Optional. Leave this out to use the game logo. Set it only when the card should use a different picture, such as `image: ./2026-robot.jpg`. |
+| `imageAlt` | Required when `image` is set. A short description of that picture. |
+| `links` | Optional buttons at the bottom of the Season page, such as CAD or Report. The page already links to The Blue Alliance. |
 
-Leave the `---` lines in place. Do not add spaces before `title`, `subtitle`, `game`, `description`, `image`, `imageAlt`, `robot`, `record`, `results`, or `links`.
+Leave the `---` lines in place. Do not add spaces before `title`, `subtitle`, `game`, `description`, or `robot`.
 
-Each result and each link starts with a dash, indented two spaces. `name`, `place`, `label`, and `href` are indented four spaces. Keep that spacing, or the site will not start. Put quotes around `#` when an address is not ready yet, as in `href: "#"`. A real address does not need quotes.
+Each link starts with a dash, indented two spaces. `label` and `href` are indented four spaces. Keep that spacing, or the site will not start. Put quotes around `#` when an address is not ready yet, as in `href: "#"`. A real address does not need quotes.
 
-A file with nothing after the frontmatter still gets a card and a page. The page shows the Game under the year, then the Robot name, the record, the results, and the links.
+```markdown
+links:
+  - label: CAD
+    href: "#"
+  - label: Report
+    href: "#"
+```
 
-Put the photo in `src/content/seasons`, next to the markdown file. On GitHub, use **Add file**, then **Upload files**. Set `image` to that file, with `./` in front. The image name must match the file, or the site will not build.
+Put the game logo in `src/content/seasons`, next to the markdown file. Name it with the year, such as `2026.webp`. On GitHub, use **Add file**, then **Upload files**. The list and the top of the Season page use that logo. You do not set `image` unless you want a different picture.
+
+Robot photos are optional. Put them in `src/content/seasons/photos/2026/`. The Season page shows them as a carousel when that folder has photos. A Season with no photos simply has no carousel.
 
 Do not edit `src/content.config.ts`. That file is the list's setup, not a Season.
 
@@ -94,7 +89,7 @@ On the same page, look for **Commit changes**.
 
 That click does two things: it makes the commit, and it starts the pull request.
 
-If the photo is a second commit, add it on the same branch before you ask for review.
+If the logo is a second commit, add it on the same branch before you ask for review.
 
 ## 3. Open the pull request
 
@@ -114,15 +109,16 @@ GitHub then runs **Deploy to GitHub Pages**. You can watch it under the **Action
 
 Open [https://robgibbens.github.io/hackbots/seasons](https://robgibbens.github.io/hackbots/seasons) and refresh.
 
-Your Season should appear with its photo, title, subtitle, and description. Newer years are listed first. Click the card to open `/seasons/` plus the file name. That page shows the Game name under the year, then the Robot name, the record, the results, and the links.
+Your Season should appear with its game logo, title, subtitle, and description. Newer years are listed first. Click the card to open `/seasons/` plus the file name. That page shows the Game name under the year, then the Robot name, the team's comment, and the events for that Season.
 
 ## If the Season is missing
 
 - The file is in the wrong folder. It must be `src/content/seasons`.
 - The file name is not a four-digit year, such as `2026.md`.
-- A `---` line is missing, or one of `title`, `subtitle`, `game`, `description`, `image`, `imageAlt`, `robot`, `record`, or `links` is missing. `results` can be left out or set to `[]`.
-- A result is missing `name` or `place`, or a link is missing `label` or `href`. The dash lines need two spaces of indent, and the lines under them need four.
-- `image` does not match a photo in that folder. `image: ./2026.jpg` needs a file named `2026.jpg` next to the markdown file.
+- A `---` line is missing, or one of `title`, `subtitle`, `game`, `description`, or `robot` is missing.
+- `image` is set and `imageAlt` is missing.
+- A link is missing `label` or `href`. The dash lines need two spaces of indent, and the lines under them need four.
+- The game logo is missing. `2026.md` needs a file named `2026.jpg`, `2026.png`, or `2026.webp` next to it, unless `image` points at a different picture in that folder.
 - The description has a line break. Keep `description` on one line.
 - The file includes the lines of three backticks from this guide. Delete them so the first line is `---`. A file like that stops `npm run dev` and the deploy with a schema error.
 - The pull request is still open. The live site changes only after it is merged into `main`.
@@ -140,10 +136,10 @@ git pull
 git checkout -b add-2026-season
 ```
 
-Create `src/content/seasons/2026.md` with the text from step 1, and add `src/content/seasons/2026.jpg` beside it. Then:
+Create `src/content/seasons/2026.md` with the text from step 1, and add `src/content/seasons/2026.webp` beside it. Then:
 
 ```bash
-git add src/content/seasons/2026.md src/content/seasons/2026.jpg
+git add src/content/seasons/2026.md src/content/seasons/2026.webp
 git commit -m "Add the 2026 Season to the list."
 git push -u origin add-2026-season
 ```

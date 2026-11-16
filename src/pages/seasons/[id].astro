@@ -1,10 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import "../../styles/home.css";
 import "../../styles/seasons.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { defaultLogoFromMap, pickSeasonImage, seasonImageAlt } from "../../data/season-image.ts";
 import { routes, team, withBase } from "../../data/site.ts";
 
 export async function getStaticPaths() {
@@ -20,7 +21,18 @@ interface Props {
 }
 
 const { season } = Astro.props;
+const { Content } = await render(season);
+const hasBody = Boolean(season.body?.trim());
 const seasonsHref = withBase(import.meta.env.BASE_URL, routes.seasons);
+const seasonLogos = import.meta.glob<ImageMetadata>(
+  "../../content/seasons/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
+  { eager: true, import: "default" },
+);
+const image = pickSeasonImage(
+  season.data.image,
+  defaultLogoFromMap(season.id, seasonLogos as Record<string, ImageMetadata>),
+);
+const imageAlt = seasonImageAlt(season.data.game, season.data.imageAlt, Boolean(season.data.image));
 const photos = Object.entries(
   import.meta.glob<ImageMetadata>(
     "../../content/seasons/photos/*/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
@@ -30,32 +42,53 @@ const photos = Object.entries(
   .filter(([path]) => path.split("/").at(-2) === season.id)
   .sort(([left], [right]) => left.localeCompare(right, "en"))
   .map(([, src]) => src);
+const tbaHref = `https://www.thebluealliance.com/team/${team.number}/${season.id}`;
+const links = [
+  ...season.data.links.filter((link) => !link.href.includes("thebluealliance.com")),
+  { label: "The Blue Alliance", href: tbaHref },
+];
 
 function isExternal(href: string): boolean {
   return href.startsWith("http://") || href.startsWith("https://");
 }
+
+const stats = [
+  { name: "record", label: "Record" },
+  { name: "world", label: "World rank" },
+  { name: "epa", label: "Total EPA" },
+  { name: "country", label: "Country rank" },
+  { name: "district", label: "District rank" },
+  { name: "auto", label: "Auto" },
+  { name: "teleop", label: "Teleop" },
+  { name: "endgame", label: "Endgame" },
+];
 ---
 
 <BaseLayout title={season.data.title} variant="visual" description={season.data.description}>
   <section class="hero page-hero season-hero-photo">
-    <div class="hero-media">
-      <Image
-        src={season.data.image}
-        alt={season.data.imageAlt}
-        class="season-hero-image"
-        widths={[960, 1440, 1920]}
-        sizes="min(70rem, calc(100vw - 2.5rem))"
-        format="webp"
-        quality={75}
-        loading="eager"
-        fetchpriority="high"
-      />
-    </div>
+    {
+      image && (
+        <div class="hero-media">
+          <Image
+            src={image}
+            alt={imageAlt}
+            class="season-hero-image"
+            widths={[480, 960, 1440]}
+            sizes="(max-width: 700px) 46vw, 28rem"
+            format="webp"
+            quality={75}
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      )
+    }
     <div class="wrap">
       <p class="eyebrow">{team.number}</p>
       <h1>{season.data.title}</h1>
       <hr class="hero-rule" />
       <p class="lede">{season.data.game}</p>
+      <p class="season-hero-robot">{season.data.robot}</p>
     </div>
   </section>
 
@@ -76,125 +109,263 @@ function isExternal(href: string): boolean {
         </a>
       </p>
 
-      <div class="season-story">
-        <h2 class="season-robot">{season.data.robot}</h2>
-        <p class="season-record">{season.data.record}</p>
+      <section class="season-scoreboard" data-season-recap data-year={season.id} data-team={team.number} aria-busy="true">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> The record</h2>
+        </div>
+        <dl class="season-stats">
+          {
+            stats.map((stat) => (
+              <div class="season-stat">
+                <dt>{stat.label}</dt>
+                <dd data-stat={stat.name}>…</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="season-source">Events from The Blue Alliance. EPA from Statbotics.</p>
+      </section>
 
-        {
-          photos.length > 0 && (
-            <div class="season-carousel" data-season-carousel>
-              <div
-                class="season-carousel-viewport"
-                tabindex="0"
-                role="region"
-                aria-roledescription="carousel"
-                aria-label="Robot photos"
-              >
+      <div class="season-story">
+        {hasBody ? <div class="season-body"><Content /></div> : <p class="season-comment">{season.data.description}</p>}
+      </div>
+
+      <section class="season-events-block" data-season-events aria-busy="true">
+        <div class="section-head">
+          <h2><span class="mark-slash" aria-hidden="true">/</span> Events</h2>
+        </div>
+        <p data-season-events-status>Loading this Season’s Events.</p>
+        <ol class="season-event-list" data-season-event-list></ol>
+      </section>
+
+      {
+        photos.length > 0 && (
+          <div class="season-carousel" data-season-carousel>
+            <div
+              class="season-carousel-viewport"
+              tabindex="0"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="Robot photos"
+            >
+              {
+                photos.map((src, index) => (
+                  <div
+                    class="season-slide"
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`Photo ${index + 1} of ${photos.length}`}
+                  >
+                    <Image
+                      src={src}
+                      alt={`${season.data.robot}, photo ${index + 1} of ${photos.length}`}
+                      widths={[720, 1200, 1680]}
+                      sizes="min(70rem, calc(100vw - 2.5rem))"
+                      format="webp"
+                      quality={75}
+                    />
+                  </div>
+                ))
+              }
+            </div>
+            <div class="season-carousel-controls">
+              <button type="button" class="season-carousel-nav season-carousel-prev" aria-label="Previous photo">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M15 6 9 12l6 6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </button>
+              <div class="season-carousel-dots">
                 {
-                  photos.map((src, index) => (
-                    <div
-                      class="season-slide"
-                      role="group"
-                      aria-roledescription="slide"
-                      aria-label={`Photo ${index + 1} of ${photos.length}`}
-                    >
-                      <Image
-                        src={src}
-                        alt={`${season.data.robot}, photo ${index + 1} of ${photos.length}`}
-                        widths={[720, 1200, 1680]}
-                        sizes="min(70rem, calc(100vw - 2.5rem))"
-                        format="webp"
-                        quality={75}
-                      />
-                    </div>
+                  photos.map((_, index) => (
+                    <button
+                      type="button"
+                      class="season-carousel-dot"
+                      aria-label={`Photo ${index + 1}`}
+                      aria-current={index === 0 ? "true" : "false"}
+                      data-slide={index}
+                    />
                   ))
                 }
               </div>
-              <div class="season-carousel-controls">
-                <button type="button" class="season-carousel-nav season-carousel-prev" aria-label="Previous photo">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      d="M15 6 9 12l6 6"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                  </svg>
-                </button>
-                <div class="season-carousel-dots">
-                  {
-                    photos.map((_, index) => (
-                      <button
-                        type="button"
-                        class="season-carousel-dot"
-                        aria-label={`Photo ${index + 1}`}
-                        aria-current={index === 0 ? "true" : "false"}
-                        data-slide={index}
-                      />
-                    ))
-                  }
-                </div>
-                <button type="button" class="season-carousel-nav season-carousel-next" aria-label="Next photo">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      d="m9 6 6 6-6 6"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                  </svg>
-                </button>
-              </div>
+              <button type="button" class="season-carousel-nav season-carousel-next" aria-label="Next photo">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="m9 6 6 6-6 6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </button>
             </div>
-          )
-        }
+          </div>
+        )
+      }
 
+      <ul class="season-links">
         {
-          season.data.results.length > 0 && (
-            <ul class="season-results">
-              {
-                season.data.results.map((result) => (
-                  <li>
-                    <span class="season-place">{result.place}</span>
-                    <span class="season-result-name">{result.name}</span>
-                  </li>
-                ))
-              }
-            </ul>
-          )
+          links.map((link) => (
+            <li>
+              <a
+                class="season-pill"
+                href={link.href}
+                target={isExternal(link.href) ? "_blank" : undefined}
+                rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M8 16 16 8M10 8h6v6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+                {link.label}
+              </a>
+            </li>
+          ))
         }
-
-        <ul class="season-links">
-          {
-            season.data.links.map((link) => (
-              <li>
-                <a
-                  class="season-pill"
-                  href={link.href}
-                  target={isExternal(link.href) ? "_blank" : undefined}
-                  rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      d="M8 16 16 8M10 8h6v6"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path>
-                  </svg>
-                  {link.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+      </ul>
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  import { loadSeasonRecap } from "../../data/frc-client.ts";
+  import type { SeasonEventRecap } from "../../data/season-recap.ts";
+
+  const root = document.querySelector("[data-season-recap]");
+  const eventsRoot = document.querySelector("[data-season-events]");
+  const status = document.querySelector("[data-season-events-status]");
+  const list = document.querySelector("[data-season-event-list]");
+
+  const statNames = ["record", "world", "epa", "country", "district", "auto", "teleop", "endgame"];
+
+  function dash(value: string | null): string {
+    return value ?? "—";
+  }
+
+  function setStat(name: string, value: string | null) {
+    if (!(root instanceof HTMLElement)) return;
+    const node = root.querySelector(`[data-stat="${name}"]`);
+    if (node) node.textContent = dash(value);
+  }
+
+  function finishLoad() {
+    if (root instanceof HTMLElement) root.setAttribute("aria-busy", "false");
+    if (eventsRoot instanceof HTMLElement) eventsRoot.setAttribute("aria-busy", "false");
+  }
+
+  function showFailure() {
+    for (const name of statNames) setStat(name, null);
+    if (status) status.textContent = "Results from The Blue Alliance could not be loaded.";
+    finishLoad();
+  }
+
+  function statPair(label: string, value: string | null): HTMLDivElement {
+    const wrap = document.createElement("div");
+    const term = document.createElement("dt");
+    term.textContent = label;
+    const detail = document.createElement("dd");
+    detail.textContent = dash(value);
+    wrap.append(term, detail);
+    return wrap;
+  }
+
+  function eventCard(event: SeasonEventRecap): HTMLLIElement {
+    const item = document.createElement("li");
+    item.className = "season-event";
+
+    if (event.finish) {
+      const badge = document.createElement("p");
+      badge.className = "season-finish";
+      badge.textContent = event.finish === "winner" ? "Winner" : "Finalist";
+      item.append(badge);
+    }
+
+    const title = document.createElement("h3");
+    title.className = "season-event-name";
+    const link = document.createElement("a");
+    link.href = event.href;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = event.name;
+    title.append(link);
+    item.append(title);
+
+    const meta = document.createElement("p");
+    meta.className = "season-event-meta";
+    meta.textContent = [event.place, event.dates, event.offseason ? "Offseason" : ""].filter(Boolean).join(" · ");
+    item.append(meta);
+
+    const stats = document.createElement("dl");
+    stats.className = "season-event-stats";
+    stats.append(statPair("Record", event.record), statPair("Rank", event.rank), statPair("RP per match", event.rankingPoints));
+    item.append(stats);
+
+    if (event.awards.length > 0) {
+      const awards = document.createElement("ul");
+      awards.className = "season-awards";
+      for (const name of event.awards) {
+        const award = document.createElement("li");
+        award.textContent = name;
+        awards.append(award);
+      }
+      item.append(awards);
+    }
+
+    return item;
+  }
+
+  if (root instanceof HTMLElement) {
+    const year = Number(root.dataset.year);
+    const teamNumber = Number(root.dataset.team);
+    if (!Number.isInteger(year)) {
+      showFailure();
+    } else {
+      loadSeasonRecap(year, {
+        apiKey: import.meta.env.PUBLIC_TBA_AUTH_KEY,
+        teamNumber: Number.isInteger(teamNumber) ? teamNumber : undefined,
+      })
+        .then((result) => {
+          if (result.tbaError || !result.recap) {
+            showFailure();
+            return;
+          }
+          const recap = result.recap;
+          setStat("record", recap.record);
+          setStat("world", recap.worldRank);
+          setStat("epa", recap.totalEpa);
+          setStat("country", recap.countryRank);
+          setStat("district", recap.districtRank);
+          setStat("auto", recap.auto);
+          setStat("teleop", recap.teleop);
+          setStat("endgame", recap.endgame);
+          if (list instanceof HTMLElement && status instanceof HTMLElement) {
+            list.replaceChildren();
+            if (!recap.started) {
+              status.textContent = "This Season has not started.";
+            } else {
+              status.hidden = true;
+              for (const event of recap.events) list.append(eventCard(event));
+            }
+          }
+          finishLoad();
+        })
+        .catch(() => {
+          showFailure();
+        });
+    }
+  }
+</script>
 
 <script>
   const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
