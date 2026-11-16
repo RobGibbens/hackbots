@@ -5,6 +5,7 @@ import seasonsPhoto from "../../../assets/seasons.jpg";
 import "../../styles/home.css";
 import "../../styles/seasons.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { defaultLogoFromMap, pickSeasonImage, seasonImageAlt } from "../../data/season-image.ts";
 import { currentSeason, routes, team, withBase } from "../../data/site.ts";
 
 const base = import.meta.env.BASE_URL;
@@ -14,8 +15,24 @@ function seasonYear(id: string): number {
   return Number.isInteger(year) ? year : Number.NEGATIVE_INFINITY;
 }
 
+const seasonLogos = import.meta.glob<ImageMetadata>(
+  "../../content/seasons/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
+  { eager: true, import: "default" },
+);
+
 const seasons = (await getCollection("seasons"))
-  .map((item) => ({ ...item.data, id: item.id }))
+  .map((item) => {
+    const image = pickSeasonImage(
+      item.data.image,
+      defaultLogoFromMap(item.id, seasonLogos as Record<string, ImageMetadata>),
+    );
+    return {
+      ...item.data,
+      id: item.id,
+      cardImage: image,
+      cardAlt: seasonImageAlt(item.data.game, item.data.imageAlt, Boolean(item.data.image)),
+    };
+  })
   .sort((left, right) => seasonYear(right.id) - seasonYear(left.id));
 
 const earlierYears = seasons
@@ -77,15 +94,19 @@ const lede =
               {seasons.map((item) => (
                 <li>
                   <a class="year-card" href={withBase(base, `${routes.seasons}/${item.id}`)}>
-                    <Image
-                      src={item.image}
-                      alt={item.imageAlt}
-                      class="year-photo"
-                      widths={[320, 640]}
-                      sizes="(max-width: 640px) calc(100vw - 4.5rem), 9.5rem"
-                      format="webp"
-                      quality={75}
-                    />
+                    {
+                      item.cardImage && (
+                        <Image
+                          src={item.cardImage}
+                          alt={item.cardAlt}
+                          class="year-photo"
+                          widths={[320, 640]}
+                          sizes="(max-width: 640px) calc(100vw - 4.5rem), 9.5rem"
+                          format="webp"
+                          quality={75}
+                        />
+                      )
+                    }
                     <span class="year-copy">
                       <h3 class="year-title">{item.title}</h3>
                       <span class="year-status">{item.subtitle}</span>

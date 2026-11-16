@@ -4,11 +4,6 @@ import { sponsorTierNames } from "./data/site.ts";
 
 const calendarDate = z.coerce.date();
 
-const seasonResult = z.object({
-  name: z.string(),
-  place: z.string(),
-});
-
 const seasonLink = z.object({
   label: z.string(),
   href: z.string().min(1),
@@ -43,21 +38,24 @@ const calendar = defineCollection({
 const seasons = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/seasons" }),
   schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      subtitle: z.string(),
-      game: z.string(),
-      description: z.string(),
-      image: image(),
-      imageAlt: z.string(),
-      robot: z.string(),
-      record: z.string(),
-      results: z
-        .union([z.array(seasonResult), z.null()])
-        .optional()
-        .transform((value) => value ?? []),
-      links: z.array(seasonLink),
-    }),
+    z
+      .object({
+        title: z.string(),
+        subtitle: z.string(),
+        game: z.string(),
+        description: z.string(),
+        image: image().optional(),
+        imageAlt: z.string().optional(),
+        robot: z.string(),
+        links: z
+          .array(seasonLink)
+          .optional()
+          .transform((value) => value ?? []),
+      })
+      .refine((data) => !data.image || Boolean(data.imageAlt), {
+        message: "imageAlt is required when image is set",
+        path: ["imageAlt"],
+      }),
 });
 
 const sponsors = defineCollection({
