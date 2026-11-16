@@ -11,7 +11,7 @@ import { routes, team, withBase } from "../data/site.ts";
 
 const base = import.meta.env.BASE_URL;
 const lede =
-  "One place for the season. Students check it to know when they are needed. Everyone else checks it to know where we are.";
+  "The Hackbots stay busy. Keep up with where we'll be, all season long.";
 const events = (await getCollection("events"))
   .map((item) => ({ ...item.data, id: item.id, when: calendarDayISO(item.data.when) }))
   .filter((item) => isUpcoming(item.when))
