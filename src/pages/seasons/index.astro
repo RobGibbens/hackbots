@@ -17,13 +17,17 @@ function seasonYear(id: string): number {
 const seasons = (await getCollection("seasons"))
   .map((item) => ({ ...item.data, id: item.id }))
   .sort((left, right) => seasonYear(right.id) - seasonYear(left.id));
+
+const earlierYears = seasons
+  .map((item) => seasonYear(item.id))
+  .filter((year) => year !== currentSeason.year && year > 0);
+const lede =
+  earlierYears.length === 0
+    ? `We are preparing for the ${currentSeason.year} Season. Earlier Seasons are not listed yet.`
+    : `We are preparing for the ${currentSeason.year} Season. Earlier Seasons run from ${Math.min(...earlierYears)} through ${Math.max(...earlierYears)}.`;
 ---
 
-<BaseLayout
-  title="Seasons"
-  variant="visual"
-  description={`We are preparing for the ${currentSeason.year} Season. Earlier Seasons are not listed yet.`}
->
+<BaseLayout title="Seasons" variant="visual" description={lede}>
   <section class="hero page-hero seasons-hero">
     <div class="hero-media" aria-hidden="true">
       <Image
@@ -42,7 +46,7 @@ const seasons = (await getCollection("seasons"))
       <p class="eyebrow">{team.number}</p>
       <h1>Seasons</h1>
       <hr class="hero-rule" />
-      <p class="lede">We are preparing for the {currentSeason.year} Season. Earlier Seasons are not listed yet.</p>
+      <p class="lede">{lede}</p>
     </div>
   </section>
 

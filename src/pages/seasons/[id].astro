@@ -21,7 +21,15 @@ interface Props {
 
 const { season } = Astro.props;
 const seasonsHref = withBase(import.meta.env.BASE_URL, routes.seasons);
-const slides = [1, 2, 3, 4, 5];
+const photos = Object.entries(
+  import.meta.glob<ImageMetadata>(
+    "../../content/seasons/photos/*/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
+    { eager: true, import: "default" },
+  ),
+)
+  .filter(([path]) => path.split("/").at(-2) === season.id)
+  .sort(([left], [right]) => left.localeCompare(right, "en"))
+  .map(([, src]) => src);
 
 function isExternal(href: string): boolean {
   return href.startsWith("http://") || href.startsWith("https://");
@@ -72,76 +80,91 @@ function isExternal(href: string): boolean {
         <h2 class="season-robot">{season.data.robot}</h2>
         <p class="season-record">{season.data.record}</p>
 
-        <div class="season-carousel" data-season-carousel>
-          <div
-            class="season-carousel-viewport"
-            tabindex="0"
-            role="region"
-            aria-roledescription="carousel"
-            aria-label="Robot photos"
-          >
-            {
-              slides.map((n) => (
-                <div
-                  class="season-slide"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label={`Photo ${n} of ${slides.length}`}
-                >
-                  <p>Photo {n}</p>
+        {
+          photos.length > 0 && (
+            <div class="season-carousel" data-season-carousel>
+              <div
+                class="season-carousel-viewport"
+                tabindex="0"
+                role="region"
+                aria-roledescription="carousel"
+                aria-label="Robot photos"
+              >
+                {
+                  photos.map((src, index) => (
+                    <div
+                      class="season-slide"
+                      role="group"
+                      aria-roledescription="slide"
+                      aria-label={`Photo ${index + 1} of ${photos.length}`}
+                    >
+                      <Image
+                        src={src}
+                        alt={`${season.data.robot}, photo ${index + 1} of ${photos.length}`}
+                        widths={[720, 1200, 1680]}
+                        sizes="min(70rem, calc(100vw - 2.5rem))"
+                        format="webp"
+                        quality={75}
+                      />
+                    </div>
+                  ))
+                }
+              </div>
+              <div class="season-carousel-controls">
+                <button type="button" class="season-carousel-nav season-carousel-prev" aria-label="Previous photo">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M15 6 9 12l6 6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+                <div class="season-carousel-dots">
+                  {
+                    photos.map((_, index) => (
+                      <button
+                        type="button"
+                        class="season-carousel-dot"
+                        aria-label={`Photo ${index + 1}`}
+                        aria-current={index === 0 ? "true" : "false"}
+                        data-slide={index}
+                      />
+                    ))
+                  }
                 </div>
-              ))
-            }
-          </div>
-          <div class="season-carousel-controls">
-            <button type="button" class="season-carousel-nav season-carousel-prev" aria-label="Previous photo">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M15 6 9 12l6 6"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path>
-              </svg>
-            </button>
-            <div class="season-carousel-dots">
+                <button type="button" class="season-carousel-nav season-carousel-next" aria-label="Next photo">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="m9 6 6 6-6 6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          )
+        }
+
+        {
+          season.data.results.length > 0 && (
+            <ul class="season-results">
               {
-                slides.map((n) => (
-                  <button
-                    type="button"
-                    class="season-carousel-dot"
-                    aria-label={`Photo ${n}`}
-                    aria-current={n === 1 ? "true" : "false"}
-                    data-slide={n - 1}
-                  />
+                season.data.results.map((result) => (
+                  <li>
+                    <span class="season-place">{result.place}</span>
+                    <span class="season-result-name">{result.name}</span>
+                  </li>
                 ))
               }
-            </div>
-            <button type="button" class="season-carousel-nav season-carousel-next" aria-label="Next photo">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="m9 6 6 6-6 6"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <ul class="season-results">
-          {
-            season.data.results.map((result) => (
-              <li>
-                <span class="season-place">{result.place}</span>
-                <span class="season-result-name">{result.name}</span>
-              </li>
-            ))
-          }
-        </ul>
+            </ul>
+          )
+        }
 
         <ul class="season-links">
           {

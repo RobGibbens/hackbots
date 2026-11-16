@@ -24,11 +24,11 @@
 .sponsors-hero .wrap {
   position: relative;
   z-index: 2;
+  container-type: inline-size;
 }
 
 .visual .page-hero.sponsors-hero h1 {
-  max-width: 100%;
-  font-size: clamp(1.45rem, 7.5vw, 4.5rem);
+  font-size: min(clamp(2.25rem, 5vw + 2rem, 6.6rem), calc(100cqi / 8.1));
 }
 
 .sponsors-main {
