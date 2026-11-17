@@ -1,6 +1,6 @@
 ---
 import { currentSeason, donation, routes, shirtOffer, shirtOfferIsOpen, withBase } from "../data/site.ts";
-
+import { team } from "../data/site.ts";
 interface Props {
   showSponsorsLink?: boolean;
 }
@@ -17,14 +17,6 @@ const sponsors = withBase(import.meta.env.BASE_URL, routes.sponsors);
     If your donation arrives on or before {shirtOffer.deadlineLabel}, your line goes on the shirt. The next day, we close the offer.
   </p>
   <p>
-    We appreciate gift cards to <a href="https://wcproducts.com/products/westcoast-products-gift-card">West Coast Products</a>, <a href="https://store.ctr-electronics.com/products/gift-cards">CTR Electronics</a>, or <a href="https://www.thethriftybot.com/products/the-thrifty-bot-gift-card">Thrifty Bot</a>, or donate through the <a href={donation.url}> {donation.payableTo}</a>. In the donation memo, be sure to write "{donation.memo}" (or we won't get it!).
-    {
-      showSponsorsLink && (
-        <>
-          {" "}
-          Sponsor tiers stay on <a href={sponsors}>Sponsors</a>.
-        </>
-      )
-    }
+    Please <a href={`mailto:${team.email}`}>contact us</a> to sign up.
   </p>
 </section>
