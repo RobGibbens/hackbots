@@ -63,6 +63,8 @@ main {
 }
 
 .site-header {
+  position: relative;
+  z-index: 20;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem 2rem;
@@ -133,6 +135,27 @@ main {
   gap: 0.75rem 1rem;
 }
 
+.nav-pinned,
+.nav-menu {
+  display: contents;
+}
+
+.nav-check {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (min-width: 721px) {
+  .nav-check {
+    display: none;
+  }
+}
+
 .nav a {
   color: inherit;
   text-decoration: none;
@@ -141,6 +164,59 @@ main {
 .nav a[aria-current="page"] {
   text-decoration: underline;
   text-underline-offset: 0.35rem;
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.nav-check:focus-visible + .nav-toggle {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.nav-toggle-icon {
+  display: block;
+  overflow: visible;
+}
+
+.nav-toggle-icon path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+}
+
+.nav-toggle-close,
+.nav-check:checked + .nav-toggle .nav-toggle-bars {
+  display: none;
+}
+
+.nav-check:checked + .nav-toggle .nav-toggle-close {
+  display: block;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 main {
@@ -291,5 +367,71 @@ h2 {
   .actions {
     grid-template-columns: 1fr;
     grid-auto-flow: row;
+  }
+
+  .site-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.35rem 0.75rem;
+    flex-wrap: nowrap;
+  }
+
+  .wordmark {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+  }
+
+  .nav {
+    display: flex;
+    grid-column: 3;
+    grid-row: 1;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .nav-pinned {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem 1rem;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .nav-check:checked ~ .nav .nav-menu {
+    display: flex;
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    z-index: 1;
+    flex-direction: column;
+    gap: 0;
+    min-width: 12.5rem;
+    margin: 0;
+    padding: 0.35rem 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: 0 16px 40px rgba(28, 25, 23, 0.12);
+  }
+
+  .nav-menu a {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.55rem 1.1rem;
+  }
+
+  .nav-menu a:hover {
+    background: rgba(28, 25, 23, 0.04);
   }
 }

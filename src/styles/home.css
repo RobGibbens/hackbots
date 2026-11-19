@@ -75,6 +75,33 @@ html:has(body.visual) {
   border-bottom-color: #6c3f99;
 }
 
+.visual .nav-check:focus-visible + .nav-toggle {
+  outline-color: #ddd6fe;
+}
+
+@media (max-width: 720px) {
+  .visual .nav-check:checked ~ .nav .nav-menu {
+    left: max(1.25rem, calc((100% - 70rem) / 2));
+    background: #100e18;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  }
+
+  .visual .nav-menu a {
+    padding: 0.7rem 1.1rem;
+    border-bottom-color: transparent;
+  }
+
+  .visual .nav-menu a:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .visual .nav-menu a[aria-current="page"] {
+    border-bottom-color: transparent;
+    box-shadow: inset 2px 0 0 #6c3f99;
+  }
+}
+
 .visual a:focus-visible {
   outline: 2px solid #ddd6fe;
   outline-offset: 3px;
